@@ -19,3 +19,5 @@ This app is for students and professionals to have a tool that will improve thei
 [Product Backlog](https://trello.com/b/ZoABS7mj)
 
 [Sprint Backlog](https://trello.com/b/0LKJRynV)
+
+[Requirements](artifacts/requirements.md)
