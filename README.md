@@ -12,12 +12,8 @@ This app is for students and professionals to have a tool that will improve thei
 - [Kimberly Szekely](#)
 - [Timothy Phillips](https://github.com/Timothy-Phillips)
 
-## Trello Links
+## Links
 
-[Agile Board](https://trello.com/b/zlnxmQ9T)
-
-[Product Backlog](https://trello.com/b/ZoABS7mj)
-
-[Sprint Backlog](https://trello.com/b/0LKJRynV)
+[Trello Board](https://trello.com/b/ZoABS7mj)
 
 [Requirements](artifacts/requirements.md)
