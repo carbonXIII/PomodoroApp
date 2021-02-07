@@ -20,4 +20,4 @@ This app is for students and professionals to have a tool that will improve thei
 
 ## Sprint 1
 
-![Sprint 1 Burndown Chart][artifacts/images/burndown_sprint1.png]
+![Sprint 1 Burndown Chart](artifacts/images/burndown_sprint1.png)
