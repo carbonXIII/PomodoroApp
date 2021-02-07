@@ -17,3 +17,7 @@ This app is for students and professionals to have a tool that will improve thei
 [Trello Board](https://trello.com/b/ZoABS7mj)
 
 [Requirements](artifacts/requirements.md)
+
+## Sprint 1
+
+![Sprint 1 Burndown Chart][artifacts/images/burndown_sprint1.png]
