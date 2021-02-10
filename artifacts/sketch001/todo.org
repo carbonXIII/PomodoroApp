@@ -1,0 +1,15 @@
+* sketch [2021-02-10 Wed]
+** task setup screen
+   [[./task_setup.png]]
+** timer screens
+*** working
+    [[./timer_work.png]]
+*** break
+    [[./timer_break.png]]
+** continue screen
+   [[./continue.png]]
+* implement
+** headings
+** buttons
+** text input
+** multiple screens
