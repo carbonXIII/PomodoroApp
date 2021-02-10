@@ -1,15 +1,20 @@
 * sketch [2021-02-10 Wed]
 ** task setup screen
+   #+ATTR_ORG: :width 50
    [[./task_setup.png]]
 ** timer screens
 *** working
+   #+ATTR_ORG: :width 100
     [[./timer_work.png]]
 *** break
+   #+ATTR_ORG: :width 100
     [[./timer_break.png]]
 ** continue screen
+   #+ATTR_ORG: :width 100
    [[./continue.png]]
 * implement
 ** headings
 ** buttons
 ** text input
+** timer
 ** multiple screens

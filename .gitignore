@@ -3,3 +3,4 @@
 **/gradlew*
 **/.gradle/
 **/gradle/
+.idea/
