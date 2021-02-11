@@ -9,7 +9,7 @@
 ** continue screen
    [[../images/continue.png]]
 * sequence
-#+begin_src plantuml :file ../images/sequence-001-diagram.png
+#+begin_src plantuml :file ../images/sequence-001-diagram.png :exports results
 title User Story 1 Sequence
 
 actor User
