@@ -6,7 +6,7 @@ This app is for students and professionals to have a tool that will improve thei
 
 ## Team Members
 
-- [Ishaan Bhattacharya](#)
+- [Ishaan Bhattacharya](https://github.com/ishaanb555)
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman)
 - [Kevin Perez](#)
 - [Kimberly Szekely](#)
