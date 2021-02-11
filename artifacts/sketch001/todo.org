@@ -1,17 +1,81 @@
 * sketch [2021-02-10 Wed]
 ** task setup screen
-   #+ATTR_ORG: :width 50
-   [[./task_setup.png]]
+   [[../images/task_setup.png]]
 ** timer screens
 *** working
-   #+ATTR_ORG: :width 100
-    [[./timer_work.png]]
+    [[../images/timer_work.png]]
 *** break
-   #+ATTR_ORG: :width 100
-    [[./timer_break.png]]
+    [[../images/timer_break.png]]
 ** continue screen
-   #+ATTR_ORG: :width 100
-   [[./continue.png]]
+   [[../images/continue.png]]
+* sequence
+#+begin_src plantuml :file ../images/sequence-001-diagram.png
+title User Story 1 Sequence
+
+actor User
+participant View
+participant Presenter
+participant Model
+
+User->View: starts app (launch main screen/activity)
+loop
+        loop task form loop
+                Presenter->View: switch to new task screen
+                User->View: complete task form
+                User->View: press ok button
+                View->Presenter: new task form info
+                Presenter->Presenter: validate task details
+                alt task form valid
+                        break exit task form loop
+                                Presenter->Model: create new task object
+                        end
+                else form invalid
+                        Presenter->View: show form validation error
+                end
+        end
+        loop while task is not done
+                Presenter->View: switch to timer screen
+                Presenter->View: set timer title and subtitle
+                loop while timer is not done
+                        Presenter->Vew: update timer
+                        opt
+                                User-->View: optional break early
+                                break exit timer loop
+                                        View->Presenter: cancel timer
+                                end
+                        end
+                end
+                
+                Presenter->View: switch to continue screen
+                opt Task complete
+                        User->View: selects done
+                        break exit task loop
+                                View->Presenter: done
+                        end
+                end
+                
+                User->View: user selects continue
+                View->Presenter: continue
+                
+                Presenter->View: switch to break timer screen
+                Presenter->View: set timer title and subtitle
+
+                loop while timer is not done
+                        Presenter->Vew: update timer
+                        opt
+                                User-->View: optional break early
+                                break exit timer loop
+                                        View->Presenter: cancel timer
+                                end
+                        end
+                end
+        end
+end
+#+end_src
+
+  #+RESULTS:
+  [[file:../images/sequence-001-diagram.png]]
+
 * implement
 ** layouts
 *** headings
