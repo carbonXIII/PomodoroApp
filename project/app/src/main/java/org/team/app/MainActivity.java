@@ -6,13 +6,13 @@ package org.team.app;
 import android.app.Activity;
 import android.os.Bundle;
 
-import static org.team.app.R.layout.activity_setup_task;
+import static org.team.app.R.layout.screen_setup_task;
 
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_setup_task);
+        setContentView(screen_setup_task);
     }
 }

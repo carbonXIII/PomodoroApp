@@ -13,8 +13,11 @@
    #+ATTR_ORG: :width 100
    [[./continue.png]]
 * implement
-** headings
-** buttons
-** text input
-** timer
-** multiple screens
+** layouts
+*** headings
+*** buttons
+*** text input
+*** timer
+** integration
+*** activity <-> layout mapping
+*** events
