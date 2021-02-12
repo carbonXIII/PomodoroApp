@@ -1,15 +1,44 @@
-* sketch [2021-02-10 Wed]
-** task setup screen
-   [[../images/task_setup.png]]
-** timer screens
-*** working
-    [[../images/timer_work.png]]
-*** break
-    [[../images/timer_break.png]]
-** continue screen
-   [[../images/continue.png]]
-* sequence
-#+begin_src plantuml :file ../images/sequence-001-diagram.png :exports results
+#+TITLE: WIP things for user story 1
+
+* Diagrams
+** System Context
+#+begin_src plantuml :file ../images/001-system-context-diagram.png :exports results
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Anon User")
+Container(primary, "Pomodoro Application", "Java,Android", "Allow users to time the steps of the Pomodoro process while executing a task.")
+
+Rel(user, primary, "Uses")
+#+end_src
+
+#+RESULTS:
+[[file:../images/001-system-context-diagram.png]]
+
+For this user story, there are no notications, only a single task is stored at
+any given time, and there is no third-party integration.
+
+** Container
+#+begin_src plantuml :file ../images/001-container-diagram.png :exports results
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Anon User")
+System_Boundary(c1, "Pomodoro Application") {
+        Container(model, "Model", "Java", "Contains our task objects. No DB for this user story, only in-memory repr.")
+        Container(presenter, "Presenter", "Java", "Handles form validation and modifies the model based on user input.")
+        Container(view, "Android Activity", "Java, XML, Android SDK", "Handles UI")
+}
+
+Rel_D(user, view, "Interacts With")
+Rel_R(view, presenter, "Sends Events")
+Rel(presenter, view, "Updates UI values")
+Rel_R(presenter, model, "Manages Task Objects")
+#+end_src
+
+#+RESULTS:
+[[file:../images/001-container-diagram.png]]
+
+** Sequence [2021-02-11 Thu]
+ #+begin_src plantuml :file ../images/001-sequence-diagram.png :exports results
 title User Story 1 Sequence
 
 actor User
@@ -38,9 +67,11 @@ loop
         loop while task is not done
                 Presenter->View: switch to timer screen
                 == Work Timer Screen ==
+                Presenter->Model: get task info
+                Model->Presenter:
                 Presenter->View: set timer title and subtitle
                 loop while timer is not done
-                        Presenter->Vew: update timer
+                        Presenter->View: update timer
                         opt
                                 User-->View: optional break early
                                 break exit timer loop
@@ -51,10 +82,14 @@ loop
                 
                 Presenter->View: switch to continue screen
                 == Continue Screen ==
+                Presenter->Model: get task info
+                Model->Presenter:
+                Presenter->View: set task name
                 opt Task complete
                         User->View: selects done
                         break exit task loop
                                 View->Presenter: done
+                                Presenter->Model:  mark task as done
                         end
                 end
                 
@@ -63,10 +98,12 @@ loop
                 
                 Presenter->View: switch to break timer screen
                 == Break Timer Screen ==
+                Presenter->Model: get task info
+                Model->Presenter:
                 Presenter->View: set timer title and subtitle
 
                 loop while timer is not done
-                        Presenter->Vew: update timer
+                        Presenter->View: update timer
                         opt
                                 User-->View: optional break early
                                 break exit timer loop
@@ -76,17 +113,44 @@ loop
                 end
         end
 end
-#+end_src
+ #+end_src
 
-  #+RESULTS:
-  [[file:../images/sequence-001-diagram.png]]
+   #+RESULTS:
+   [[file:../images/001-sequence-diagram.png]]
 
-* implement
-** layouts
+* UI Sketch [2021-02-10 Wed]
+** task setup screen
+   [[../images/task_setup.png]]
+** timer screens
+*** working
+    [[../images/timer_work.png]]
+*** break
+    [[../images/timer_break.png]]
+** continue screen
+   [[../images/continue.png]]
+* Implement
+** Layouts [2021-02-10 Wed]
 *** headings
 *** buttons
 *** text input
 *** timer
-** integration
-*** activity <-> layout mapping
-*** events
+** Integration
+*** activity <-> layout mapping [2021-02-10 Wed] 
+#+BEGIN_SRC java
+// Repace layout name with name of corresponding layout
+
+import static org.team.app.R.layout.layout_name;
+
+// ...
+
+/* ... */ void onCreate( /* ... */  ) {
+    super.onCreate(savedInstanceState);
+    setContentView(layout_name);
+}
+#+END_SRC
+*** presenter and (basic=no db) model
+**** activity-presenter interaction
+**** form validation
+**** switching between activities
+**** timers
+    
