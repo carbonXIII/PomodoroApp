@@ -1,7 +1,7 @@
 #+TITLE: WIP things for user story 1
 
 * Diagrams
-** System Context
+** System Context [2021-02-12 Fri] 
 #+begin_src plantuml :file ../images/001-system-context-diagram.png :exports results
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
@@ -17,25 +17,51 @@ Rel(user, primary, "Uses")
 For this user story, there are no notications, only a single task is stored at
 any given time, and there is no third-party integration.
 
-** Container
+** Container [2021-02-12 Fri]
 #+begin_src plantuml :file ../images/001-container-diagram.png :exports results
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(user, "Anon User")
 System_Boundary(c1, "Pomodoro Application") {
-        Container(model, "Model", "Java", "Contains our task objects. No DB for this user story, only in-memory repr.")
-        Container(presenter, "Presenter", "Java", "Handles form validation and modifies the model based on user input.")
-        Container(view, "Android Activity", "Java, XML, Android SDK", "Handles UI")
+        Container(view, "UI", "Java, XML, Android SDK", "Handles UI")
+        Container(api, "API", "Java", "The interface between our UI elements and the model. Handles validation and retrieval of model data for display.")
 }
 
-Rel_D(user, view, "Interacts With")
-Rel_R(view, presenter, "Sends Events")
-Rel(presenter, view, "Updates UI values")
-Rel_R(presenter, model, "Manages Task Objects")
+Rel(user, view, "Interacts With")
+Rel(view, api, "Sends Client Events")
+Rel(api, view, "Returns UI Data")
 #+end_src
 
 #+RESULTS:
 [[file:../images/001-container-diagram.png]]
+
+** Component
+#+begin_src plantuml :file ../images/001-component-diagram.png :exports results
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Container(ui, "UI Layer", "Activities, Layouts", "Handles UI. Provides callbacks for presenter, as well as functions to update UI elements.")
+
+System_Boundary(c1, "API") {
+        Container(newtask, "New Task Presenter", "Java", "Allows users to create a new task")
+        Container(timer, "Timer Presenter", "Java", "Manages timer events for the 2 timer screens (work and break)")
+        Container(continue, "Continue Presenter", "Java", "Allows the user to start the next timer, or mark a task as complete.")
+        Container(task, "Task Model", "Manages information about the current task. Might be hooked up to a backend in the future.")
+}
+
+Rel_U(newtask, ui, "Registers with")
+Rel(ui, newtask, "Sends Events")
+Rel(timer, ui, "Registers with")
+Rel(ui, timer, "Sends Events")
+Rel(continue, ui, "Registers with")
+Rel(ui, continue, "Sends Events")
+Rel_D(newtask, task, "Create Task")
+Rel_D(timer, task, "Fetch timer values, update task stats")
+Rel_D(continue, task, "Update task completion status")
+
+#+end_src
+
+#+RESULTS:
+[[file:../images/001-component-diagram.png]]
 
 ** Sequence [2021-02-11 Thu]
  #+begin_src plantuml :file ../images/001-sequence-diagram.png :exports results
