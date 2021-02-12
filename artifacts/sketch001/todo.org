@@ -164,7 +164,8 @@ end
 *** text input
 *** timer
 ** Integration
-*** activity <-> layout mapping [2021-02-10 Wed] 
+*** fragment <-> layout mapping [2021-02-10 Wed] 
+    Fairly straightforward:
 #+BEGIN_SRC java
 // Repace layout name with name of corresponding layout
 
@@ -178,8 +179,16 @@ import static org.team.app.R.layout.layout_name;
 }
 #+END_SRC
 *** presenter and (basic=no db) model
+**** presenter
+***** form validation
+      will at least attempt TDD here
 **** activity-presenter interaction
-**** form validation
-**** switching between activities
-**** timers
+***** UI management interface
+      - need to be able to update form data, but most of the UI code should
+        still live in the activity not the presenter
+      - need to be able to trigger activity transitions from presenter (maybe not?)
+      - need an enum of screens, I guess maybe a screen manager (singleton)
+***** timers/events
+      - need to be able to register presenters to handle events
+      - need an enum of event types (or an event interface of some kind)
     

@@ -3,16 +3,29 @@
  */
 package org.team.app;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
-import static org.team.app.R.layout.screen_setup_task;
+import org.team.app.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+    public static class ExampleFragment extends Fragment {
+        public ExampleFragment() {
+            super(R.layout.screen_setup_task);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(screen_setup_task);
+        setContentView(R.layout.screen_main);
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentContainerView, ExampleFragment.class, null)
+                .commit();
+        }
     }
 }
