@@ -3,6 +3,7 @@
 * Diagrams
 ** System Context [2021-02-12 Fri] 
 #+begin_src plantuml :file ../images/001-system-context-diagram.png :exports results
+title Overall System Context Diagram
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(user, "Anon User")
@@ -19,6 +20,7 @@ any given time, and there is no third-party integration.
 
 ** Container [2021-02-12 Fri]
 #+begin_src plantuml :file ../images/001-container-diagram.png :exports results
+title Overall Container Diagram
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(user, "Anon User")
@@ -35,17 +37,18 @@ Rel(api, view, "Returns UI Data")
 #+RESULTS:
 [[file:../images/001-container-diagram.png]]
 
-** Component
+** Component [2021-02-12 Fri]
 #+begin_src plantuml :file ../images/001-component-diagram.png :exports results
+title Application Component Diagram (UI and API)
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Container(ui, "UI Layer", "Activities, Layouts", "Handles UI. Provides callbacks for presenter, as well as functions to update UI elements.")
+Container(ui, "UI Layer", "Java Activities, XML Layouts", "Handles UI. Provides callbacks for presenter, as well as functions to update UI elements.")
 
 System_Boundary(c1, "API") {
         Container(newtask, "New Task Presenter", "Java", "Allows users to create a new task")
         Container(timer, "Timer Presenter", "Java", "Manages timer events for the 2 timer screens (work and break)")
         Container(continue, "Continue Presenter", "Java", "Allows the user to start the next timer, or mark a task as complete.")
-        Container(task, "Task Model", "Manages information about the current task. Might be hooked up to a backend in the future.")
+        Container(task, "Task Model", "Java", "Manages information about the current task. Might be hooked up to a backend in the future.")
 }
 
 Rel_U(newtask, ui, "Registers with")
