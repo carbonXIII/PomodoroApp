@@ -42,23 +42,34 @@ Rel(api, view, "Returns UI Data")
 title Application Component Diagram (UI and API)
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Container(ui, "UI Layer", "Java Activities, XML Layouts", "Handles UI. Provides callbacks for presenter, as well as functions to update UI elements.")
+AddTagSupport("fragment", $bgColor="#42f581")
+AddTagSupport("main", $bgColor="#f59e42")
 
-System_Boundary(c1, "API") {
+Container(main, "Main Activity", "AppCompatActivity", "Handles switching between views/fragments.", $tags="main")
+Container(ui, "Active Fragment", "Fragment", "The currently loaded Fragment, manages UI elements and UI events (timers, buttons).", $tags="fragment")
+
+System_Boundary(c2, "API") {
         Container(newtask, "New Task Presenter", "Java", "Allows users to create a new task")
         Container(timer, "Timer Presenter", "Java", "Manages timer events for the 2 timer screens (work and break)")
         Container(continue, "Continue Presenter", "Java", "Allows the user to start the next timer, or mark a task as complete.")
         Container(task, "Task Model", "Java", "Manages information about the current task. Might be hooked up to a backend in the future.")
 }
 
-Rel_U(newtask, ui, "Registers with")
-Rel(ui, newtask, "Sends Events")
-Rel(timer, ui, "Registers with")
-Rel(ui, timer, "Sends Events")
-Rel(continue, ui, "Registers with")
-Rel(ui, continue, "Sends Events")
+Rel_R(ui,main,"Register fragment class")
+
+Rel(ui,newtask, "Subscribes To", $tags="fragment")
+Rel_U(newtask, ui, "Updates UI Data", $tags="fragment")
+Rel_U(newtask, main, "Switch to next screen")
 Rel_D(newtask, task, "Create Task")
+
+Rel(ui, timer, "", $tags="fragment")
+Rel_U(timer, ui, "", $tags="fragment")
+Rel_U(timer, main, "")
 Rel_D(timer, task, "Fetch timer values, update task stats")
+
+Rel(ui, continue, "", $tags="fragment")
+Rel_U(continue, ui, "", $tags="fragment")
+Rel_U(continue, main, "")
 Rel_D(continue, task, "Update task completion status")
 
 #+end_src
@@ -186,8 +197,18 @@ import static org.team.app.R.layout.layout_name;
 ***** UI management interface
       - need to be able to update form data, but most of the UI code should
         still live in the activity not the presenter
-      - need to be able to trigger activity transitions from presenter (maybe not?)
-      - need an enum of screens, I guess maybe a screen manager (singleton)
+      - one main activity that will serve as a Fragment Manager
+#+begin_src java
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentContainerView, ExampleFragment.class, null)
+                .commit();
+        }
+#+end_src
+      - each screen will have it's UI code stored in a fragment
+      - triggering screen transitions will be a function of the main activity
+      - persistent info across quits needs to be stored in a bundle and saved to the back stack (?)
 ***** timers/events
       - need to be able to register presenters to handle events
       - need an enum of event types (or an event interface of some kind)

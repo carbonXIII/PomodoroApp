@@ -44,22 +44,11 @@
         android:id="@+id/text_timer"
         android:layout_width="85dp"
         android:layout_height="42dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="140dp"
         android:text="@string/_13_37"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/progress_timer"
-        app:layout_constraintTop_toTopOf="@+id/progress_timer" />
-
-    <ProgressBar
-        android:id="@+id/progress_timer"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="260dp"
-        android:layout_height="246dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_task_name" />
 
