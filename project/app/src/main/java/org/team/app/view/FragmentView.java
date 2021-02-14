@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import org.team.app.view.R;
+import org.team.app.contract.BasePresenter;
+import org.team.app.contract.BaseView;
 
 public abstract class FragmentView extends Fragment {
-    protected UUID uuid;
-    protected ActivityListener parent;
+    protected final UUID uuid;
+    protected ActivityListener mActivity;
 
     public FragmentView(int layoutId) {
         super(layoutId);
@@ -22,7 +24,7 @@ public abstract class FragmentView extends Fragment {
         super.onAttach(activity);
 
         try {
-            parent = (ActivityListener) activity;
+            mActivity = (ActivityListener) activity;
         } catch(ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement ActivityListener");
         }

@@ -3,5 +3,7 @@ package org.team.app.view;
 import androidx.fragment.app.Fragment;
 
 public interface ActivityListener {
-    public void replaceView(Fragment fragment);
+    void startSetupTaskView();
+    void startTimerView();
+    void startContinueView();
 }

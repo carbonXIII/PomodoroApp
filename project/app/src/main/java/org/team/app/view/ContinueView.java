@@ -19,14 +19,14 @@ public class ContinueView extends FragmentView {
         final Button breakButton = view.findViewById(R.id.button_break);
         breakButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    parent.replaceView(new TimerView());
+                    mActivity.startTimerView();
                 }
             });
 
         final Button doneButton = view.findViewById(R.id.button_done);
         doneButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    parent.replaceView(new SetupTaskView());
+                    mActivity.startSetupTaskView();
                 }
             });
     }

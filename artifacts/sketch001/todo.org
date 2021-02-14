@@ -55,10 +55,11 @@ any given time, and there is no third-party integration.
 
   Rel_D(view, presenter, "UI events")
   Rel_U(presenter, view, "Model events")
+  Rel(main, presenter, "Load on create")
 
   Rel_D(presenter, model, "Update task information")
   Rel_U(model, presenter, "Load task info")
-  Rel(main, model, "Load on create")
+  Rel_L(main, model, "Load on create")
 
 #+end_src
 
