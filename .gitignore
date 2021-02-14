@@ -1,7 +1,17 @@
+# Build artifacts
 **/build/
+
+# Android Studio / Gradle project files
 **/local.properties
 **/gradlew*
 **/.gradle/
 **/gradle/
 .idea/
+
+# Emacs temporary files
 **/.#*
+
+# Eclipse project files
+**/.project
+**/.settings
+**/.classpath

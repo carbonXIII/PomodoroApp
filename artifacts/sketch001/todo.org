@@ -20,18 +20,18 @@ any given time, and there is no third-party integration.
 
 ** Container [2021-02-12 Fri]
 #+begin_src plantuml :file ../images/001-container-diagram.png :exports results
-title Overall Container Diagram
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+  title Overall Container Diagram
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(user, "Anon User")
-System_Boundary(c1, "Pomodoro Application") {
-        Container(view, "UI", "Java, XML, Android SDK", "Handles UI")
-        Container(api, "API", "Java", "The interface between our UI elements and the model. Handles validation and retrieval of model data for display.")
-}
+  Person(user, "Anon User")
+  System_Boundary(c1, "Pomodoro Application") {
+          Container(view, "UI", "Java, XML, Android SDK", "Handles UI")
+          Container(api, "API", "Java", "The interface between our UI elements and the model. Handles validation and retrieval of model data for display.")
+  }
 
-Rel(user, view, "Interacts With")
-Rel(view, api, "Sends Client Events")
-Rel(api, view, "Returns UI Data")
+  Rel(user, view, "Interacts With")
+  Rel(view, api, "Sends Client Events")
+  Rel(api, view, "Returns UI Data")
 #+end_src
 
 #+RESULTS:
@@ -39,38 +39,26 @@ Rel(api, view, "Returns UI Data")
 
 ** Component [2021-02-12 Fri]
 #+begin_src plantuml :file ../images/001-component-diagram.png :exports results
-title Application Component Diagram (UI and API)
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+  title Application Component Diagram (UI and API)
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-AddTagSupport("fragment", $bgColor="#42f581")
-AddTagSupport("main", $bgColor="#f59e42")
+  Container(main, "Main Activity", "AppCompatActivity", "Handles switching between views/fragments as well as model and presenter lifetime.")
+  Container(view, "Active Fragment", "View", "The currently loaded Fragment, manages UI elements and UI events (timers, buttons).")
 
-Container(main, "Main Activity", "AppCompatActivity", "Handles switching between views/fragments.", $tags="main")
-Container(ui, "Active Fragment", "Fragment", "The currently loaded Fragment, manages UI elements and UI events (timers, buttons).", $tags="fragment")
+  System_Boundary(c2, "API") {
+          Container(presenter, "Presenter", "Java", "Handles validation of UI events and model interaction.")
+          Container(model, "Model", "In memory, saved to bundle on destroy", "")
+  }
 
-System_Boundary(c2, "API") {
-        Container(newtask, "New Task Presenter", "Java", "Allows users to create a new task")
-        Container(timer, "Timer Presenter", "Java", "Manages timer events for the 2 timer screens (work and break)")
-        Container(continue, "Continue Presenter", "Java", "Allows the user to start the next timer, or mark a task as complete.")
-        Container(task, "Task Model", "Java", "Manages information about the current task. Might be hooked up to a backend in the future.")
-}
+  Rel_R(main, view, "Add Fragment to FragmentView")
+  Rel(view, main, "Replace view")
 
-Rel_R(ui,main,"Register fragment class")
+  Rel_D(view, presenter, "UI events")
+  Rel_U(presenter, view, "Model events")
 
-Rel(ui,newtask, "Subscribes To", $tags="fragment")
-Rel_U(newtask, ui, "Updates UI Data", $tags="fragment")
-Rel_U(newtask, main, "Switch to next screen")
-Rel_D(newtask, task, "Create Task")
-
-Rel(ui, timer, "", $tags="fragment")
-Rel_U(timer, ui, "", $tags="fragment")
-Rel_U(timer, main, "")
-Rel_D(timer, task, "Fetch timer values, update task stats")
-
-Rel(ui, continue, "", $tags="fragment")
-Rel_U(continue, ui, "", $tags="fragment")
-Rel_U(continue, main, "")
-Rel_D(continue, task, "Update task completion status")
+  Rel_D(presenter, model, "Update task information")
+  Rel_U(model, presenter, "Load task info")
+  Rel(main, model, "Load on create")
 
 #+end_src
 
