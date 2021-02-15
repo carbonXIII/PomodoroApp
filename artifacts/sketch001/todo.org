@@ -147,6 +147,8 @@ end
    #+RESULTS:
    [[file:../images/001-sequence-diagram.png]]
 
+** Class diagram
+   Need to generate one
 * UI Sketch [2021-02-10 Wed]
 ** task setup screen
    [[../images/task_setup.png]]
@@ -202,3 +204,20 @@ import static org.team.app.R.layout.layout_name;
       - need to be able to register presenters to handle events
       - need an enum of event types (or an event interface of some kind)
     
+** Testing
+   - create a mock activity and mock views to test the presenters
+
+* Extra
+** requirements
+*** Finish writing validation criteria for user story requirements
+*** Remove or redirect now deprecated requirements.md
+** Finalize design document
+   - take the charts from this document
+   - write a description of the overall design choices
+   - talk about exception handling (?)
+   - relate each section back to user stories
+   - link to the design doc in the readme
+** Record sample video
+   - embed in design doc or readme
+   
+ 

@@ -7,8 +7,11 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'org.ysb33r.gradle:doxygen:0.3.2'
     }
 }
+
+apply plugin : 'org.ysb33r.doxygen'
 
 allprojects {
     repositories {
@@ -17,7 +20,15 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+task myClean(type: Delete) {
     delete project(':app').buildDir
     delete rootProject.buildDir
+}
+
+doxygen {
+    source 'app/src/main/java'
+
+    extract_all true
+    have_dot true
+    uml_look true
 }
