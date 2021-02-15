@@ -16,7 +16,7 @@ This app is for students and professionals to have a tool that will improve thei
 
 [Trello Board](https://trello.com/b/ZoABS7mj)
 
-[Requirements](artifacts/requirements.md)
+[Design Document](artifacts/design.md)
 
 ## Sprint 1
 
