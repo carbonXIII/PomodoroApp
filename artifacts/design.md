@@ -68,7 +68,6 @@ In the future, if we wanted to implement a web or other user interface we could 
 TODO: need to generate this from code, then add comments
 
 # DB Architecture (User Story 003)
-TODO: please add something here lol
 
 ## ER Diagram
 ![ER Diagram](/artifacts/images/Simple_ERD_and_explanation.PNG)
