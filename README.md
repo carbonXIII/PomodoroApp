@@ -26,3 +26,7 @@ This app is for students and professionals to have a tool that will improve thei
 
 ![Sprint 1 Burndown Chart](artifacts/images/Burndown_chart_sprint2.PNG)
 ![Velocity Chart](artifacts/images/Velocity_chart_sprint_2.PNG)
+
+## Product Demonstration
+
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](http://www.youtube.com/watch?v=n_Q76xzytGA "Pomodoro App Demo (Sprint #2)")
