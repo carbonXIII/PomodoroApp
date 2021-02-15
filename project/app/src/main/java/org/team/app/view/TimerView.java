@@ -10,7 +10,7 @@ import org.team.app.view.R;
 import org.team.app.contract.TimerContract;
 
 public class TimerView extends FragmentView implements TimerContract.View {
-    private TimerContract.Presenter mPresenter;
+    protected TimerContract.Presenter mPresenter;
 
     public TimerView() {
         super(R.layout.screen_timer);
