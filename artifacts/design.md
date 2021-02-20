@@ -1,33 +1,7 @@
-# UI Design (User Story 005)
+Populate each section with information as it applies to your project. If a section does not apply, explain why. Include diagrams (or links to diagrams) in each section, as appropriate.  For example, sketches of the user interfaces along with an explanation of how the interface components will work; ERD diagrams of the database; rough class diagrams; context diagrams showing the system boundary; etc. Do _not_ link to your diagrams, embed them directly in this document by uploading the images to your GitHub and linking to them. Do _not_ leave any section blank.
 
-This user story's goal is to create the final UI layouts that will be used in the project.
-While progress is being made on these real layouts, development of parallel user stories (such as 1 and 3) can continue using a mockup version (visible in the initial demo).
+# Program Organization
 
-[Timer Screens](/project/UI/Mock_Up_Timer_UI.pdf)
-
-## (Mock) Setup Task Screen
-
-On launch, the user will be presented with a task creation form, where they can enter a new name for their task.
-Later user stories might choose to add more information such as task category, or customizeable break/work timer lengths.
-This mockup design for user story 1 (not part of the final design), shows a more basic form with only one field.
-
-![Mock Setup Screen](/artifacts/images/task_setup.png)
-
-## Timer Screen
-
-After entering the information about the current task, the user will be presented with this timer screen.
-The Pomodoro technique makes use of 2 timer screens, one for tracking work time and another for breaks. The timer shown here is the "focus" or work timer.
-
-![Timer Screen](/artifacts/images/Mock_Up_Timer_UI1024_1.jpg)
-
-## Continue Screen
-
-After the work timer is completed, the user will be presented with the option to take a break (moving to the break timer),
-or to mark the current task as complete and start a new task.
-
-![Continue Screen](/artifacts/images/Mock_Up_Timer_UI1024_2.jpg)
-
-# App Architecture (User Story 001)
 User story 1 focuses on basic app functions, and makes use of mock layouts that we can swap out with
 the finalized UI layouts that will be generated as part of user story 5.
 
@@ -60,7 +34,8 @@ In the future, if we wanted to implement a web or other user interface we could 
         
 ![Component Diagram](/artifacts/images/001-component-diagram.png)
 
-## Class Diagram
+
+# Code Design
 
 ### Primary View Classes
 
@@ -94,12 +69,79 @@ Additonal messages between the view and presenter are represented by functions, 
 - The presenter implements a method `onTimerComplete()` that is not present in the `BasePresenter` class, acting as a callback for the View. The presenter also maintains a handle to the `TaskStore` to retrieve task information that it will pass to the view for display.
 - The view implements a method `setTitle()` to allow the presenter to set the timer title and task name
 
-## Sequence Diagram
-  This rough sequence diagram shows the flow of messages during the use case for user story 1 (basic timer implementation). It is broken down into the same "Model-View-Presenter" containers, but also considers the user as an actor.
+##
+  This rough sequence diagram shows the flow of messages during the use case for user story 1 (basic timer implementation). It is broken down into the same "Model-View-Presenter" containers, but also considers the user as an actor. <TODO>
 
-![Sequence Diagram](/artifacts/images/001-sequence-diagram.png)
+# Data Design
 
-# DB Architecture (User Story 003)
-
-## ER Diagram
 ![ER Diagram](/artifacts/images/Simple_ERD_and_explanation.PNG)
+
+# Business Rules
+
+You should list the assumptions, rules, and guidelines from external sources that are impacting your program design. 
+
+See Code Complete, Chapter 3
+
+# User Interface Design
+
+You should have one or more user interface screens in this section. Each screen should be accompanied by an explaination of the screens purpose and how the user will interact with it. You should relate each screen to one another as the user transitions through the states of your application. You should also have a table that relates each window or component to the support using stories. 
+
+See Code Complete, Chapter 3
+
+# Resource Management
+
+See Code Complete, Chapter 3
+
+# Security
+
+See Code Complete, Chapter 3
+
+# Performance
+
+See Code Complete, Chapter 3
+
+# Scalability
+
+See Code Complete, Chapter 3
+
+# Interoperability
+
+See Code Complete, Chapter 3
+
+# Internationalization/Localization
+
+See Code Complete, Chapter 3
+
+# Input/Output
+
+See Code Complete, Chapter 3
+
+# Error Processing
+
+See Code Complete, Chapter 3
+
+# Fault Tolerance
+
+See Code Complete, Chapter 3
+
+# Architectural Feasibility
+
+See Code Complete, Chapter 3
+
+# Overengineering
+
+See Code Complete, Chapter 3
+
+# Build-vs-Buy Decisions
+
+This section should list the third party libraries your system is using and describe what those libraries are being used for.
+
+See Code Complete, Chapter 3
+
+# Reuse
+
+See Code Complete, Chapter 3
+
+# Change Strategy
+
+See Code Complete, Chapter 3
