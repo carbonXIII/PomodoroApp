@@ -88,7 +88,12 @@ Additonal messages between the view and presenter are represented by functions, 
 
 # Data Design
 
-![ER Diagram](/artifacts/images/Simple_ERD_and_explanation.PNG)
+![ER Diagram](/artifacts/images/Entity Relationship Diagram.PNG)
+## Entity Overview
+| Entity             | User Story | Description                                                                                                               |
+|------------------ -|------------|-------------------------------------------------------------------------------------------------------                    |                    | Account            | 003,012    | security of data for a user and also in order for the data for detailed Statistics to be recorded                         |
+| Detailed Statistics| 003        | Updates from data given from completed tasks stores data for weekly, daily and monthly progress. Used to track progress.  |                    | Task               | 001        | Allows for the start of a Pomodoro session split into focus and break time to best employ the Pomodoro Method             |
+| Reminder           | 001,008    | Allows for a time and date for a notification to be sent to the user about a upcoming or passed Pomodoro Session          |                                                          \                                                                                                     
 
 # Business Rules
 
