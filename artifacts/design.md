@@ -92,11 +92,12 @@ Additonal messages between the view and presenter are represented by functions, 
 ## Entity Overview
 
 | Entity              | User Story | Description                                                  |
-| :------------------ | ---------- | ------------------------------------------------------------ |
-| Account             | 003 , 012  | security of data for a user and also in order for the data for detailed Statistics to be recorded |
+| :------------------ | :--------- | ------------------------------------------------------------ |
+| Account             | 003 ,  012 | security of data for a user and also in order for the data for detailed Statistics to be recorded |
 | Detailed Statistics | 003        | Updates from data given from completed tasks and stores data for daily, weekly, and, monthly progress. Used to track progress User process to a goal. (Goal not yet implemented) |
 | Task                | 001        | Allows for the start of a Pomodoro session split into focus and break time to best employ the Pomodoro Method |
-| Reminder            | 001 , 008  | Allows for a time and date for a notification to be sent to the user about a upcoming or passed Pomodoro Session |   
+| Reminder            | 001 , 008  | Allows for a time and date for a notification to be sent to the user about a upcoming or passed Pomodoro Session |
+
     
 
 
