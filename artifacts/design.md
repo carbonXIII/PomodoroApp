@@ -78,9 +78,10 @@ Additonal messages between the view and presenter are represented by functions, 
 
 # Business Rules
 
-You should list the assumptions, rules, and guidelines from external sources that are impacting your program design. 
-
-See Code Complete, Chapter 3
+At this time, our design does not have any business rules. In the future, we
+might need to meet some standard to publish the app to the Android Store, but
+currently our app does not use any special permissions, so no additional
+restrictions are in place.
 
 # User Interface Design
 
@@ -90,58 +91,82 @@ See Code Complete, Chapter 3
 
 # Resource Management
 
-See Code Complete, Chapter 3
+The Android SDK provides information about the lifetime of Fragments and
+Activities, the base classes that handle the UI code. Any objects linked to the
+lifetime of one of these UI classes can not be guaranteed to survive the app
+shutting down. To handle this, information about the current task needs to be
+saved in a bundle, a structure that is serialized and saved when a
+Fragment/Activity is torn down. Information about the current task that cannot
+be loaded from a database (as is the case for the current task in the U001)
+should be saved to a bundle to prevent data loss.
 
 # Security
 
-See Code Complete, Chapter 3
+insert info about database connections and google API access here.
 
 # Performance
 
-See Code Complete, Chapter 3
+Database queries are in general too expensive to make everytime information
+about the task needs to be displayed for the user. Some form of caching
+mechansism will be need to store in-memory copies of the task. This can build on
+the existing in memory Task object that will be used in U001.
 
 # Scalability
 
+FIXME insert info about scalability for the db
 See Code Complete, Chapter 3
 
 # Interoperability
 
-See Code Complete, Chapter 3
+In U004 we want to allow users to import tasks from Google Calendar. The Google
+Calendar's representation of a Task will need to be wrapped.
 
 # Internationalization/Localization
 
-See Code Complete, Chapter 3
+When providing task statistics, the locale of the user might effect the way in
+which we organize tasks into days/weeks.
 
 # Input/Output
 
-See Code Complete, Chapter 3
+The Android SDK provides a set of widgets to handle button/text input, so
+there's not much additional code to write here.
 
 # Error Processing
 
-See Code Complete, Chapter 3
+In general, we would want to display non-fatal errors to the user without
+shutting down, as well as logging the error information so that we can debug
+common issues remotely. The main issue is passing exceptions across the
+View-Controller boundary. Ideally, any exceptions caught in the Controller
+section should be wrapped in a general exception to hide the complexity from the
+View section. Then, in the UI code when an exception from the controller is
+encountered it can be logged there and the UI can choose whether or not to
+display a warning to the user.
 
 # Fault Tolerance
 
-See Code Complete, Chapter 3
+See Error Processing :)
 
 # Architectural Feasibility
 
-See Code Complete, Chapter 3
+The system as described uses a well established framework, so there is no risk
+of the implementation becoming too complicated as there are many examples of
+similar apps throughout the app.
 
 # Overengineering
 
-See Code Complete, Chapter 3
+FIXME
 
 # Build-vs-Buy Decisions
 
-This section should list the third party libraries your system is using and describe what those libraries are being used for.
-
-See Code Complete, Chapter 3
+For building an Android app, there is a lot of FOSS tools and resources that we
+can use to develop the app for free, including the Android SDK, free Figma
+licensing.
 
 # Reuse
 
-See Code Complete, Chapter 3
+There are no plans to reuse any pre-existing software.
 
 # Change Strategy
 
-See Code Complete, Chapter 3
+We're using Agile, so we will maintain an Agile maintain.
+FIXME ?
