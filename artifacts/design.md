@@ -69,8 +69,22 @@ Additonal messages between the view and presenter are represented by functions, 
 - The presenter implements a method `onTimerComplete()` that is not present in the `BasePresenter` class, acting as a callback for the View. The presenter also maintains a handle to the `TaskStore` to retrieve task information that it will pass to the view for display.
 - The view implements a method `setTitle()` to allow the presenter to set the timer title and task name
 
-##
-  This rough sequence diagram shows the flow of messages during the use case for user story 1 (basic timer implementation). It is broken down into the same "Model-View-Presenter" containers, but also considers the user as an actor. <TODO>
+## Sequence Diagram
+  This rough sequence diagram shows the flow of messages during the use case for user story 1 (basic timer implementation). It is broken down into the same "Model-View-Presenter" containers, but also considers the user as an actor. TODO
+  
+## Class Overview
+| Class             | User Story | Description                                                                                                 |
+|-------------------|------------|-------------------------------------------------------------------------------------------------------------|
+| FragmentView      | 001, 005   | Handles fragment creation.                                                                                  |
+| ActivityListener  | 001, 005   | Main interface to the main activity for the fragments.                                                      |
+| TaskStore         | 001, 003   | Currently just an in-memory task store, but will provide the interface for interacting with the DB in U003. |
+| Task              | 001, 003   | Represents a single task. Will store cached results from the DB in U003.                                    |
+| BaseView          | 001        | Part of the View-Controller interface.                                                                      |
+| BasePresenter     | 001        | Part of the View-Controller interface.                                                                      |
+| TimerContract     | 001, 005   | The additional methods needed for the timer screen.                                                         |
+| TaskSetupContract | 001, 005   | The additional methods needed for the task setup screen.                                                    |
+|                   |            |                                                                                                             |
+
 
 # Data Design
 
