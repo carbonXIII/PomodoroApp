@@ -113,6 +113,9 @@ restrictions are in place.
 
 ![UI Design Mockup](/artifacts/images/UI_TIMER_MOCKUP_annot.png)
 
+## Link to UI Mockup
+[https://www.figma.com/file/191qNaBiou9HtPAyDk8afW/Untitled](https://www.figma.com/file/191qNaBiou9HtPAyDk8afW/Untitled)
+
 
 # Resource Management
 
