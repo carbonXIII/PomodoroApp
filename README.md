@@ -29,8 +29,8 @@ This app is for students and professionals to have a tool that will improve thei
 ![Sprint 2 Burndown Chart](artifacts/images/Burndown_chart_sprint2.PNG)
 
 ## Sprint 3
-![Sprint 3 Burndown Chart](/artifacts/images/burndown_chart_sprint_3.PNG)
-![Velocity Chart](/artifacts/images/velocity_chart_sprint_3.PNG)
+![Sprint 3 Burndown Chart](artifacts/images/burndown_chart_3.png)
+![Velocity Chart](artifacts/images/velocity_chart_3.png)
 
 ## Product Demonstration
 
