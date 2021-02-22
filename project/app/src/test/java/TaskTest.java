@@ -9,7 +9,7 @@ import org.team.app.model.TaskStore;
 class TaskTest {
     @Test
     void createTaskWithName() {
-        String testName = "TEST NAME";
+        String testName = "TEST";
         Task task = new Task(testName);
         assertEquals(task.getName(), testName);
     }
