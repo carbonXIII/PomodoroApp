@@ -101,8 +101,6 @@ Each User will make an account with a user and password and other optional infor
 | Task                | 001        | Allows for the start of a Pomodoro session split into focus and break time to best employ the Pomodoro Method |
 | Reminder            | 001 , 008  | Allows for a time and date for a notification to be sent to the user about a upcoming or passed Pomodoro Session |
 
-    
-
 
 # Business Rules
 
@@ -113,8 +111,7 @@ restrictions are in place.
 
 # User Interface Design
 
-You should have one or more user interface screens in this section. Each screen should be accompanied by an explaination of the screens purpose and how the user will interact with it. You should relate each screen to one another as the user transitions through the states of your application. You should also have a table that relates each window or component to the support using stories. 
-
+![UI Design Mockup](/artifacts/images/UI_TIMER_MOCKUP_annot.png)
 
 
 # Resource Management
