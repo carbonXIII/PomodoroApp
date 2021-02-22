@@ -14,4 +14,8 @@ public class Task {
     public final String getName() {
         return this.name;
     }
+
+    public final UUID getUUID() {
+        return this.uuid;
+    }
 }
