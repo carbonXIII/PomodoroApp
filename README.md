@@ -8,8 +8,8 @@ This app is for students and professionals to have a tool that will improve thei
 
 - [Ishaan Bhattacharya](https://github.com/ishaanb555)
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman)
-- [Kevin Perez](#)
-- [Kimberly Szekely](#)
+- [Kevin Perez](https://github.com/KaeWing)
+- [Kimberly Szekely](https://github.com/KimberlySzekely)
 - [Timothy Phillips](https://github.com/Timothy-Phillips)
 
 ## Links
@@ -17,6 +17,8 @@ This app is for students and professionals to have a tool that will improve thei
 [Trello Board](https://trello.com/b/ZoABS7mj)
 
 [Design Document](artifacts/design.md)
+
+[Tests](https://github.com/thefinalstarman/PomodoroApp/tree/main/project/app/src/test/java)
 
 ## Sprint 1
 
