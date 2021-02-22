@@ -126,7 +126,7 @@ shutting down. To handle this, information about the current task needs to be
 saved in a bundle, a structure that is serialized and saved when a
 Fragment/Activity is torn down. Information about the current task that cannot
 be loaded from a database (as is the case for the current task in the U001)
-should be saved to a bundle to prevent data loss. For the database side since our application is not yet in the android marketplace we will have very low traffic. This Traffic can be easily supported by our firebase database. Nosql databases have been proven to be more effectice thatn relation databases for mobiler apllication-based workloads. (we read and assumed this is true, none of us have experience with databases.)
+should be saved to a bundle to prevent data loss. For the database side since our application is not yet in the android marketplace we will have very low traffic. This Traffic can be easily supported by our firebase database. Nosql databases have been proven to be more effective than relation databases for mobile\ application-based workloads. (we read and assumed this is true, none of us have experience with databases.)
 
 # Security
 
@@ -139,11 +139,11 @@ about the task needs to be displayed for the user. Some form of caching
 mechansism will be need to store in-memory copies of the task. This can build on
 the existing in memory Task object that will be used in U001.
 Firebase offers realtime data and static file hosting while the storage is supported by google cloud.
-We want the ability to create and update tasks and also navigatiing through the Application to be fast and responsive. The only area for concern would be the detailed Statsitics page/screen which will need to be updated pretty frequently from the database. However Firestore says it updates in real time so this most likely a non-issue.
+We want the ability to create and update tasks and also navigating through the Application to be fast and responsive. The only area for concern would be the Detailed Statsitics page/screen which will need to be updated pretty frequently from the database. However Firestore says it updates in real time so this most likely a non-issue.
 
 # Scalability
 
-Cloud Firestore is not only quick to be able to setup but it also allows for high scalability. In the details of the service it says it eliminated the middle sychronixation layer betweeen an application and backend database. This allows real-time updates via the Firebase SDK. However we do not expect this application grow to get so big that we will require our own custom-made database, for security and optimization reasons, or anything like that. Hopefully, The Android marketplace, Android SDK and Firebase will have all the inhereint scalability we need. we will most likely never need any load balancing components in our code.
+Cloud Firestore is not only quick to be able to setup but it also allows for high scalability. In the details of the service it says it eliminated the middle sychronization layer betweeen an application and backend database. This allows real-time updates via the Firebase SDK. However we do not expect this application grow to get so big that we will require our own custom-made database, for security and optimization reasons, or anything like that. Hopefully, The Android marketplace, Android SDK and Firebase will have all the inhereint scalability we need. we will most likely never need any load-balancing components in our code.
 
 
 # Interoperability
@@ -171,7 +171,7 @@ View-Controller boundary. Ideally, any exceptions caught in the Controller
 section should be wrapped in a general exception to hide the complexity from the
 View section. Then, in the UI code when an exception from the controller is
 encountered it can be logged there and the UI can choose whether or not to
-display a warning to the user. For now our Error detection is passive and we will change the ui as we approach a more active level. Our error messages will be very similar to the ones we see on other pomodoro apps. It will begin with "an error has occured" and then give some detail about the error under that large bolded text. THe detail will be similar to "You have tried making a task too many times" or "This date and time is invalid for a reminder".
+display a warning to the user. For now our Error detection is passive and we will change the UI as we approach a more active level. Our error messages will be very similar to the ones we see on other pomodoro apps. It will begin with "An error has occured" and then give some detail about the error under that large bolded text. THe detail will be similar to "You have tried making a task too many times" or "This date and time is invalid for a reminder".
 
 # Fault Tolerance
 
@@ -191,7 +191,7 @@ We are using an Agile approach so for each sprint we are using the simplest thin
 
 For building an Android app, there is a lot of FOSS tools and resources that we
 can use to develop the app for free, including the Android SDK, free Figma
-licensing. Firebase, while has it's paid premium options, is as a base product free and we will not be needing any of the purchasable features. This also more benefitable for us that creating our own database by scratch as none of us now how to do that.
+licensing. Firebase, while has it's paid premium options, is, as a base product, free and we will not be needing any of the purchasable features. This also more benefitable for us that creating our own database by scratch as none of us now how to do that.
 
 # Reuse
 
