@@ -111,6 +111,8 @@ restrictions are in place.
 
 # User Interface Design
 
+The user interface corresponds to user stories 005 and 003. With User story 003 corresponding to the color scheme of the UI and USer Story 005 being a epic story about the Visual Appeal of the entire UI and Feedback consistent users.
+
 ![UI Design Mockup](/artifacts/images/UI_TIMER_MOCKUP_annot.png)
 
 ## Link to UI Mockup
