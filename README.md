@@ -18,6 +18,8 @@ This app is for students and professionals to have a tool that will improve thei
 
 [Design Document](artifacts/design.md)
 
+[Source Code](https://github.com/thefinalstarman/PomodoroApp/tree/main/project/app/src/main/java/org/team/app)
+
 [Tests](https://github.com/thefinalstarman/PomodoroApp/tree/main/project/app/src/test/java)
 
 [Manual Tests](artifacts/Manual_Test.md)
