@@ -7,14 +7,14 @@ import org.team.app.model.Task;
 import org.team.app.model.TaskStore;
 
 class TaskTest {
-    @Test
+    @Test //UID 022 RID 000 have a user be able to name a task.
     void createTaskWithName() {
         String testName = "TEST";
         Task task = new Task(testName);
         assertEquals(task.getName(), testName);
     }
 
-    @Test
+    @Test // UID 003 RID 012 each task should have a unique id number.
     void taskShouldHaveUniqueUUID() {
         Task task = new Task("A");
         Task task2 = new Task("A");
@@ -22,13 +22,13 @@ class TaskTest {
         assertNotEquals(task.getUUID(), task2.getUUID());
     }
 
-    @Test
+    @Test //Update when we have timer functionality, allow for timer to start without a task.
     void taskStoreShouldStartWithoutCurrentTask() {
         TaskStore store = new TaskStore();
         assertEquals(store.getCurrentTask(), null);
     }
 
-    @Test
+    @Test //UID 022 RID 010 the created task should stay on screen.
     void taskStoreCreateTaskShouldSetCurrentTask() {
         TaskStore store = new TaskStore();
 
