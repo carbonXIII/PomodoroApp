@@ -20,6 +20,8 @@ This app is for students and professionals to have a tool that will improve thei
 
 [Tests](https://github.com/thefinalstarman/PomodoroApp/tree/main/project/app/src/test/java)
 
+[Manual Tests](artifacts/Manual_Tests.md)
+
 ## Sprint 1
 
 ![Sprint 1 Burndown Chart](artifacts/images/burndown_sprint1.png)
