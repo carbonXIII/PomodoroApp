@@ -1,6 +1,6 @@
 
 package org.team.app.model;
-
+//Task Updates and show current task (for now)
 public class TaskStore {
     // TODO support multiple tasks
     // TODO serialize and store in bundle
