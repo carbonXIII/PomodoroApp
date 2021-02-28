@@ -49,4 +49,4 @@ This app is for students and professionals to have a tool that will improve thei
 
 ## Product Demonstration
 
-[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](http://www.youtube.com/watch?v=n_Q76xzytGA "Pomodoro App Demo (Sprint #2)")
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/utP9VZpPet0 "Pomodoro App Demo (Sprint #2)")
