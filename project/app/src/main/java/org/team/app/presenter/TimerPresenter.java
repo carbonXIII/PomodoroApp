@@ -3,7 +3,7 @@ package org.team.app.presenter;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TaskStore;
-
+//Display the Timer and get information from taskstore
 public class TimerPresenter implements TimerContract.Presenter {
     protected final TimerContract.View mView;
     protected final TaskStore mTaskStore;
