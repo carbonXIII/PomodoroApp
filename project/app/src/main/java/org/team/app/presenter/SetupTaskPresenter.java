@@ -2,7 +2,7 @@ package org.team.app.presenter;
 
 import org.team.app.contract.SetupTaskContract;
 import org.team.app.model.TaskStore;
-
+//Create a task and give name (give time for the timer in future)
 public class SetupTaskPresenter implements SetupTaskContract.Presenter {
     protected final SetupTaskContract.View mView;
     protected final TaskStore mTaskStore;
