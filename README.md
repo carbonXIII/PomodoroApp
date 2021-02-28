@@ -42,7 +42,7 @@ This app is for students and professionals to have a tool that will improve thei
 
 ### Team Contribution
 - [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Commented the test code and source code, Broke Some epic class users stories into some traditional stories that follow the pattern of Agile, Explored ways to connect the database to the project, edited design documents to reflect what was said in class.
-- [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman)
+- [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Completed most of the code for the first user story (basic timer functionality). We changed the flow in Sprint 3 (see the UI diagram), so the [code is being updated](https://github.com/thefinalstarman/PomodoroApp/tree/update-ui) to reflect those changes and finish up user story 1.
 - [Kevin Perez / KaeWing](https://github.com/KaeWing)
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely)
 - [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips)
