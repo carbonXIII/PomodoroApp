@@ -6,11 +6,11 @@ This app is for students and professionals to have a tool that will improve thei
 
 ## Team Members
 
-- [Ishaan Bhattacharya](https://github.com/ishaanb555)
+- [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555)
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman)
-- [Kevin Perez](https://github.com/KaeWing)
-- [Kimberly Szekely](https://github.com/KimberlySzekely)
-- [Timothy Phillips](https://github.com/Timothy-Phillips)
+- [Kevin Perez / KaeWing](https://github.com/KaeWing)
+- [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely)
+- [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips)
 
 ## Links
 
