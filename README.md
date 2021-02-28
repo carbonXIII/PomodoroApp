@@ -37,7 +37,9 @@ This app is for students and professionals to have a tool that will improve thei
 ![Velocity Chart](artifacts/images/velocity_chart_3.png)
 
 ## Sprint 4
-Place velocity and burndown chart here
+![Sprint 4 Burndown Chart](artifacts/images/burndown_chart_4.png)
+![Velocity Chart](artifacts/images/velocity_chart_4.png)
+
 ### Team Contribution
 - [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Commented the test code and source code, Broke Some epic class users stories into some traditional stories that follow the pattern of Agile, Explored ways to connect the database to the project, edited design documents to reflect what was said in class.
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman)
