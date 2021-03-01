@@ -12,6 +12,8 @@ import org.team.app.contract.SetupTaskContract;
 public class SetupTaskView extends FragmentView implements SetupTaskContract.View {
     private SetupTaskContract.Presenter mPresenter;
 
+    protected EditText taskNameText;
+
     public SetupTaskView() {
         super(R.layout.screen_setup_task);
     }
@@ -22,8 +24,8 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     }
 
     @Override
-    public void complete() {
-        mActivity.startTimerView();
+    public void setTaskName(String name) {
+        taskNameText.setText(name);
     }
 
     @Override
@@ -37,13 +39,16 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final EditText taskNameText = view.findViewById(R.id.editTextTaskName);
+        taskNameText = view.findViewById(R.id.editTextTaskName);
         final Button button = view.findViewById(R.id.button);
+
         button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     String taskName = taskNameText.getText().toString();
-                    mPresenter.submitForm(taskName);
+                    mPresenter.setTaskName(taskName);
                 }
             });
     }
+
+
 }

@@ -3,10 +3,10 @@ package org.team.app.contract;
 public interface SetupTaskContract {
     interface View extends BaseView<Presenter> {
         // void showValidationError(); // TODO
-        void complete();
+        void setTaskName(String name);
     }
 
     interface Presenter extends BasePresenter {
-        void submitForm(String taskName);
+        void setTaskName(String name);
     }
 }

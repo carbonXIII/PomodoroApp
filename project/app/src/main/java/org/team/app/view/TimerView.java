@@ -9,6 +9,8 @@ import org.team.app.contract.TimerContract;
 
 public class TimerView extends FragmentView implements TimerContract.View {
     protected TimerContract.Presenter mPresenter;
+    protected TextView titleText;
+    protected TextView taskNameText;
 
     public TimerView() {
         super(R.layout.screen_timer);
@@ -20,25 +22,21 @@ public class TimerView extends FragmentView implements TimerContract.View {
     }
 
     @Override
-    public void setTitle(String title, String taskName) {
-        View view = getView();
-
-        final TextView titleText = view.findViewById(R.id.text_task_title);
-        titleText.setText(title);
-
-        final TextView taskNameText = view.findViewById(R.id.text_task_name);
+    public void setTaskName(String taskName) {
         taskNameText.setText(taskName);
     }
 
     @Override
-    public void complete() {
-        mActivity.startContinueView();
+    public void setTimerType(TimerContract.TimerType type) {
+        switch(type) {
+        case WORK: titleText.setText("Work Time"); break;
+        case BREAK: titleText.setText("Break Time"); break;
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         mPresenter.start();
     }
 
@@ -46,11 +44,7 @@ public class TimerView extends FragmentView implements TimerContract.View {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Button button = view.findViewById(R.id.button_finish);
-        button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    mPresenter.onTimerComplete();
-                }
-            });
+        titleText = view.findViewById(R.id.text_task_title);
+        taskNameText = view.findViewById(R.id.text_task_name);
     }
 }

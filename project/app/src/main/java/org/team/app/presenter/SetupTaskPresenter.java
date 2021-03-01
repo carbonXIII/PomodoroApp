@@ -2,10 +2,14 @@ package org.team.app.presenter;
 
 import org.team.app.contract.SetupTaskContract;
 import org.team.app.model.TaskStore;
+import org.team.app.model.Task;
 
-public class SetupTaskPresenter implements SetupTaskContract.Presenter {
+public class SetupTaskPresenter
+    implements SetupTaskContract.Presenter, TaskStore.Listener, Task.Listener {
     protected final SetupTaskContract.View mView;
     protected final TaskStore mTaskStore;
+
+    protected Task mTask;
 
     public SetupTaskPresenter(SetupTaskContract.View view,
                               TaskStore taskStore) {
@@ -15,13 +19,33 @@ public class SetupTaskPresenter implements SetupTaskContract.Presenter {
     }
 
     @Override
-    public void start() {}
+    public void onCurrentTaskUpdate(Task newTask) {
+        if(mTask != null)
+            mTask.unsubscribe(this);
+        mTask = newTask;
+        mTask.subscribe(this);
+
+        mView.setTaskName(mTask.getName());
+    }
 
     @Override
-    public void submitForm(String taskName) {
-        // TODO: validate task details
-        mTaskStore.createTask(taskName);
+    public void onTaskNameUpdate(Task task, String newName) {
+        mView.setTaskName(newName);
+    }
 
-        mView.complete();
+    @Override
+    public void start() {
+        mTaskStore.subscribe(this);
+
+        mTask = mTaskStore.getCurrentTask();
+        mTask.subscribe(this);
+
+        String taskName = mTask.getName();
+        mView.setTaskName(taskName);
+    }
+
+    @Override
+    public void setTaskName(String name) {
+        mTaskStore.getCurrentTask().setName(name);
     }
 }
