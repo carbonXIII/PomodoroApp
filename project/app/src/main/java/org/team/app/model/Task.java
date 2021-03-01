@@ -11,11 +11,10 @@ public class Task {
     public String name;
 
     public static interface Listener {
-        // TODO: rename this to avoid collisions
         public void onTaskNameUpdate(Task task, String newName);
     }
 
-    Set<Listener> listeners;
+    protected Set<Listener> listeners;
 
     public void subscribe(Listener listener) {
         listeners.add(listener);
