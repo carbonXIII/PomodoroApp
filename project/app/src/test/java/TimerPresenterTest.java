@@ -9,6 +9,7 @@ import org.team.app.presenter.TimerPresenter;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TaskStore;
+import org.team.app.model.TimerType;
 
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ class TimerPresenterTest {
     static class MockView implements TimerContract.View {
         public TimerContract.Presenter mPresenter;
         public String name;
-        public TimerContract.TimerType type;
+        public TimerType type;
 
         @Override
         public void setPresenter(TimerContract.Presenter presenter) {
@@ -29,8 +30,19 @@ class TimerPresenterTest {
         }
 
         @Override
-        public void setTimerType(TimerContract.TimerType type) {
+        public void setTimerType(TimerType type) {
             this.type = type;
+        }
+
+        @Override
+        public void setTimerDisplay(long minutes, long seconds) {}
+
+        @Override
+        public void startTimer(long tickRate) {}
+
+        @Override
+        public long stopTimer() {
+            return 0;
         }
     }
 

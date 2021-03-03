@@ -45,6 +45,10 @@ public class SetupTaskPresenter
     }
 
     @Override
+    public void pause() {
+    }
+
+    @Override
     public void setTaskName(String name) {
         mTaskStore.getCurrentTask().setName(name);
     }

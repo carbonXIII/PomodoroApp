@@ -1,15 +1,22 @@
 package org.team.app.contract;
 
-public interface TimerContract {
-    enum TimerType {
-        WORK, BREAK
-    }
+import org.team.app.model.TimerType;
 
+public interface TimerContract {
     interface View extends BaseView<Presenter> {
         void setTaskName(String taskName);
         void setTimerType(TimerType type);
+        void setTimerDisplay(long minutes, long seconds);
+
+        void startTimer(long duration);
+        long stopTimer();
     }
 
     interface Presenter extends BasePresenter {
+        void onTimerComplete();
+
+        void onPauseButton();
+
+        void onPlayButton();
     }
 }
