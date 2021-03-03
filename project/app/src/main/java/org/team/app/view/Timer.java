@@ -18,11 +18,11 @@ public class Timer {
     public static interface Listener {
         public void onTimerResume();
 
-        /// Runs every tick
+        /// Called every tick
         /// @param timeElapsed: in milliseconds
         public void onTimerTick(long timeElapsed);
 
-        /// Runs when the timer is paused/stopped
+        /// Called when the timer is paused/stopped
         /// @param timeElapsed: in milliseconds
         public void onTimerPause(long timeElapsed);
     }
