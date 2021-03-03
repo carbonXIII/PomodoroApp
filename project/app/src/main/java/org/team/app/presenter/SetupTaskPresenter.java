@@ -4,6 +4,7 @@ import org.team.app.contract.SetupTaskContract;
 import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
 
+/// The presenter for the Task Setup screen
 public class SetupTaskPresenter
     implements SetupTaskContract.Presenter, TaskStore.Listener, Task.Listener {
     protected final SetupTaskContract.View mView;
@@ -11,6 +12,7 @@ public class SetupTaskPresenter
 
     protected Task mTask;
 
+    /// Construct a presenter, attaching it to a view and task store
     public SetupTaskPresenter(SetupTaskContract.View view,
                               TaskStore taskStore) {
         this.mView = view;

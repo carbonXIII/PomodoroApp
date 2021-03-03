@@ -26,16 +26,11 @@ import org.team.app.presenter.SetupTaskPresenter;
 
 import org.team.app.model.TaskStore;
 
+/// The main activity of the app, handles lifetimes of all other objects
 public class MainActivity extends AppCompatActivity implements ActivityListener {
     protected TaskStore mTaskStore;
     protected TabInfo timerTab;
     protected TabInfo taskTab;
-
-    @Override
-    public void startSetupTaskView() {}
-
-    @Override
-    public void startTimerView() {}
 
     @Override
     public TabInfo getTab(int position) {
@@ -98,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
         tabs.setupWithViewPager(viewPager);
     }
 
-    static class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private static class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final ActivityListener mContext;
 
         public SectionsPagerAdapter(Context context, FragmentManager fm) {

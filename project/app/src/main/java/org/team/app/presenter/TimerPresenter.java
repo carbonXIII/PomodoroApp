@@ -7,6 +7,7 @@ import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
 import org.team.app.model.TimerType;
 
+/// The presenter for the Timer screen
 public class TimerPresenter
     implements TimerContract.Presenter, TaskStore.Listener, Task.Listener {
     protected final TimerContract.View mView;
@@ -18,6 +19,7 @@ public class TimerPresenter
 
     protected long lastTimerDuration = -1;
 
+    /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {
         this.mView = view;
         this.mView.setPresenter(this);

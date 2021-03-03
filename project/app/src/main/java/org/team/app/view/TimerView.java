@@ -10,6 +10,7 @@ import org.team.app.model.TimerType;
 
 import java.util.Locale;
 
+/// The fragment for the Timer screen
 public class TimerView extends FragmentView implements TimerContract.View, Timer.Listener {
     protected TimerContract.Presenter mPresenter;
     protected TextView titleText;
@@ -52,12 +53,17 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         }
     }
 
+    /// Start a new timer, updating the timer text every tick.
+    /// Calls onTimerComplete() on the attached presenter when done.
+    /// @param duration: the time in milliseconds to run before finished.
     @Override
     public void startTimer(long duration) {
         this.timerDuration = duration;
         timer.resume();
     }
 
+    /// Stop the timer. Does not call onTimerComplete()
+    /// @return the elapsed time in milliseconds
     @Override
     public long stopTimer() {
         return timer.pause();

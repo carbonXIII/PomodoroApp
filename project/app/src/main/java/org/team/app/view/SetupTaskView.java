@@ -9,6 +9,7 @@ import android.view.View;
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
 
+/// The fragment for the Task Setup screen
 public class SetupTaskView extends FragmentView implements SetupTaskContract.View {
     private SetupTaskContract.Presenter mPresenter;
 
