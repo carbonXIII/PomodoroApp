@@ -8,6 +8,8 @@ import android.view.View;
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TimerType;
 
+import java.util.Locale;
+
 public class TimerView extends FragmentView implements TimerContract.View, Timer.Listener {
     protected TimerContract.Presenter mPresenter;
     protected TextView titleText;
@@ -20,9 +22,16 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
     public static final int TICK_RATE_MS = 500;
 
+    protected String workTimeText;
+    protected String breakTimeText;
+
     public TimerView() {
         super(R.layout.screen_timer);
         this.timer = new Timer(this, TICK_RATE_MS);
+    }
+
+    private void setTimerDisplay(long minutes, long seconds) {
+        timerText.setText(String.format(Locale.US, "%02d:%02d", minutes, seconds));
     }
 
     @Override
@@ -38,14 +47,9 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void setTimerType(TimerType type) {
         switch(type) {
-        case WORK: titleText.setText("Work Time"); break;
-        case BREAK: titleText.setText("Break Time"); break;
+        case WORK: titleText.setText(workTimeText); break;
+        case BREAK: titleText.setText(breakTimeText); break;
         }
-    }
-
-    @Override
-    public void setTimerDisplay(long minutes, long seconds) {
-        timerText.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
     @Override
@@ -101,6 +105,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.workTimeText = view.getResources().getString(R.string.work_timer_text);
+        this.breakTimeText = view.getResources().getString(R.string.break_timer_text);
 
         titleText = view.findViewById(R.id.text_task_title);
         taskNameText = view.findViewById(R.id.text_task_name);
@@ -108,12 +114,12 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
         pauseButton = view.findViewById(R.id.button_pause);
         pauseButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+                public void onClick(View view) {
                     if(!timer.running()) {
-                        pauseButton.setText(v.getResources().getString(R.string.pause));
+                        pauseButton.setText(view.getResources().getString(R.string.pause));
                         mPresenter.onPlayButton();
                     } else {
-                        pauseButton.setText(v.getResources().getString(R.string.resume));
+                        pauseButton.setText(view.getResources().getString(R.string.resume));
                         mPresenter.onPauseButton();
                     }
                 }

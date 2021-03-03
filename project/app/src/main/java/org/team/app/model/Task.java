@@ -9,6 +9,8 @@ import java.util.WeakHashMap;
 public class Task {
     protected final UUID uuid;
     protected String name;
+
+    // TODO: get/set/listener for these durations
     protected long workDuration = 25 * 60 * 1000;
     protected long breakDuration = 5 * 60 * 1000;
 

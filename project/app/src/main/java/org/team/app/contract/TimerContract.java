@@ -6,7 +6,6 @@ public interface TimerContract {
     interface View extends BaseView<Presenter> {
         void setTaskName(String taskName);
         void setTimerType(TimerType type);
-        void setTimerDisplay(long minutes, long seconds);
 
         void startTimer(long duration);
         long stopTimer();

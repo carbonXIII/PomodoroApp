@@ -14,6 +14,6 @@
     <string name="done">Done!</string>
     <string name="are_you_done_with">Are you done with</string>
     <string name="title_activity_main2">MainActivity2</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="work_timer_text">Work Time</string>
+    <string name="break_timer_text">Break Time</string>
 </resources>
