@@ -89,6 +89,7 @@ class TimerPresenterTest {
         assertEquals(view.duration, 1);
     }
 
+    @Test
     void onTimerCompleteShouldResetTimerDetails() {
         TimerType original = view.type;
         view.duration = -1;

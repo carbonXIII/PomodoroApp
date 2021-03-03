@@ -50,6 +50,6 @@ public class SetupTaskPresenter
 
     @Override
     public void setTaskName(String name) {
-        mTaskStore.getCurrentTask().setName(name);
+        mTask.setName(name);
     }
 }

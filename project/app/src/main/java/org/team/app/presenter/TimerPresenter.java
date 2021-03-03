@@ -73,17 +73,13 @@ public class TimerPresenter
     public void onPauseButton() {
         long elapsed = mView.stopTimer();
         this.lastTimerDuration -= elapsed;
-
-        System.out.println("stopped timer");
     }
 
     @Override
     public void onPlayButton() {
         if(this.lastTimerDuration <= 0) {
-            System.out.println("resetting timer");
             onTimerComplete();
         } else {
-            System.out.println("continuing timer");
             mView.startTimer(this.lastTimerDuration);
         }
     }
