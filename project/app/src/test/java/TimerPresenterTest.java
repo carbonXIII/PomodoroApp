@@ -61,6 +61,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 016 Presenters should be attached to views
     void presenterShouldAttachToProvidedViewAndSetTimerDetails() {
         assertEquals(view.mPresenter, presenter);
         assertEquals(view.type, TimerType.WORK);
@@ -68,6 +69,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 015 Model updates should be propogated ...
     void changingCurrentTaskShouldUpdateView() {
         String newTaskName = UUID.randomUUID().toString();
         taskStore.createTask(newTaskName);
@@ -75,6 +77,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 015 Model updates should be propogated ...
     void changingCurrentTaskNameShouldUpdateView() {
         String newTaskName = UUID.randomUUID().toString();
         taskStore.getCurrentTask().setName(newTaskName);
@@ -82,6 +85,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 017 Pausing the timer should save the current time.
     void resumingTimerShouldAdjustDuration() {
         view.debugElapsed = taskStore.getCurrentTask().getTimerDuration(view.type) - 1;
         presenter.onPauseButton();
@@ -90,6 +94,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 002 When the working timer completes
     void onTimerCompleteShouldResetTimerDetails() {
         TimerType original = view.type;
         view.duration = -1;
@@ -99,6 +104,7 @@ class TimerPresenterTest {
     }
 
     @Test
+    // UID 001 RID 002 When the working timer completes ...
     void resumingCompletedTimerShouldChangeTimerType() {
         TimerType original = view.type;
         view.debugElapsed = taskStore.getCurrentTask().getTimerDuration(view.type) + 1;

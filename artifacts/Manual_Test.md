@@ -1,0 +1,5 @@
+| Manual Test Number | User Story Connection | Steps to replicate                                           | Expected Resulting Behavior                                  |
+| ------------------ | --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 001                | 023, RID 000, 010     | Just open the app in any compatible AVD preferably on android studio and the first page you see should be create new task with a section to fill in your name. Just type in the box, what you want the title of your task to be. | After you press enter you will be brought to a new page with the Title you inputted as the main heading. You will also see a arbitary timer. |
+| 002                | 022, RID 012          | Open the app, in a compatible AVD, Enter a Task name and press enter. Then instead of satying on the page, press the finish early button on the bottom right of the screen. | After you press the finish early button you should be brought to a screen that asks you to exit or create a new task. |
+

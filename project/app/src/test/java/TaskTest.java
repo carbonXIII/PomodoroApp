@@ -26,6 +26,7 @@ class TaskTest {
     }
 
     @Test
+    // UID 022 RID 000 have a user be able to name a task.
     void createTaskWithName() {
         String testName = "TEST";
         Task task = new Task(testName);
@@ -33,6 +34,7 @@ class TaskTest {
     }
 
     @Test
+    // UID 003 RID 012 each task should have a unique id number.
     void taskShouldHaveUniqueUUID() {
         Task task = new Task("A");
         Task task2 = new Task("A");
@@ -41,6 +43,7 @@ class TaskTest {
     }
 
     @Test
+    // UID 001 RID 015 model updates should propogate to subscribers
     void updatingTaskNameShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 
@@ -54,6 +57,7 @@ class TaskTest {
     }
 
     @Test
+    // UID 001 RID 014
     // Listener maps in Task/TaskStore should hold weak references to
     // listeners so that they can be GC'd.
     void listenerMapsShouldHoldWeakReferences() {
@@ -90,6 +94,7 @@ class TaskTest {
     }
 
     @Test
+    //UID 022 RID 010 the created task should stay on screen.
     void taskStoreCreateTaskShouldSetCurrentTask() {
         TaskStore store = new TaskStore("default");
 
@@ -100,6 +105,7 @@ class TaskTest {
     }
 
     @Test
+    // UID 001 RID 015 model updates should propogate to subscribers
     void updateCurrentTaskShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 
