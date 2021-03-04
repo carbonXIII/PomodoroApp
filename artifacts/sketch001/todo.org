@@ -217,7 +217,8 @@ end
  #+end_src
 
  #+RESULTS:
- [[file:../images/001-task-setup-sequence-diagram.png]]
+ [[file:../images/001-timer-sequence-diagram.png]]
+
 
 * Implement
 ** Layouts [2021-02-10 Wed]
