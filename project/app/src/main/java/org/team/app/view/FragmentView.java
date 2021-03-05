@@ -10,10 +10,13 @@ import org.team.app.view.R;
 import org.team.app.contract.BasePresenter;
 import org.team.app.contract.BaseView;
 
+/// Base class for all Fragments
 public abstract class FragmentView extends Fragment {
     protected final UUID uuid;
     protected ActivityListener mActivity;
 
+    /// Construct a fragment
+    /// @param layoutId: The resource id of the layout for this fragment
     public FragmentView(int layoutId) {
         super(layoutId);
         uuid = UUID.randomUUID();

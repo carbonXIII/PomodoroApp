@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="new_task">New Task</string>
-    <string name="name">Name</string>
-    <string name="start">Start</string>
+    <string name="app_name">Pomodoro</string>
+    <string name="task">Task</string>
+    <string name="default_task_name">My Task</string>
+    <string name="update">Update</string>
     <string name="task_name">Task name</string>
     <string name="placeholder">Replace</string>
-    <string name="finish_early">Finish Early</string>
+    <string name="finish">Finish</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
     <string name="_13_37">13:37</string>
     <string name="take_a_break">Take a break.</string>
     <string name="done">Done!</string>
     <string name="are_you_done_with">Are you done with</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="work_timer_text">Work Time</string>
+    <string name="break_timer_text">Break Time</string>
 </resources>

@@ -66,6 +66,20 @@ any given time, and there is no third-party integration.
 #+RESULTS:
 [[file:../images/001-component-diagram.png]]
 
+** Class diagram
+   Need to generate one
+
+* Old UI
+** UI Sketch
+*** task setup screen
+    [[../images/task_setup.png]]
+*** timer screens
+**** working
+     [[../images/timer_work.png]]
+**** break
+     [[../images/timer_break.png]]
+*** continue screen
+    [[../images/continue.png]]
 ** Sequence [2021-02-11 Thu]
  #+begin_src plantuml :file ../images/001-sequence-diagram.png :exports results
 title User Story 1 Sequence
@@ -146,25 +160,73 @@ end
 
    #+RESULTS:
    [[file:../images/001-sequence-diagram.png]]
+   
+* New UI
+  Less screens. The timer screen and task setup screen are now parallel. See the real design document for details.
+** Sequence Diagrams
+*** Task Setup Screen
+ #+begin_src plantuml :file ../images/001-task-setup-sequence-diagram.png :exports results
+   title User Story 1: Task Setup Screen Sequence
 
-** Class diagram
-   Need to generate one
-* UI Sketch [2021-02-10 Wed]
-** task setup screen
-   [[../images/task_setup.png]]
-** timer screens
-*** working
-    [[../images/timer_work.png]]
-*** break
-    [[../images/timer_break.png]]
-** continue screen
-   [[../images/continue.png]]
+   actor User
+   participant View
+   participant Presenter
+   participant Model
+
+   User -> View: Submit Task Name Form
+   View -> Presenter: setTaskName()
+   Presenter -> Model: Task.setName()
+ #+end_src
+
+ #+RESULTS:
+ [[file:../images/001-task-setup-sequence-diagram.png]]
+
+*** Timer Screen
+ #+begin_src plantuml :file ../images/001-timer-sequence-diagram.png :exports results
+   title User Story 1: Timer Screen Sequence
+
+   actor User
+   participant View
+   participant Presenter
+   participant Model
+
+   Presenter -> View: setTimerType()
+   View -> View: Update displayed timer title
+   Presenter -> Model: Task.getTimerDuration()
+   Model -> Presenter: 
+   Presenter -> View: startTimer(duration)
+
+   opt The current timer completes
+           View -> Presenter: onTimerComplete()
+           Presenter -> Presenter: Update timer type
+           Presenter -> View: setTimerType()
+           Presenter -> Model: Task.getTimerDuration()
+           Model -> Presenter: 
+           Presenter -> View: startTimer(duration)
+   end
+
+   opt Timer is paused via button
+           View -> Presenter: onPauseButton()
+           Presenter -> View: stopTimer()
+           View -> Presenter: elapsed time
+
+           View -> Presenter: onPlayButton()
+           note left: When the resume button is pressed
+           Presenter -> View: startTimer(duration - elapsed time)
+   end
+ #+end_src
+
+ #+RESULTS:
+ [[file:../images/001-timer-sequence-diagram.png]]
+
+
 * Implement
 ** Layouts [2021-02-10 Wed]
 *** headings
 *** buttons
 *** text input
 *** timer
+*** tabbed layout [2021-03-03 Wed] 
 ** Integration
 *** fragment <-> layout mapping [2021-02-10 Wed] 
     Fairly straightforward:

@@ -13,7 +13,7 @@
         android:layout_marginStart="42dp"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="39dp"
-        android:text="@string/new_task"
+        android:text="@string/task"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,9 +28,9 @@
         android:layout_height="53dp"
         android:layout_marginTop="136dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="@string/name"
         android:hint="@string/task_name"
+        android:inputType="text"
+        android:text="@string/default_task_name"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
-        android:text="@string/start"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editTextTaskName" />
 
