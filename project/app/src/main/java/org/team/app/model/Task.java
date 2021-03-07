@@ -11,9 +11,15 @@ public class Task {
     protected final UUID uuid;
     protected String name;
 
-    // TODO: get/set/listener for these durations
-    protected long workDuration = 25 * 60 * 1000;
-    protected long breakDuration = 5 * 60 * 1000;
+    protected static final int DEFAULT_WORK_TIME = 25;
+    protected static final int DEFAULT_BREAK_TIME = 5;
+
+    protected int workDurationInMinutes = DEFAULT_WORK_TIME;
+    protected int breakDurationInMinutes = DEFAULT_BREAK_TIME;
+
+    // TODO: LISTENERS NEEDED FOR THESE TIMES
+    protected long workDuration = workDurationInMinutes * 60 * 1000;
+    protected long breakDuration = breakDurationInMinutes * 60 * 1000;
 
     /// Listener for Task updates
     public static interface Listener {
@@ -53,6 +59,18 @@ public class Task {
         this.name = name;
         for(Listener listener: listeners)
             listener.onTaskNameUpdate(this, name);
+    }
+
+    /// Sets the workDuration, and calls attached listeners with the update
+    public void setWorkDurationInMinutes(int timeInMinutes) {
+        this.workDurationInMinutes = timeInMinutes;
+        // TODO SETUP LISTENERS
+    }
+
+    /// Sets the breakDuration, and calls attached listeners with the update
+    public void setBreakkDurationInMinutes(int timeInMinutes) {
+        this.breakDurationInMinutes = timeInMinutes;
+        // TODO SETUP LISTENERS
     }
 
     public UUID getUUID() {
