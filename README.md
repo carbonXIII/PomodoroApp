@@ -46,7 +46,7 @@ This app is for students and professionals to have a tool that will improve thei
 
 ### Team Contribution
 - [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user stories 12 and 24 and their corresponding requirements (made a login screen with a hide password functionality) and then wrote some manual tests for them as they are mostly just xml code and used for UI purposes. 
-- [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Completed most of the code for the first user story (basic timer functionality). We changed the flow in Sprint 3 (see the UI diagram), so the [code is being updated](https://github.com/thefinalstarman/PomodoroApp/tree/update-ui) to reflect those changes and finish up user story 1.
+- [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Finished up the rest of the code for user story 1, including wiring the task detail and timer screens. Wrote tests for most of the requirements.
 - [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Completed most of story 11 which requires some sort of notification system to be implemented once the timer is done. Will have to revise again once app is further in development.
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely) - - Designed UI mockup to match design document specifications
 - [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips) - - Explored methods for integration with Google Calendar and Trello. Produced and edited the demonstration video.
