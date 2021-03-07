@@ -40,10 +40,14 @@ This app is for students and professionals to have a tool that will improve thei
 ![Sprint 4 Burndown Chart](artifacts/images/burndown_chart_4.png)
 ![Velocity Chart](artifacts/images/velocity_chart_4.png)
 
+## Sprint 5
+![Sprint 4 Burndown Chart](artifacts/images/burndown_chart_5.png)
+![Velocity Chart](artifacts/images/velocity_chart_5.png)
+
 ### Team Contribution
 - [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user stories 12 and 24 and their corresponding requirements (made a login screen with a hide password functionality) and then wrote some manual tests for them as they are mostly just xml code and used for UI purposes. 
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Completed most of the code for the first user story (basic timer functionality). We changed the flow in Sprint 3 (see the UI diagram), so the [code is being updated](https://github.com/thefinalstarman/PomodoroApp/tree/update-ui) to reflect those changes and finish up user story 1.
-- [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Helped on re-designing trello board so that it follows the example shown in class. Made both burndown chart and velocity chart for sprint 3 and sprint 4. Investigated ways to implement notifications after the task and break time are done. 
+- [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Completed most of story 11 which requires some sort of notification system to be implemented once the timer is done. Will have to revise again once app is further in development.
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely) - - Designed UI mockup to match design document specifications
 - [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips) - - Explored methods for integration with Google Calendar and Trello. Produced and edited the demonstration video.
 
