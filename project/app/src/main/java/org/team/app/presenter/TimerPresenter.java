@@ -1,11 +1,14 @@
 
 package org.team.app.presenter;
 
+import android.app.Notification;
+
 import org.team.app.contract.TimerContract;
 
 import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
 import org.team.app.model.TimerType;
+import org.team.app.view.MainActivity;
 
 /// The presenter for the Timer screen
 public class TimerPresenter
@@ -18,6 +21,8 @@ public class TimerPresenter
     protected TimerType timerType;
 
     protected long lastTimerDuration = -1;
+
+    // MainActivity mainActivity = new MainActivity();
 
     /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {

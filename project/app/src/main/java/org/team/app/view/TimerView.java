@@ -79,7 +79,6 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         if(remaining < 0) {
             setTimerDisplay(0, 0);
             timer.pause();
-
             mPresenter.onTimerComplete();
         } else {
             setTimerDisplay(minutes, seconds);
@@ -104,7 +103,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState)  {
         super.onViewCreated(view, savedInstanceState);
         this.workTimeText = view.getResources().getString(R.string.work_timer_text);
         this.breakTimeText = view.getResources().getString(R.string.break_timer_text);

@@ -1,11 +1,18 @@
 package org.team.app.view;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,10 +28,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.team.app.contract.TimerContract;
 import org.team.app.presenter.TimerPresenter;
 import org.team.app.presenter.SetupTaskPresenter;
 
 import org.team.app.model.TaskStore;
+
+import java.util.Calendar;
 
 /// The main activity of the app, handles lifetimes of all other objects
 public class MainActivity extends AppCompatActivity implements ActivityListener {
@@ -91,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        Notification();
     }
 
     private static class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -119,4 +130,21 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
             return mContext.tabCount();
         }
     }
+
+    // Notification function, called in "onCreate"
+    public void Notification() {
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        // Hard Coded for now, as Notification() System service is not available to activities before onCreate()
+        // Set at 24 minutes, there seems to be an issue when set to 25 min, and it wont appear
+        cal.add(Calendar.MINUTE, 24);
+        // RTC_WAKEUP wakes up the device to fire the pending intent at the desired time
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+    }
+
 }
