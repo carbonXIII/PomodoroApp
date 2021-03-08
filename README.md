@@ -41,7 +41,8 @@ This app is for students and professionals to have a tool that will improve thei
 ![Velocity Chart](artifacts/images/velocity_chart_4.png)
 
 ## Sprint 5
-
+![Sprint 4 Burndown Chart](artifacts/images/burndown_chart_5.png)
+![Velocity Chart](artifacts/images/velocity_chart_5.png)
 
 ### Team Contribution
 - [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user stories 12 and 24 and their corresponding requirements (made a login screen with a hide password functionality) and then wrote some manual tests for them as they are mostly just xml code and used for UI purposes. 
