@@ -52,5 +52,7 @@ This app is for students and professionals to have a tool that will improve thei
 - [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips) - - Explored methods for integration with Google Calendar and Trello. Established framework for adjustable timers. Produced and edited demonstration videos.
 
 ## Product Demonstration
-
-[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://www.youtube.com/watch?v=oQR0tRnrOFQ)
+Part 1
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/oQR0tRnrOFQ)
+Part 2
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/sjAC0xt65tI)
