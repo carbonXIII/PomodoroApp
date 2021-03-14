@@ -4,7 +4,10 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.view.View;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
@@ -36,17 +39,35 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
         mPresenter.start();
     }
 
+    private void submitTaskName() {
+        String taskName = taskNameText.getText().toString();
+        mPresenter.setTaskName(taskName);
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         taskNameText = view.findViewById(R.id.editTextTaskName);
+        taskNameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if(actionId == EditorInfo.IME_ACTION_DONE
+                       || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                        mActivity.hideKeyboard();
+                        submitTaskName();
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+
         final Button button = view.findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    String taskName = taskNameText.getText().toString();
-                    mPresenter.setTaskName(taskName);
+                    submitTaskName();
                 }
             });
     }

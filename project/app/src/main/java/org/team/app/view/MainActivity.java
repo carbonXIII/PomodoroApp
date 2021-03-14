@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import android.content.Context;
 
@@ -36,7 +37,7 @@ import org.team.app.model.TaskStore;
 import java.util.Calendar;
 
 /// The main activity of the app, handles lifetimes of all other objects
-public class MainActivity extends AppCompatActivity implements ActivityListener {
+public class MainActivity extends AppCompatActivity implements ActivityListener, ViewPager.OnPageChangeListener {
     protected TaskStore mTaskStore;
     protected TabInfo timerTab;
     protected TabInfo taskTab;
@@ -55,6 +56,28 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
     @Override
     public int tabCount() {
         return 2;
+    }
+
+    @Override
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        View view = getCurrentFocus();
+        if (view == null)
+            return;
+
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
+
+    @Override
+    public void onPageScrolled(int pos, float off, int pixelOff) {}
+
+    @Override
+    public void onPageSelected(int pos) {
+        hideKeyboard();
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,9 +120,11 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.addOnPageChangeListener(this);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
         Notification();
     }
 
@@ -113,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements ActivityListener 
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return mContext.getTab(position).getFragment();
         }
 

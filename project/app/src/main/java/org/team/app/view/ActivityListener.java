@@ -18,4 +18,7 @@ public interface ActivityListener {
 
     /// Get the number of tabs
     int tabCount();
+
+    /// Hide the soft keyboard
+    void hideKeyboard();
 }
