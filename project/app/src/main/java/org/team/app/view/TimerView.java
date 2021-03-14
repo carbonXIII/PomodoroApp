@@ -17,6 +17,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected TextView taskNameText;
     protected TextView timerText;
     protected Button pauseButton;
+    protected Button skipButton;
 
     protected final Timer timer;
     protected long timerDuration;
@@ -25,6 +26,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
     protected String workTimeText;
     protected String breakTimeText;
+    protected String pauseText;
+    protected String resumeText;
 
     public TimerView() {
         super(R.layout.screen_timer);
@@ -65,7 +68,9 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
-    public void onTimerResume() {}
+    public void onTimerResume() {
+        pauseButton.setText(pauseText);
+    }
 
     @Override
     public void onTimerTick(long timeElapsed) {
@@ -87,6 +92,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
     @Override
     public void onTimerPause(long timeElapsed) {
+        pauseButton.setText(resumeText);
     }
 
     @Override
@@ -107,6 +113,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         super.onViewCreated(view, savedInstanceState);
         this.workTimeText = view.getResources().getString(R.string.work_timer_text);
         this.breakTimeText = view.getResources().getString(R.string.break_timer_text);
+        this.pauseText = view.getResources().getString(R.string.pause);
+        this.resumeText = view.getResources().getString(R.string.resume);
 
         titleText = view.findViewById(R.id.text_task_title);
         taskNameText = view.findViewById(R.id.text_task_name);
@@ -116,13 +124,19 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         pauseButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     if(!timer.running()) {
-                        pauseButton.setText(view.getResources().getString(R.string.pause));
                         mPresenter.onPlayButton();
                     } else {
-                        pauseButton.setText(view.getResources().getString(R.string.resume));
                         mPresenter.onPauseButton();
                     }
                 }
             });
+
+        skipButton = view.findViewById(R.id.button_skip);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    timer.pause();
+                    mPresenter.onTimerComplete();
+                }
+        });
     }
 }
