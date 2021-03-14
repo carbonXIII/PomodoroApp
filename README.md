@@ -45,7 +45,7 @@ This app is for students and professionals to have a tool that will improve thei
 ![Velocity Chart](artifacts/images/velocity_chart_5.png)
 
 ### Team Contribution
-- [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user stories 12 and 24 and their corresponding requirements (made a login screen with a hide password functionality) and then wrote some manual tests for them as they are mostly just xml code and used for UI purposes. 
+- [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user story 002 for creating a sign up page, Made 1/2 of the demonstration video showing user story 2 and the passing of manual Tests associated with it. Explored using expresso in the future instead of creating manual tests.
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Finished up the rest of the code for user story 1, including wiring the task detail and timer screens. Wrote tests for most of the requirements.
 - [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Completed most of story 11 which requires some sort of notification system to be implemented once the timer is done. Will have to revise again once app is further in development.
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely) - - Continued user story 5 to match current implemented UI. Started user story 16 to have a dark mode that matched the currently implemented UI.
