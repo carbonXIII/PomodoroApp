@@ -49,7 +49,7 @@ This app is for students and professionals to have a tool that will improve thei
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Finished up the rest of the code for user story 1, including wiring the task detail and timer screens. Wrote tests for most of the requirements.
 - [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Completed most of story 11 which requires some sort of notification system to be implemented once the timer is done. Will have to revise again once app is further in development.
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely) - - Continued user story 5 to match current implemented UI. Started user story 16 to have a dark mode that matched the currently implemented UI.
-- [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips) - - Explored methods for integration with Google Calendar and Trello. Established framework for adjustable timers. Produced and edited demonstration videos.
+- [Timothy Phillips / Timothy-Phillips](https://github.com/Timothy-Phillips) - - Explored methods for integration with Google Calendar and Trello (User Story 004). Established framework for adjustable timers (User Story 006). Produced and edited demonstration videos.
 
 ## Product Demonstration
 Part 1
