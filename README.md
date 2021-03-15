@@ -62,4 +62,4 @@ Part 1
 
 Part 2
 
-[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/sjAC0xt65tI)
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/le4ZsV4F1G0)
