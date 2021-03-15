@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
         Notification();
     }
 

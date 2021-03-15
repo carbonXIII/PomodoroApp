@@ -1,5 +1,6 @@
 package org.team.app.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.view.View;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
@@ -68,6 +70,8 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
         button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     submitTaskName();
+                    // Toast pop up message to clarify that the task name has been updated
+                    Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
                 }
             });
     }
