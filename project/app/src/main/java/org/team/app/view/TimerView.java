@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TimerType;
@@ -125,8 +126,12 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     if(!timer.running()) {
                         mPresenter.onPlayButton();
+                        Toast.makeText(getActivity(), "Task Resumed", Toast.LENGTH_SHORT).show();
+
                     } else {
                         mPresenter.onPauseButton();
+                        Toast.makeText(getActivity(), "Task Paused", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
@@ -136,6 +141,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     timer.pause();
                     mPresenter.onTimerComplete();
+                    Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
+
                 }
         });
     }
