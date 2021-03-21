@@ -49,7 +49,7 @@ This app is for students and professionals to have a tool that will improve thei
 ![Velocity Chart](artifacts/images/velocity_chart_6.png)
 
 ### Team Contribution
-- [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user story 002 for creating a sign up page, Made 1/2 of the demonstration video showing user story 2 and the passing of manual Tests associated with it. Explored using expresso in the future instead of creating manual tests.
+- [Ishaan Bhattacharya / ishaanb555](https://github.com/ishaanb555) - - Completed user story 003 having to do with the sign up page credentials being saved into a firebase realtime database, and the corresponding requirement testing 025 in the manual tests. also made 1/2 of the presentation video.
 - [Jordan Richards / thefinalstarman](https://github.com/thefinalstarman) - - Finished up pause/skip button functionality for user story 007.
 - [Kevin Perez / KaeWing](https://github.com/KaeWing) - - Completed user story 25 to create visual confimation of buttons being clicked. Need to create test on these, either manually or using expresso.
 - [Kimberly Szekely / Kimberly Szekely](https://github.com/KimberlySzekely) - - Continued user story 5 to match current implemented UI. Started user story 16 to have a dark mode that matched the currently implemented UI.
