@@ -35,3 +35,16 @@
 | 7.             | Within the Password text box, Press the Blind eye Icon. | Any password that entered will then be revealed and any further text will also show on screen as that text and as not a black dot. |
 | 8.             | Press the Already have an Account button                | You should be brought back to the inital login screen of the app. |
 
+| User Story 003 | RID 025                                                      | As a College student, I would like to have my account data saved somewhere, so I can keep track of information I have inputted. |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Step no.       | How to replicate                                             | Expected Result                                              |
+| 1              | Open the application in either andorid studio or your phone  | You are greeted by the login screen and are shown buttons for login and create an account. |
+| 2              | press create an account                                      | you are now in the create an account page, and you can enter into many text fields your, desired username and password, phone number, email and full name. |
+| 3              | enter into these textboxes the appopriate information to your liking | all fields except the password field shows the desired account information your want as well as the the username field being red if you exceed the 20 character limit. The password field shows black dots representing the characters to your password but when the eye icon is pressed your password is revealed. |
+| 4              | press the go button                                          | No visible changes can be seen                               |
+| 5              | Go to the link https://console.firebase.google.com/u/0/project/my-application-99fde/database/my-application-99fde-default-rtdb/data with the correct gmail credentials | You should see your account username displayed, click the username and you should see all fields of your account to be exactly what was entered in the application. |
+| 6              | Return to the application and press the already have an account button | you are brought back to the login screen                     |
+| 7              | enter your username and password and press enter             | you are now brought to a new blank activity that will be a placeholder for the rest of the application. |
+
+
+
