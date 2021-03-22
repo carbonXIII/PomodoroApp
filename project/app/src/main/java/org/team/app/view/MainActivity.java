@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        Notification();
     }
 
     private static class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -155,17 +154,20 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
     // Notification function, called in "onCreate"
     public void Notification() {
 
+        System.out.println(TimerPresenter.checkTimer);
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent(this, AlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar cal = Calendar.getInstance();
-        // Hard Coded for now, as Notification() System service is not available to activities before onCreate()
-        // Set at 24 minutes, there seems to be an issue when set to 25 min, and it wont appear
-        cal.add(Calendar.MINUTE, 24);
+        // Set to immediately show notification, yet there are still delays, I believe because too much work is being done
+        // on the main thread.
+        cal.add(Calendar.SECOND, 0);
         // RTC_WAKEUP wakes up the device to fire the pending intent at the desired time
         alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+
     }
 
 }
