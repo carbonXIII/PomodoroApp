@@ -1,5 +1,6 @@
 package org.team.app.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,9 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected String breakTimeText;
     protected String pauseText;
     protected String resumeText;
+
+    static Boolean timerChange;
+    Activity activity;
 
     public TimerView() {
         super(R.layout.screen_timer);
@@ -89,6 +93,10 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         } else {
             setTimerDisplay(minutes, seconds);
         }
+
+       /* if(mPresenter.isTimerDone()) {
+            Notification(activity);
+        } */
     }
 
     @Override
@@ -142,8 +150,18 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                     timer.pause();
                     mPresenter.onTimerComplete();
                     Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
-
+                    Notification(getActivity());
                 }
         });
+
+        if(mPresenter.isTimerDone()) {
+            Notification(getActivity());
+        }
+    }
+
+    public void Notification(Activity activity) {
+        if ( activity instanceof MainActivity) {
+            ((MainActivity)activity).Notification();
+        }
     }
 }

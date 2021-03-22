@@ -10,11 +10,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import java.util.Date;
+
 import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String CHANNEL_ID = "pomodoroapp.channelId";
+
+    int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+
 
     @Override
     public void onReceive(Context context, Intent intent) {

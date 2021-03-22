@@ -1,7 +1,7 @@
 
 package org.team.app.presenter;
 
-import android.app.Notification;
+import android.app.Activity;
 
 import org.team.app.contract.TimerContract;
 
@@ -16,13 +16,25 @@ public class TimerPresenter
     protected final TimerContract.View mView;
     protected final TaskStore mTaskStore;
 
+    Activity activity;
+
     protected Task mTask;
 
-    protected TimerType timerType;
+    private  Boolean timerChange = Boolean.FALSE;
+    public static  int checkTimer = 0;
 
+    protected TimerType timerType;
     protected long lastTimerDuration = -1;
 
-    // MainActivity mainActivity = new MainActivity();
+    public Boolean getTimerChange() {
+        timerChange = Boolean.TRUE;
+        return this.timerChange;
+    }
+
+    public int getCheckTimer() {
+        checkTimer = 1;
+        return this.checkTimer;
+    }
 
     /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {
@@ -91,6 +103,22 @@ public class TimerPresenter
         }
     }
 
+    // Check if timer is done, not sure if it completely works
+    public Boolean isTimerDone() {
+        if(this.lastTimerDuration <= 0) {
+            return Boolean.TRUE;
+        }
+        else {
+            return Boolean.FALSE;
+        }
+    }
+
     @Override
     public void pause() {}
+
+    public void Notification(Activity activity) {
+        if ( activity instanceof MainActivity) {
+            ((MainActivity)activity).Notification();
+        }
+    }
 }
