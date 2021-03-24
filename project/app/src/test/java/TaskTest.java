@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import org.team.app.model.Task;
 import org.team.app.model.TaskStore;
+import org.team.app.model.TimerType;
 
 import java.util.UUID;
 import java.lang.ref.WeakReference;
@@ -13,6 +14,7 @@ import java.lang.ref.WeakReference;
 class TaskTest {
     static class MockSubscriber implements Task.Listener, TaskStore.Listener {
         public String name = null;
+        protected long duration = 0;
 
         @Override
         public void onCurrentTaskUpdate(Task newTask) {
@@ -22,6 +24,11 @@ class TaskTest {
         @Override
         public void onTaskNameUpdate(Task task, String name) {
             this.name = name;
+        }
+
+        @Override
+        public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {
+            this.duration = newDuration;
         }
     }
 
@@ -54,6 +61,20 @@ class TaskTest {
         task.setName(updatedTaskName);
 
         assertEquals(sub.name, updatedTaskName);
+    }
+
+    @Test
+    // UID 001 RID 015 model updates should propogate to subscribers
+    void updatingTaskTimerDurationShouldUpdateSubscribers() {
+        MockSubscriber sub = new MockSubscriber();
+
+        Task task = new Task("A");
+        task.subscribe(sub);
+
+        long updatedTaskDuration = 500;
+        task.setTimerDuration(TimerType.WORK, updatedTaskDuration);
+
+        assertEquals(sub.duration, updatedTaskDuration);
     }
 
     @Test

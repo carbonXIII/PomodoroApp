@@ -16,7 +16,6 @@ public class Task {
     protected static final int DEFAULT_WORK_TIME = 25 * 60 * 1000;
     protected static final int DEFAULT_BREAK_TIME = 5* 60 * 1000;
 
-    // TODO: LISTENERS NEEDED FOR THESE TIMES
     protected long workDuration = DEFAULT_WORK_TIME;
     protected long breakDuration = DEFAULT_BREAK_TIME;
 
@@ -26,6 +25,12 @@ public class Task {
         /// @param task: A reference to the task for listeners that manange multiple Tasks
         /// @param newName: The updated name
         public void onTaskNameUpdate(Task task, String newName);
+
+        /// Called when the duration of one of the timer type's is updated
+        /// @param task: A reference to the task for listeners that manange multiple Tasks
+        /// @param type: The timer type that is being updated
+        /// @param newDuration: The updated duration (ms)
+        public void onTaskTimerDurationUpdate(Task task, TimerType type, long newDuration);
     }
 
     protected Set<Listener> listeners;
@@ -60,12 +65,19 @@ public class Task {
             listener.onTaskNameUpdate(this, name);
     }
 
-    /// Sets the workDuration, and calls attached listeners with the update
-    public void setDuration(TimerType type, long duration) {
-        if (type == WORK)
-            workDuration = duration;
-        else
-            breakDuration = duration;
+    /// Sets the duration for a timer type, and calls attached listeners with the update
+    public void setTimerDuration(TimerType type, long duration) {
+        switch(type) {
+        case WORK:
+            this.workDuration = duration;
+            break;
+        case BREAK:
+            this.breakDuration = duration;
+            break;
+        }
+
+        for(Listener listener: listeners)
+            listener.onTaskTimerDurationUpdate(this, type, duration);
     }
 
     public UUID getUUID() {

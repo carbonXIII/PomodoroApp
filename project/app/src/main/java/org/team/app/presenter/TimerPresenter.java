@@ -64,6 +64,9 @@ public class TimerPresenter
     }
 
     @Override
+    public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {}
+
+    @Override
     public void start() {
         mTaskStore.subscribe(this);
 

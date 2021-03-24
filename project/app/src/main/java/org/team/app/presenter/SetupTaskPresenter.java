@@ -3,6 +3,7 @@ package org.team.app.presenter;
 import org.team.app.contract.SetupTaskContract;
 import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
+import org.team.app.model.TimerType;
 
 /// The presenter for the Task Setup screen
 public class SetupTaskPresenter
@@ -33,6 +34,10 @@ public class SetupTaskPresenter
     @Override
     public void onTaskNameUpdate(Task task, String newName) {
         mView.setTaskName(newName);
+    }
+
+    @Override
+    public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {
     }
 
     @Override
