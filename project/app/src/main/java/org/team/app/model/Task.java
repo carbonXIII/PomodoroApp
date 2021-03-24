@@ -6,20 +6,19 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import static org.team.app.model.TimerType.WORK;
+
 /// Task representation
 public class Task {
     protected final UUID uuid;
     protected String name;
 
-    protected static final int DEFAULT_WORK_TIME = 25;
-    protected static final int DEFAULT_BREAK_TIME = 5;
-
-    protected int workDurationInMinutes = DEFAULT_WORK_TIME;
-    protected int breakDurationInMinutes = DEFAULT_BREAK_TIME;
+    protected static final int DEFAULT_WORK_TIME = 25 * 60 * 1000;
+    protected static final int DEFAULT_BREAK_TIME = 5* 60 * 1000;
 
     // TODO: LISTENERS NEEDED FOR THESE TIMES
-    protected long workDuration = workDurationInMinutes * 60 * 1000;
-    protected long breakDuration = breakDurationInMinutes * 60 * 1000;
+    protected long workDuration = DEFAULT_WORK_TIME;
+    protected long breakDuration = DEFAULT_BREAK_TIME;
 
     /// Listener for Task updates
     public static interface Listener {
@@ -62,15 +61,11 @@ public class Task {
     }
 
     /// Sets the workDuration, and calls attached listeners with the update
-    public void setWorkDurationInMinutes(int timeInMinutes) {
-        this.workDurationInMinutes = timeInMinutes;
-        // TODO SETUP LISTENERS
-    }
-
-    /// Sets the breakDuration, and calls attached listeners with the update
-    public void setBreakkDurationInMinutes(int timeInMinutes) {
-        this.breakDurationInMinutes = timeInMinutes;
-        // TODO SETUP LISTENERS
+    public void setDuration(TimerType type, long duration) {
+        if (type == WORK)
+            workDuration = duration;
+        else
+            breakDuration = duration;
     }
 
     public UUID getUUID() {
