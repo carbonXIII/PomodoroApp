@@ -18,5 +18,7 @@
     <string name="break_timer_text">Break Time</string>
     <string name="enter">Enter</string>
     <string name="sign_up">Sign Up Now</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="minutes">Minutes</string>
 </resources>
