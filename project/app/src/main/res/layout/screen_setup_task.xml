@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextTaskName" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/editTextNumberWork"
         android:layout_width="58dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
@@ -77,11 +77,11 @@
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/minutes"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber2"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberWork"
         app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/editTextNumberBreak"
         android:layout_width="58dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
@@ -90,7 +90,7 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberWork" />
 
     <TextView
         android:id="@+id/textView5"
@@ -109,7 +109,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/minutes"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber3"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberBreak"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
