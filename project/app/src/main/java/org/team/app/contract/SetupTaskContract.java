@@ -1,5 +1,7 @@
 package org.team.app.contract;
 
+import org.team.app.model.TimerType;
+
 public interface SetupTaskContract {
     interface View extends BaseView<Presenter> {
         // void showValidationError(); // TODO
@@ -11,5 +13,7 @@ public interface SetupTaskContract {
     interface Presenter extends BasePresenter {
         /// Update the model with new task name from the view's form
         void setTaskName(String name);
+
+        void setTaskTime(TimerType type, long duration);
     }
 }

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import org.team.app.model.TimerType;
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
 
@@ -19,6 +20,8 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     private SetupTaskContract.Presenter mPresenter;
 
     protected EditText taskNameText;
+    protected EditText taskWorkTimeText;
+    protected EditText taskBreakTimeText;
 
     public SetupTaskView() {
         super(R.layout.screen_setup_task);
@@ -46,6 +49,19 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
         mPresenter.setTaskName(taskName);
     }
 
+    public void submitTaskTime(TimerType type){
+        long duration = 0;
+        switch(type) {
+            case WORK:
+                duration = Long.parseLong(taskWorkTimeText.getText().toString());
+                break;
+            case BREAK:
+                duration = Long.parseLong(taskBreakTimeText.getText().toString());
+                break;
+        }
+        mPresenter.setTaskTime(type, duration * 60 * 1000);
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -65,11 +81,44 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 }
             });
 
+        taskWorkTimeText = view.findViewById(R.id.editTextNumberWork);
+        taskWorkTimeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE
+                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                    mActivity.hideKeyboard();
+                    submitTaskTime(TimerType.WORK);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
+        taskBreakTimeText = view.findViewById(R.id.editTextNumberBreak);
+        taskBreakTimeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE
+                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                    mActivity.hideKeyboard();
+                    submitTaskTime(TimerType.BREAK);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
         final Button button = view.findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     submitTaskName();
+                    submitTaskTime(TimerType.WORK);
+                    submitTaskTime(TimerType.BREAK);
                     // Toast pop up message to clarify that the task name has been updated
                     Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
                 }

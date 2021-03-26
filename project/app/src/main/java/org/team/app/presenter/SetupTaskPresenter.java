@@ -59,4 +59,7 @@ public class SetupTaskPresenter
     public void setTaskName(String name) {
         mTask.setName(name);
     }
+
+    @Override
+    public void setTaskTime(TimerType type, long duration) {mTask.setTimerDuration(type, duration);}
 }
