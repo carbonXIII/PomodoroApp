@@ -185,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
 
     // Notification function, called in "onCreate"
     public void notification() {
-        System.out.println(TimerPresenter.checkTimer);
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent(this, AlarmReceiver.class);

@@ -10,6 +10,8 @@ import org.team.app.model.TaskStore;
 import org.team.app.model.TimerType;
 
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.lang.ref.WeakReference;
 
 class TaskTest {
@@ -144,5 +146,41 @@ class TaskTest {
         store.setCurrentTask(task);
 
         assertEquals(sub.name, updatedTaskName);
+    }
+
+    @Test
+    // UID 019 RID 025 The task list should contain all tabs by default
+    void getTaskWithEmptyFilterShouldReturnAListofAllTasks() {
+        TaskStore store = new TaskStore("default");
+
+        ArrayList<UUID> expected = new ArrayList<UUID>();
+        expected.add(store.createTask("A"));
+        expected.add(store.createTask("B"));
+        expected.add(store.createTask("C"));
+        expected.add(store.createTask("D"));
+
+        Collection<Task> got = store.getTasks("");
+        assertEquals(got.size(), expected.size());
+
+        for (Task task : got)
+            assert(expected.contains(task.getUUID()));
+    }
+
+    @Test
+    // UID 019 RID 031 Typing in a filter will filter the list of displayed tasks
+    void getTaskWithFilterShouldReturnReasonableSubsetOfTasks() {
+        TaskStore store = new TaskStore("default");
+
+        ArrayList<UUID> expected = new ArrayList<UUID>();
+        expected.add(store.createTask("foo A"));
+        expected.add(store.createTask("foo B"));
+        expected.add(store.createTask("foobar C"));
+        store.createTask("bar D");
+        store.createTask("fobar D");
+
+        Collection<Task> got = store.getTasks("foo");
+
+        for (Task task : got)
+            assert(expected.contains(task.getUUID()));
     }
 }
