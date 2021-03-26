@@ -72,7 +72,8 @@ class TimerPresenterTest {
     // UID 001 RID 015 Model updates should be propogated ...
     void changingCurrentTaskShouldUpdateView() {
         String newTaskName = UUID.randomUUID().toString();
-        taskStore.createTask(newTaskName);
+        UUID task = taskStore.createTask(newTaskName);
+        taskStore.setCurrentTask(task);
         assertEquals(newTaskName, view.name);
     }
 

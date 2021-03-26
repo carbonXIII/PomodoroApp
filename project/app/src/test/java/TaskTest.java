@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,10 @@ class TaskTest {
         @Override
         public void onCurrentTaskUpdate(Task newTask) {
             this.name = newTask.getName();
+        }
+
+        @Override
+        public void onTaskAdded(Task newTask) {
         }
 
         @Override
@@ -115,14 +120,15 @@ class TaskTest {
     }
 
     @Test
-    //UID 022 RID 010 the created task should stay on screen.
-    void taskStoreCreateTaskShouldSetCurrentTask() {
+    //UID 022 RID 010 the created task should be on the screen.
+    void taskStoreCreateTaskShouldAddTaskToList() {
         TaskStore store = new TaskStore("default");
 
         String taskName = "TEST";
-        store.createTask(taskName);
+        UUID task = store.createTask(taskName);
+        Task val = store.getTaskByUUID(task);
 
-        assertEquals(store.getCurrentTask().getName(), taskName);
+        assertNotNull(val);
     }
 
     @Test
@@ -134,7 +140,8 @@ class TaskTest {
         store.subscribe(sub);
 
         String updatedTaskName = UUID.randomUUID().toString();
-        store.createTask(updatedTaskName);
+        UUID task = store.createTask(updatedTaskName);
+        store.setCurrentTask(task);
 
         assertEquals(sub.name, updatedTaskName);
     }

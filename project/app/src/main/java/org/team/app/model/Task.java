@@ -5,11 +5,13 @@ import java.util.UUID;
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.HashSet;
+import java.util.ConcurrentModificationException;
 
 import static org.team.app.model.TimerType.WORK;
 
 /// Task representation
-public class Task {
+public class Task implements Comparable<Task> {
     protected final UUID uuid;
     protected String name;
 
@@ -35,15 +37,33 @@ public class Task {
 
     protected Set<Listener> listeners;
 
+    private Set<Listener> getListeners() {
+        synchronized (listeners) {
+            Set<Listener> ret = null;
+            while (ret == null) {
+                try {
+                    ret = new HashSet<Listener>(listeners);
+                } catch (ConcurrentModificationException e) {
+                    ret = null;
+                }
+            }
+            return ret;
+        }
+    }
+
     /// Add a listener
     public void subscribe(Listener listener) {
-        listeners.add(listener);
+        synchronized(listeners) {
+            listeners.add(listener);
+        }
     }
 
     /// Remove a listener
     public void unsubscribe(Listener listener) {
-        if(listeners.contains(listener))
-            listeners.remove(listener);
+        synchronized (listeners) {
+            if (listeners.contains(listener))
+                listeners.remove(listener);
+        }
     }
 
     /// Construct a task
@@ -61,7 +81,8 @@ public class Task {
     /// Sets the name, and calls attached listeners with the update
     public void setName(String name) {
         this.name = name;
-        for(Listener listener: listeners)
+
+        for (Listener listener : getListeners())
             listener.onTaskNameUpdate(this, name);
     }
 
@@ -76,7 +97,7 @@ public class Task {
             break;
         }
 
-        for(Listener listener: listeners)
+        for (Listener listener : getListeners())
             listener.onTaskTimerDurationUpdate(this, type, duration);
     }
 
@@ -91,5 +112,12 @@ public class Task {
         case BREAK: return breakDuration;
         }
         return 0;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        if(this.name != other.getName())
+            return this.name.compareTo(other.getName());
+        return this.uuid.compareTo(other.getUUID());
     }
 }

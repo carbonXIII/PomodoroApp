@@ -20,21 +20,8 @@ public class TimerPresenter
 
     protected Task mTask;
 
-    private  Boolean timerChange = Boolean.FALSE;
-    public static  int checkTimer = 0;
-
     protected TimerType timerType;
     protected long lastTimerDuration = -1;
-
-    public Boolean getTimerChange() {
-        timerChange = Boolean.TRUE;
-        return this.timerChange;
-    }
-
-    public int getCheckTimer() {
-        checkTimer = 1;
-        return this.checkTimer;
-    }
 
     /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {
@@ -51,12 +38,22 @@ public class TimerPresenter
 
     @Override
     public void onCurrentTaskUpdate(Task newTask) {
-        if (mTask != null)
+        if (mTask != null) {
             mTask.unsubscribe(this);
+            onPauseButton();
+            this.lastTimerDuration = -1;
+        }
+
         mTask = newTask;
         mTask.subscribe(this);
 
         mView.setTaskName(mTask.getName());
+        timerType = null;
+        onPlayButton();
+    }
+
+    @Override
+    public void onTaskAdded(Task newTask) {
     }
 
     @Override

@@ -4,16 +4,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Context;
+import android.widget.Toast;
 
 import org.team.app.contract.ListTaskContract;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collection;
 import java.util.UUID;
 
 public class ListTaskView extends FragmentView implements ListTaskContract.View {
@@ -24,7 +30,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
     protected Adapter mAdapter;
 
     protected List<UUID> taskList;
-    protected int selectedPos = -1;
+    protected UUID selectedTask = null;
 
     protected int colorItemBase;
     protected int colorItemSelected;
@@ -59,6 +65,31 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
         colorItemBase = view.getResources().getColor(R.color.colorItemBase);
         colorItemSelected = view.getResources().getColor(R.color.colorItemSelected);
 
+        final Button button = view.findViewById(R.id.button_new);
+        button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UUID task = mPresenter.createNewTask();
+                    showSetupTaskFragment(task);
+                }
+            });
+
+        final EditText search = view.findViewById(R.id.text_search);
+        search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mPresenter.updateFilter(search.getText().toString());
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+        });
+
         mRecycler = view.findViewById(R.id.view_recycler);
 
         mLayoutManager = new LinearLayoutManager((Context)mActivity);
@@ -69,34 +100,32 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
     }
 
     @Override
-    public void addTask(UUID task) {
-        taskList.add(task);
-        mAdapter.notifyItemInserted(taskList.size() - 1);
-    }
-
-    @Override
-    public void removeTask(UUID task) {
-        int pos = taskList.indexOf(task);
-        if(pos < 0)
-            return;
-
-        taskList.remove(pos);
-        mAdapter.notifyItemRemoved(pos);
-    }
-
-    @Override
-    public void updateTask(UUID task) {
-        int pos = taskList.indexOf(task);
-        if(pos < 0)
-            return;
-
-        mAdapter.notifyItemChanged(pos);
+    public void updateTaskList(Collection<UUID> task) {
+        taskList = new ArrayList<UUID>(task);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void selectCurrentTask(UUID task) {
-        selectedPos = taskList.indexOf(task);
-        mAdapter.notifyItemChanged(selectedPos);
+        int prevPos = -1;
+        if(this.selectedTask != null)
+            prevPos = taskList.indexOf(this.selectedTask);
+
+        this.selectedTask = task;
+        int pos = taskList.indexOf(this.selectedTask);
+
+        if (prevPos < 0)
+            mAdapter.notifyItemChanged(pos);
+        if(pos >= 0)
+            mAdapter.notifyItemChanged(pos);
+    }
+
+    public void showSetupTaskFragment(UUID task) {
+        mActivity.hideKeyboard();
+        getParentFragmentManager().beginTransaction()
+            .replace(R.id.frame_list_task, mActivity.getSetupTaskFragment(task))
+            .addToBackStack(null)
+            .commit();
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -109,18 +138,27 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
             public ViewHolder(View v) {
                 super(v);
 
+                v.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(task == null)
+                                return;
+
+                            if(mPresenter.selectCurrentTask(task))
+                                Toast.makeText(getActivity(), "Selected New Task", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 this.taskNameText = v.findViewById(R.id.text_item_name);
 
                 this.editButton = v.findViewById(R.id.button_edit);
                 this.editButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
                         public void onClick(View view) {
                             if (task == null)
                                 return;
 
-                            getParentFragmentManager().beginTransaction()
-                                .replace(R.id.frame_list_task, mActivity.getSetupTaskFragment(task))
-                                .addToBackStack(null)
-                                .commit();
+                            showSetupTaskFragment(task);
                         }
                 });
             }
@@ -133,8 +171,8 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
                 taskNameText.setText(name);
             }
 
-            public void setColor(int color) {
-                itemView.setBackgroundColor(color);
+            public void updateColor(boolean selected) {
+                itemView.setBackgroundColor(selected ? colorItemSelected : colorItemBase);
             }
         }
 
@@ -151,7 +189,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.setTask(taskList.get(position));
             holder.setName(mPresenter.getTaskName(taskList.get(position)));
-            holder.setColor(position == selectedPos ? colorItemSelected : colorItemBase);
+            holder.updateColor(taskList.get(position) == selectedTask);
         }
 
         @Override

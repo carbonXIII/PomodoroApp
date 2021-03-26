@@ -34,6 +34,10 @@ public class SetupTaskPresenter
     }
 
     @Override
+    public void onTaskAdded(Task newTask) {
+    }
+
+    @Override
     public void onTaskNameUpdate(Task task, String newName) {
         mView.setTaskName(newName);
     }

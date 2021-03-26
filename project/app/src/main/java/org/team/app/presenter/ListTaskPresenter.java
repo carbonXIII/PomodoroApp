@@ -5,7 +5,8 @@ import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
 import org.team.app.model.TimerType;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class ListTaskPresenter
@@ -13,7 +14,8 @@ public class ListTaskPresenter
     protected final ListTaskContract.View mView;
     protected final TaskStore mTaskStore;
 
-    protected List<Task> filtered;
+    protected String currentFilter = "";
+    protected Collection<Task> filtered = null;
 
     public ListTaskPresenter(ListTaskContract.View view,
                              TaskStore taskStore) {
@@ -22,8 +24,6 @@ public class ListTaskPresenter
 
         this.mTaskStore = taskStore;
         this.mTaskStore.subscribe(this);
-
-        this.filtered = null;
     }
 
     @Override
@@ -32,8 +32,13 @@ public class ListTaskPresenter
     }
 
     @Override
+    public void onTaskAdded(Task newTask) {
+        reloadTaskList();
+    }
+
+    @Override
     public void onTaskNameUpdate(Task task, String newName) {
-        mView.updateTask(task.getUUID());
+        reloadTaskList();
     }
 
     @Override
@@ -42,7 +47,7 @@ public class ListTaskPresenter
 
     @Override
     public void start() {
-        reloadTaskList("");
+        reloadTaskList();
     }
 
     @Override
@@ -55,21 +60,53 @@ public class ListTaskPresenter
         return task.getName();
     }
 
-    private void reloadTaskList(String filter) {
+    @Override
+    public UUID createNewTask() {
+        return mTaskStore.createTask(null);
+    }
+
+    @Override
+    public void updateFilter(String filter) {
+        this.currentFilter = filter;
+        reloadTaskList();
+    }
+
+    @Override
+    public boolean selectCurrentTask(UUID task) {
+        if(this.mTaskStore.getCurrentTask().getUUID() == task)
+            return false;
+
+        this.mTaskStore.setCurrentTask(task);
+        reloadTaskList();
+
+        return true;
+    }
+
+    private synchronized void reloadTaskList() {
         if(this.filtered != null) {
             for (Task task : this.filtered) {
-                mView.removeTask(task.getUUID());
                 task.unsubscribe(this);
             }
         }
 
-        this.filtered = mTaskStore.getTasks(filter);
+        Task currentTask = mTaskStore.getCurrentTask();
+        this.filtered = mTaskStore.getTasks(currentFilter);
+
+        this.filtered.add(currentTask);
+        currentTask.subscribe(this);
+
+        ArrayList<UUID> inOrder = new ArrayList<UUID>();
+        inOrder.add(currentTask.getUUID());
 
         for(Task task: this.filtered) {
-            mView.addTask(task.getUUID());
+            if(task.getUUID() != currentTask.getUUID())
+                inOrder.add(task.getUUID());
             task.subscribe(this);
         }
 
-        mView.selectCurrentTask(mTaskStore.getCurrentTask().getUUID());
+        System.out.println(inOrder.size());
+
+        mView.updateTaskList(inOrder);
+        mView.selectCurrentTask(currentTask.getUUID());
     }
 }
