@@ -114,6 +114,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
         this.selectedTask = task;
         int pos = taskList.indexOf(this.selectedTask);
 
+        // Only update the relevant positions, rather than the entire data set
         if (prevPos < 0)
             mAdapter.notifyItemChanged(pos);
         if(pos >= 0)
@@ -122,6 +123,10 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
 
     public void showSetupTaskFragment(UUID task) {
         mActivity.hideKeyboard();
+
+        // Replace the view of the list layout, instead of the frame of the parent layout,
+        // or the view of the view pager, to avoid annoying view pager manipulation to
+        // show the setup screen.
         getParentFragmentManager().beginTransaction()
             .replace(R.id.frame_list_task, mActivity.getSetupTaskFragment(task))
             .addToBackStack(null)

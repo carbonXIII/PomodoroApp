@@ -82,6 +82,9 @@ public class ListTaskPresenter
         return true;
     }
 
+    // This is the only method that accesses the task list,
+    // but it can be called in different threads, so it is synchronized.
+    // It might make sense to synchronize on this.filtered instead.
     private synchronized void reloadTaskList() {
         if(this.filtered != null) {
             for (Task task : this.filtered) {

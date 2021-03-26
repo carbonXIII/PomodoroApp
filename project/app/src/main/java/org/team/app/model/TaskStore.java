@@ -67,6 +67,7 @@ public class TaskStore {
 
 
     /// Create a task
+    /// @return the UUID/handle for the Task
     public UUID createTask(String taskName) {
         Task task = new Task(taskName == null ? defaultTaskName : taskName);
         list.put(task.getUUID(), task);
@@ -80,6 +81,7 @@ public class TaskStore {
         return task.getUUID();
     }
 
+    /// Set the currently selected task
     public void setCurrentTask(UUID task) {
         Task target = list.get(task);
         if(target == null)
@@ -99,6 +101,9 @@ public class TaskStore {
         return currentTask;
     }
 
+    /// @return A collection of the tasks that match the filter
+    /// @param filter: Empty string to get all the tasks,
+    //    else only tasks with substring (case-insensitive matches)
     public Collection<Task> getTasks(String filter) {
         filter = filter.toLowerCase();
 
@@ -113,6 +118,7 @@ public class TaskStore {
         return (Collection<Task>) ret;
     }
 
+    /// @return the Task object for a given UUID
     public Task getTaskByUUID(UUID uuid) {
         return list.get(uuid);
     }

@@ -32,8 +32,6 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected String pauseText;
     protected String resumeText;
 
-    static Boolean timerChange;
-
     public TimerView() {
         super(R.layout.screen_timer);
         this.timer = new Timer(this, TICK_RATE_MS);
