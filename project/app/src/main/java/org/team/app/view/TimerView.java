@@ -134,11 +134,11 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     if(!timer.running()) {
                         mPresenter.onPlayButton();
-                        Toast.makeText((Context)mActivity, "Task Resumed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Task Resumed", Toast.LENGTH_SHORT).show();
 
                     } else {
                         mPresenter.onPauseButton();
-                        Toast.makeText((Context)mActivity, "Task Paused", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Task Paused", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -148,7 +148,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     timer.pause();
                     mPresenter.onTimerComplete();
-                    Toast.makeText((Context)mActivity, "Task Skipped", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
                     mActivity.notification();
                 }
         });
