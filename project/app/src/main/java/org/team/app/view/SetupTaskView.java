@@ -44,6 +44,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     private void submitTaskName() {
         String taskName = taskNameText.getText().toString();
         mPresenter.setTaskName(taskName);
+        Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -65,15 +66,24 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 }
             });
 
-        final Button button = view.findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button saveButton = view.findViewById(R.id.button_save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     submitTaskName();
-                    // Toast pop up message to clarify that the task name has been updated
-                    Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
                 }
             });
+
+        final Button doneButton = view.findViewById(R.id.button_done);
+
+        final Fragment parentRef = (Fragment) this;
+        doneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    submitTaskName();
+                    mActivity.closeFragment(parentRef);
+                }
+        });
     }
 
 

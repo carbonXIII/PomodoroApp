@@ -4,5 +4,7 @@
     <color name="colorBackround">#D1F4FF</color>
     <color name="colorSecondary">#C18D25</color>
     <color name="colorLightSecondary">#D6CD5C</color>
+    <color name="colorItemBase">#81B2C1</color>
+    <color name="colorItemSelected">#0095c2</color>
 
 </resources>

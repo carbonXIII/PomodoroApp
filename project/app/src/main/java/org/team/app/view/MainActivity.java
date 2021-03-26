@@ -31,16 +31,19 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import org.team.app.contract.TimerContract;
 import org.team.app.presenter.TimerPresenter;
 import org.team.app.presenter.SetupTaskPresenter;
+import org.team.app.presenter.ListTaskPresenter;
 
 import org.team.app.model.TaskStore;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 /// The main activity of the app, handles lifetimes of all other objects
 public class MainActivity extends AppCompatActivity implements ActivityListener, ViewPager.OnPageChangeListener {
     protected TaskStore mTaskStore;
     protected TabInfo timerTab;
     protected TabInfo taskTab;
+    protected ViewPager mPager;
 
     @Override
     public TabInfo getTab(int position) {
@@ -70,6 +73,20 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
     }
 
     @Override
+    public Fragment getSetupTaskFragment(UUID task) {
+        final SetupTaskView view = new SetupTaskView();
+        final SetupTaskPresenter presenter = new SetupTaskPresenter(view, mTaskStore, task);
+        return (Fragment) view;
+    }
+
+    @Override
+    public void closeFragment(Fragment frag) {
+        getSupportFragmentManager().beginTransaction()
+            .remove(frag)
+            .commit();
+    }
+
+    @Override
     public void onPageScrollStateChanged(int state) {}
 
     @Override
@@ -78,6 +95,21 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
     @Override
     public void onPageSelected(int pos) {
         hideKeyboard();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = (Fragment) getSupportFragmentManager()
+                .findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + this.mPager.getCurrentItem());
+        if (fragment != null) {
+            if (fragment.getView() != null) {
+                // Pop the backstack on the ChildManager if there is any. If not, close this
+                // activity as normal.
+                if (!fragment.getChildFragmentManager().popBackStackImmediate()) {
+                    finish();
+                }
+            }
+        }
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +121,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
 
         // Setup Tabs
         taskTab = new TabInfo() {
-            final SetupTaskView view = new SetupTaskView();
-            final SetupTaskPresenter presenter = new SetupTaskPresenter(view, mTaskStore);
+            final ListTaskView view = new ListTaskView();
+            final ListTaskPresenter presenter = new ListTaskPresenter(view, mTaskStore);
 
             @Override
             public String getTitle() {
@@ -119,18 +151,18 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         };
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.addOnPageChangeListener(this);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        this.mPager = findViewById(R.id.view_pager);
+        mPager.addOnPageChangeListener(this);
+        mPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+        tabs.setupWithViewPager(mPager);
     }
 
     private static class SectionsPagerAdapter extends FragmentPagerAdapter {
         private final ActivityListener mContext;
 
         public SectionsPagerAdapter(Context context, FragmentManager fm) {
-            super(fm);
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             mContext = (ActivityListener)context;
         }
 
@@ -152,8 +184,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
     }
 
     // Notification function, called in "onCreate"
-    public void Notification() {
-
+    public void notification() {
         System.out.println(TimerPresenter.checkTimer);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

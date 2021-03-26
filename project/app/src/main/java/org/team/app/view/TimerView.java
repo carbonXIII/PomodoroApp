@@ -1,6 +1,7 @@
 package org.team.app.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected Button skipButton;
 
     protected final Timer timer;
-    protected long timerDuration;
+    protected long timerDuration = -1;
 
     public static final int TICK_RATE_MS = 500;
 
@@ -32,7 +33,6 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected String resumeText;
 
     static Boolean timerChange;
-    Activity activity;
 
     public TimerView() {
         super(R.layout.screen_timer);
@@ -107,14 +107,14 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+
+        if(this.timerDuration < 0)
+            mPresenter.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        timer.pause();
-        mPresenter.pause();
     }
 
     @Override
@@ -134,12 +134,11 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     if(!timer.running()) {
                         mPresenter.onPlayButton();
-                        Toast.makeText(getActivity(), "Task Resumed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText((Context)mActivity, "Task Resumed", Toast.LENGTH_SHORT).show();
 
                     } else {
                         mPresenter.onPauseButton();
-                        Toast.makeText(getActivity(), "Task Paused", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText((Context)mActivity, "Task Paused", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -149,19 +148,13 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                 public void onClick(View view) {
                     timer.pause();
                     mPresenter.onTimerComplete();
-                    Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
-                    Notification(getActivity());
+                    Toast.makeText((Context)mActivity, "Task Skipped", Toast.LENGTH_SHORT).show();
+                    mActivity.notification();
                 }
         });
 
         if(mPresenter.isTimerDone()) {
-            Notification(getActivity());
-        }
-    }
-
-    public void Notification(Activity activity) {
-        if ( activity instanceof MainActivity) {
-            ((MainActivity)activity).Notification();
+            mActivity.notification();
         }
     }
 }

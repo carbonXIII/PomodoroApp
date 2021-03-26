@@ -41,6 +41,7 @@ public class TimerPresenter
         this.mView = view;
         this.mView.setPresenter(this);
         this.mTaskStore = taskStore;
+        mTaskStore.subscribe(this);
     }
 
     private void setTimerType(TimerType type) {
@@ -68,15 +69,8 @@ public class TimerPresenter
 
     @Override
     public void start() {
-        mTaskStore.subscribe(this);
-
-        mTask = mTaskStore.getCurrentTask();
-        mTask.subscribe(this);
-
-        String taskName = mTask.getName();
-        mView.setTaskName(taskName);
-
-        onTimerComplete();
+        onCurrentTaskUpdate(mTaskStore.getCurrentTask());
+        onPlayButton();
     }
 
     @Override
@@ -117,11 +111,7 @@ public class TimerPresenter
     }
 
     @Override
-    public void pause() {}
-
-    public void Notification(Activity activity) {
-        if ( activity instanceof MainActivity) {
-            ((MainActivity)activity).Notification();
-        }
+    public void pause() {
+        onPauseButton();
     }
 }

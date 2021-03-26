@@ -38,13 +38,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:text="@string/update"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTaskName" />
+        android:layout_marginTop="44dp"
+        android:text="@string/save"
+        app:layout_constraintStart_toStartOf="@+id/editTextTaskName"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Button
+        android:id="@+id/button_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTaskName"
+        app:layout_constraintTop_toTopOf="@+id/button_save" />
 
     <EditText
         android:id="@+id/editTextNumber2"

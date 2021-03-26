@@ -6,6 +6,9 @@ import org.team.app.view.ActivityListener;
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /// The TaskStore representation
 public class TaskStore {
@@ -49,5 +52,17 @@ public class TaskStore {
         if(currentTask == null)
             createTask(defaultTaskName);
         return currentTask;
+    }
+
+    public List<Task> getTasks(String filter) {
+        // TODO: fix when there is a real list
+        ArrayList<Task> ret = new ArrayList<Task>();
+        ret.add(getCurrentTask());
+        return ret;
+    }
+
+    public Task getTaskByUUID(UUID uuid) {
+        // TODO: fix when there is a real list
+        return getCurrentTask();
     }
 }

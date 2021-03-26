@@ -35,7 +35,7 @@ class SetupTaskPresenterTest {
     void setupTaskStoreAndView() {
         view = new MockView();
         taskStore = new TaskStore("default");
-        presenter = new SetupTaskPresenter(view, taskStore);
+        presenter = new SetupTaskPresenter(view, taskStore, taskStore.getCurrentTask().getUUID());
         presenter.start();
     }
 
@@ -43,14 +43,6 @@ class SetupTaskPresenterTest {
     // UID 001 RID 016 Presenters should be attached to views
     void presenterShouldAttachToProvidedView() {
         assertEquals(view.mPresenter, presenter);
-    }
-
-    @Test
-    // UID 001 RID 015 Model updates should be propogated ...
-    void changingCurrentTaskShouldUpdateView() {
-        String newTaskName = UUID.randomUUID().toString();
-        taskStore.createTask(newTaskName);
-        assertEquals(newTaskName, view.name);
     }
 
     @Test
