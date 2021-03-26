@@ -11,79 +11,38 @@
         android:id="@+id/textView"
         android:layout_width="188dp"
         android:layout_height="50dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/task"
         android:textColor="@color/colorBlack"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextTaskName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTaskName" />
 
     <EditText
         android:id="@+id/editTextTaskName"
         android:layout_width="304dp"
         android:layout_height="53dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="@string/task_name"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
-        android:text="@string/default_task_name"
         android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:text="@string/update"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTaskName" />
-
-    <EditText
-        android:id="@+id/editTextNumberWork"
-        android:layout_width="58dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="85dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="@string/work_timer_text"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="85dp"
         android:layout_height="43dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/minutes"
         android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberWork"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberWork" />
 
     <EditText
         android:id="@+id/editTextNumberBreak"
@@ -91,33 +50,89 @@
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="5"
         android:inputType="number"
+        android:text="5"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberWork"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
         tools:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="85dp"
+        android:layout_height="43dp"
+        android:gravity="center"
+        android:text="@string/work_timer_text"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="85dp"
         android:layout_height="43dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:gravity="center"
         android:text="@string/break_timer_text"
         android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="85dp"
         android:layout_height="43dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="35dp"
         android:gravity="center"
         android:text="@string/minutes"
         android:textColor="@color/colorBlack"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberBreak"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumberBreak" />
+
+    <EditText
+        android:id="@+id/editTextNumberWork"
+        android:layout_width="58dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:ems="10"
+        android:hint="25"
+        android:inputType="number"
+        android:text="25"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="176dp"
+        android:layout_height="48dp"
+        android:background="@color/colorBlack"
+        android:text="@string/update"
+        android:textColor="@color/colorLightText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="164dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginLeft="123dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginRight="124dp"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/clip_board_4747711__340" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
