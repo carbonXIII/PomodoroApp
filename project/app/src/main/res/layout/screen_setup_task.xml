@@ -135,4 +135,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/clip_board_4747711__340" />
 
+    <Switch
+        android:id="@+id/settingsSwitch"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        android:checked="false"
+        android:text="@string/settings"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/settingsLayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="editTextNumberBreak,textView6,editTextNumberWork,textView4,textView5,textView2"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="512dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

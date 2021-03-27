@@ -8,12 +8,16 @@ public interface SetupTaskContract {
 
         /// Set the task name in response to model updates
         void setTaskName(String name);
+
+        /// Set the task time in response to model updates
+        void setTaskTime(TimerType type, long duration);
     }
 
     interface Presenter extends BasePresenter {
         /// Update the model with new task name from the view's form
         void setTaskName(String name);
 
+        /// Update the model with new task Time from the view's form
         void setTaskTime(TimerType type, long duration);
     }
 }

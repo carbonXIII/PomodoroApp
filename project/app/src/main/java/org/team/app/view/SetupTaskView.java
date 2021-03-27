@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.view.View;
 import android.view.KeyEvent;
@@ -15,6 +17,8 @@ import org.team.app.model.TimerType;
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
 
+import javax.xml.datatype.Duration;
+
 /// The fragment for the Task Setup screen
 public class SetupTaskView extends FragmentView implements SetupTaskContract.View {
     private SetupTaskContract.Presenter mPresenter;
@@ -22,6 +26,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     protected EditText taskNameText;
     protected EditText taskWorkTimeText;
     protected EditText taskBreakTimeText;
+
 
     public SetupTaskView() {
         super(R.layout.screen_setup_task);
@@ -35,6 +40,22 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     @Override
     public void setTaskName(String name) {
         taskNameText.setText(name);
+    }
+
+    @Override
+    public void setTaskTime(TimerType type, long duration)
+    {
+        // Convert Duration to minutes
+        duration = duration / (60 * 1000);
+
+        switch(type) {
+            case WORK:
+                taskWorkTimeText.setText(String.valueOf(duration));
+                break;
+            case BREAK:
+                taskBreakTimeText.setText(String.valueOf(duration));
+                break;
+        }
     }
 
     @Override
@@ -119,10 +140,24 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                     submitTaskName();
                     submitTaskTime(TimerType.WORK);
                     submitTaskTime(TimerType.BREAK);
+
+
                     // Toast pop up message to clarify that the task name has been updated
                     Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
                 }
             });
+
+        final Switch settingsSwitch = view.findViewById(R.id.settingsSwitch);
+        final androidx.constraintlayout.helper.widget.Layer settingsLayer = view.findViewById(R.id.settingsLayer);
+        settingsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    settingsLayer.setVisibility(View.VISIBLE);
+                else
+                    settingsLayer.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
 
