@@ -31,7 +31,8 @@
         android:maxLines="1"
         android:textColor="@color/colorBlack"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView4"
@@ -51,9 +52,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:ems="10"
-        android:hint="5"
+        android:hint="@string/break_time_hint"
+        android:importantForAutofill="no"
         android:inputType="number"
-        android:text="5"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/textView6"
         tools:textColor="@color/colorBlack" />
@@ -98,9 +99,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:ems="10"
-        android:hint="25"
+        android:hint="@string/work_time_hint"
+        android:importantForAutofill="no"
         android:inputType="number"
-        android:text="25"
         android:textColor="@color/colorBlack"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -129,6 +130,7 @@
         android:layout_marginEnd="124dp"
         android:layout_marginRight="124dp"
         android:layout_marginBottom="52dp"
+        android:contentDescription="@string/clipboard_image"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,9 +152,17 @@
         android:id="@+id/settingsLayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginRight="135dp"
+        android:layout_marginBottom="35dp"
         android:visibility="invisible"
         app:constraint_referenced_ids="editTextNumberBreak,textView6,editTextNumberWork,textView4,textView5,textView2"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="512dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
