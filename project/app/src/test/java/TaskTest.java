@@ -17,6 +17,7 @@ import java.lang.ref.WeakReference;
 class TaskTest {
     static class MockSubscriber implements Task.Listener, TaskStore.Listener {
         public String name = null;
+        public String category = null;
         protected long duration = 0;
 
         @Override
@@ -34,6 +35,11 @@ class TaskTest {
         }
 
         @Override
+        public void onTaskCategoryUpdate(Task task, String category) {
+            this.category = category;
+        }
+
+        @Override
         public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {
             this.duration = newDuration;
         }
@@ -43,15 +49,16 @@ class TaskTest {
     // UID 022 RID 000 have a user be able to name a task.
     void createTaskWithName() {
         String testName = "TEST";
-        Task task = new Task(testName);
+        Task task = new Task(testName, testName);
         assertEquals(task.getName(), testName);
+        assertEquals(task.getCategory(), testName);
     }
 
     @Test
     // UID 003 RID 012 each task should have a unique id number.
     void taskShouldHaveUniqueUUID() {
-        Task task = new Task("A");
-        Task task2 = new Task("A");
+        Task task = new Task("A", "A");
+        Task task2 = new Task("A", "A");
 
         assertNotEquals(task.getUUID(), task2.getUUID());
     }
@@ -61,7 +68,7 @@ class TaskTest {
     void updatingTaskNameShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 
-        Task task = new Task("A");
+        Task task = new Task("A", "A");
         task.subscribe(sub);
 
         String updatedTaskName = UUID.randomUUID().toString();
@@ -75,7 +82,7 @@ class TaskTest {
     void updatingTaskTimerDurationShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 
-        Task task = new Task("A");
+        Task task = new Task("A", "A");
         task.subscribe(sub);
 
         long updatedTaskDuration = 500;
@@ -89,7 +96,7 @@ class TaskTest {
     // Listener maps in Task/TaskStore should hold weak references to
     // listeners so that they can be GC'd.
     void listenerMapsShouldHoldWeakReferences() {
-        TaskStore store = new TaskStore("A");
+        TaskStore store = new TaskStore("A", "A");
 
         final int M = 1000;
         MockSubscriber[] subs = new MockSubscriber[M];
@@ -117,17 +124,17 @@ class TaskTest {
     @Test
     void taskStoreShouldStartWithDefaultTask() {
         String defaultName = "default";
-        TaskStore store = new TaskStore(defaultName);
+        TaskStore store = new TaskStore(defaultName, "general");
         assertEquals(store.getCurrentTask().getName(), defaultName);
     }
 
     @Test
     //UID 022 RID 010 the created task should be on the screen.
     void taskStoreCreateTaskShouldAddTaskToList() {
-        TaskStore store = new TaskStore("default");
+        TaskStore store = new TaskStore("default", "general");
 
         String taskName = "TEST";
-        UUID task = store.createTask(taskName);
+        UUID task = store.createTask(taskName, null);
         Task val = store.getTaskByUUID(task);
 
         assertNotNull(val);
@@ -138,11 +145,11 @@ class TaskTest {
     void updateCurrentTaskShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 
-        TaskStore store = new TaskStore("default");
+        TaskStore store = new TaskStore("default", "general");
         store.subscribe(sub);
 
         String updatedTaskName = UUID.randomUUID().toString();
-        UUID task = store.createTask(updatedTaskName);
+        UUID task = store.createTask(updatedTaskName, null);
         store.setCurrentTask(task);
 
         assertEquals(sub.name, updatedTaskName);
@@ -151,13 +158,13 @@ class TaskTest {
     @Test
     // UID 019 RID 025 The task list should contain all tabs by default
     void getTaskWithEmptyFilterShouldReturnAListofAllTasks() {
-        TaskStore store = new TaskStore("default");
+        TaskStore store = new TaskStore("default", "general");
 
         ArrayList<UUID> expected = new ArrayList<UUID>();
-        expected.add(store.createTask("A"));
-        expected.add(store.createTask("B"));
-        expected.add(store.createTask("C"));
-        expected.add(store.createTask("D"));
+        expected.add(store.createTask("A", null));
+        expected.add(store.createTask("B", null));
+        expected.add(store.createTask("C", null));
+        expected.add(store.createTask("D", null));
 
         Collection<Task> got = store.getTasks("");
         assertEquals(got.size(), expected.size());
@@ -169,14 +176,14 @@ class TaskTest {
     @Test
     // UID 019 RID 031 Typing in a filter will filter the list of displayed tasks
     void getTaskWithFilterShouldReturnReasonableSubsetOfTasks() {
-        TaskStore store = new TaskStore("default");
+        TaskStore store = new TaskStore("default", "general");
 
         ArrayList<UUID> expected = new ArrayList<UUID>();
-        expected.add(store.createTask("foo A"));
-        expected.add(store.createTask("foo B"));
-        expected.add(store.createTask("foobar C"));
-        store.createTask("bar D");
-        store.createTask("fobar D");
+        expected.add(store.createTask("foo A", null));
+        expected.add(store.createTask("foo B", null));
+        expected.add(store.createTask("foobar C", null));
+        store.createTask("bar D", null);
+        store.createTask("fobar D", null);
 
         Collection<Task> got = store.getTasks("foo");
 

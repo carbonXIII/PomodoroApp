@@ -63,6 +63,10 @@ public class TimerPresenter
     }
 
     @Override
+    public void onTaskCategoryUpdate(Task task, String newCategory) {
+    }
+
+    @Override
     public void onTaskTimerDurationUpdate(Task task, TimerType type, long newDuration) {
         if(task == mTask && type == timerType) {
             boolean wasRunning = false;

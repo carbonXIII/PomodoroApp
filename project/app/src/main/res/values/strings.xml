@@ -3,8 +3,10 @@
     <string name="app_name">Pomodoro</string>
     <string name="task">Task</string>
     <string name="default_task_name">My Task</string>
+    <string name="default_task_category">General</string>
     <string name="save">Save</string>
-    <string name="task_name">Task name</string>
+    <string name="task_name">Name</string>
+    <string name="task_category">Category</string>
     <string name="placeholder">Replace</string>
     <string name="skip">Skip</string>
     <string name="pause">Pause</string>

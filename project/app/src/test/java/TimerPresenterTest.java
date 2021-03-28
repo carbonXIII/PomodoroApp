@@ -68,7 +68,7 @@ class TimerPresenterTest {
     @BeforeEach
     void setupTaskStoreAndView() {
         view = new MockView();
-        taskStore = new TaskStore("default");
+        taskStore = new TaskStore("default", "general");
         presenter = new TimerPresenter(view, taskStore);
         presenter.start();
     }
@@ -86,7 +86,7 @@ class TimerPresenterTest {
     // UID 019 RID 030 Changing current task resets timer
     void changingCurrentTaskShouldUpdateView() {
         String newTaskName = UUID.randomUUID().toString();
-        UUID task = taskStore.createTask(newTaskName);
+        UUID task = taskStore.createTask(newTaskName, null);
         taskStore.setCurrentTask(task);
         assertEquals(newTaskName, view.name);
         assertEquals(TimerType.WORK, view.type);

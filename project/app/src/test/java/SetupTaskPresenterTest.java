@@ -40,7 +40,7 @@ class SetupTaskPresenterTest {
     @BeforeEach
     void setupTaskStoreAndView() {
         view = new MockView();
-        taskStore = new TaskStore("default");
+        taskStore = new TaskStore("default", "general");
         presenter = new SetupTaskPresenter(view, taskStore, taskStore.getCurrentTask().getUUID());
         presenter.start();
     }

@@ -23,6 +23,7 @@ public class TaskStore {
 
     protected Task currentTask = null;
     protected final String defaultTaskName;
+    protected final String defaultTaskCategory;
 
     /// Listener for Task Store Updates
     public static interface Listener {
@@ -58,8 +59,9 @@ public class TaskStore {
 
     /// Construct an in-memory Task Store
     /// @param defaultTaskName: the name for the default task
-    public TaskStore(String defaultTaskName) {
+    public TaskStore(String defaultTaskName, String defaultTaskCategory) {
         this.defaultTaskName = defaultTaskName;
+        this.defaultTaskCategory = defaultTaskCategory;
         // weak hash map so old listeners that have been GC'd will be removed
         this.listeners = Collections.newSetFromMap(new WeakHashMap<Listener,Boolean>());
         this.list = new HashMap<UUID, Task>();
@@ -68,8 +70,9 @@ public class TaskStore {
 
     /// Create a task
     /// @return the UUID/handle for the Task
-    public UUID createTask(String taskName) {
-        Task task = new Task(taskName == null ? defaultTaskName : taskName);
+    public UUID createTask(String taskName, String category) {
+        Task task = new Task(taskName == null ? defaultTaskName : taskName,
+                             category == null ? defaultTaskCategory : category);
         list.put(task.getUUID(), task);
 
         if(this.currentTask == null)
@@ -96,7 +99,7 @@ public class TaskStore {
     /// Get a reference to the current task
     public Task getCurrentTask() {
         if(currentTask == null) {
-            setCurrentTask(createTask(null));
+            setCurrentTask(createTask(null, null));
         }
         return currentTask;
     }

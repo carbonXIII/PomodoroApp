@@ -108,6 +108,21 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 }
             });
 
+        // taskCategoryText = ((TextInputLayout) view.findViewById(R.id.outlinedTaskName)).getEditText();
+        // taskCategoryText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        //     @Override
+        //     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        //         if (actionId == EditorInfo.IME_ACTION_DONE
+        //                 || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
+        //             mActivity.hideKeyboard();
+        //             submitTaskName(true);
+        //             return true;
+        //         }
+
+        //         return false;
+        //     }
+        // });
+
         taskWorkTimeText = view.findViewById(R.id.editTextNumberWork);
         taskWorkTimeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

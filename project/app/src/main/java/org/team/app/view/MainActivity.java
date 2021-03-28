@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         setContentView(R.layout.activity_main);
 
         // Setup Task Store
-        mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name));
+        mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name),
+                                   getResources().getString(R.string.default_task_category));
 
         // Setup Tabs
         taskTab = new TabInfo() {

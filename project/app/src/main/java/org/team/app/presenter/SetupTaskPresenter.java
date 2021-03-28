@@ -43,6 +43,10 @@ public class SetupTaskPresenter
     }
 
     @Override
+    public void onTaskCategoryUpdate(Task task, String newCategory) {
+    }
+
+    @Override
     public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {
     }
 
