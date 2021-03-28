@@ -111,16 +111,6 @@ public class TimerPresenter
         }
     }
 
-    // Check if timer is done, not sure if it completely works
-    public Boolean isTimerDone() {
-        if(this.lastTimerDuration <= 0) {
-            return Boolean.TRUE;
-        }
-        else {
-            return Boolean.FALSE;
-        }
-    }
-
     @Override
     public void pause() {
         onPauseButton();

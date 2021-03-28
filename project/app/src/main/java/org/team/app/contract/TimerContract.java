@@ -32,8 +32,5 @@ public interface TimerContract {
 
         /// Called when the play button is hit on the view
         void onPlayButton();
-
-        /// Called when a timer is done
-        Boolean isTimerDone();
     }
 }

@@ -88,14 +88,25 @@ public class Task implements Comparable<Task> {
 
     /// Sets the duration for a timer type, and calls attached listeners with the update
     public void setTimerDuration(TimerType type, long duration) {
+        boolean updated = false;
+
         switch(type) {
         case WORK:
-            this.workDuration = duration;
+            if(this.workDuration != duration) {
+                this.workDuration = duration;
+                updated = true;
+            }
             break;
         case BREAK:
-            this.breakDuration = duration;
+            if (this.breakDuration != duration) {
+                this.breakDuration = duration;
+                updated = true;
+            }
             break;
         }
+
+        if(!updated)
+            return;
 
         for (Listener listener : getListeners())
             listener.onTaskTimerDurationUpdate(this, type, duration);
