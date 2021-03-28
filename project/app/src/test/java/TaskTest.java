@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.team.app.model.TaskStore;
 import org.team.app.model.TimerType;
 
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.lang.ref.WeakReference;
 
 class TaskTest {
@@ -19,6 +22,10 @@ class TaskTest {
         @Override
         public void onCurrentTaskUpdate(Task newTask) {
             this.name = newTask.getName();
+        }
+
+        @Override
+        public void onTaskAdded(Task newTask) {
         }
 
         @Override
@@ -115,14 +122,15 @@ class TaskTest {
     }
 
     @Test
-    //UID 022 RID 010 the created task should stay on screen.
-    void taskStoreCreateTaskShouldSetCurrentTask() {
+    //UID 022 RID 010 the created task should be on the screen.
+    void taskStoreCreateTaskShouldAddTaskToList() {
         TaskStore store = new TaskStore("default");
 
         String taskName = "TEST";
-        store.createTask(taskName);
+        UUID task = store.createTask(taskName);
+        Task val = store.getTaskByUUID(task);
 
-        assertEquals(store.getCurrentTask().getName(), taskName);
+        assertNotNull(val);
     }
 
     @Test
@@ -134,8 +142,45 @@ class TaskTest {
         store.subscribe(sub);
 
         String updatedTaskName = UUID.randomUUID().toString();
-        store.createTask(updatedTaskName);
+        UUID task = store.createTask(updatedTaskName);
+        store.setCurrentTask(task);
 
         assertEquals(sub.name, updatedTaskName);
+    }
+
+    @Test
+    // UID 019 RID 025 The task list should contain all tabs by default
+    void getTaskWithEmptyFilterShouldReturnAListofAllTasks() {
+        TaskStore store = new TaskStore("default");
+
+        ArrayList<UUID> expected = new ArrayList<UUID>();
+        expected.add(store.createTask("A"));
+        expected.add(store.createTask("B"));
+        expected.add(store.createTask("C"));
+        expected.add(store.createTask("D"));
+
+        Collection<Task> got = store.getTasks("");
+        assertEquals(got.size(), expected.size());
+
+        for (Task task : got)
+            assert(expected.contains(task.getUUID()));
+    }
+
+    @Test
+    // UID 019 RID 031 Typing in a filter will filter the list of displayed tasks
+    void getTaskWithFilterShouldReturnReasonableSubsetOfTasks() {
+        TaskStore store = new TaskStore("default");
+
+        ArrayList<UUID> expected = new ArrayList<UUID>();
+        expected.add(store.createTask("foo A"));
+        expected.add(store.createTask("foo B"));
+        expected.add(store.createTask("foobar C"));
+        store.createTask("bar D");
+        store.createTask("fobar D");
+
+        Collection<Task> got = store.getTasks("foo");
+
+        for (Task task : got)
+            assert(expected.contains(task.getUUID()));
     }
 }

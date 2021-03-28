@@ -70,10 +70,14 @@ class TimerPresenterTest {
 
     @Test
     // UID 001 RID 015 Model updates should be propogated ...
+    // UID 019 RID 030 Changing current task resets timer
     void changingCurrentTaskShouldUpdateView() {
         String newTaskName = UUID.randomUUID().toString();
-        taskStore.createTask(newTaskName);
+        UUID task = taskStore.createTask(newTaskName);
+        taskStore.setCurrentTask(task);
         assertEquals(newTaskName, view.name);
+        assertEquals(TimerType.WORK, view.type);
+        assertEquals(taskStore.getTaskByUUID(task).getTimerDuration(view.type), view.duration);
     }
 
     @Test

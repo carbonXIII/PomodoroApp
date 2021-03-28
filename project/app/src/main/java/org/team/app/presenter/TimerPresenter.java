@@ -20,27 +20,15 @@ public class TimerPresenter
 
     protected Task mTask;
 
-    private  Boolean timerChange = Boolean.FALSE;
-    public static  int checkTimer = 0;
-
     protected TimerType timerType;
     protected long lastTimerDuration = -1;
-
-    public Boolean getTimerChange() {
-        timerChange = Boolean.TRUE;
-        return this.timerChange;
-    }
-
-    public int getCheckTimer() {
-        checkTimer = 1;
-        return this.checkTimer;
-    }
 
     /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {
         this.mView = view;
         this.mView.setPresenter(this);
         this.mTaskStore = taskStore;
+        mTaskStore.subscribe(this);
     }
 
     private void setTimerType(TimerType type) {
@@ -50,17 +38,28 @@ public class TimerPresenter
 
     @Override
     public void onCurrentTaskUpdate(Task newTask) {
-        if (mTask != null)
+        if (mTask != null) {
             mTask.unsubscribe(this);
+            onPauseButton();
+            this.lastTimerDuration = -1;
+        }
+
         mTask = newTask;
         mTask.subscribe(this);
 
         mView.setTaskName(mTask.getName());
+        timerType = null;
+        onPlayButton();
+    }
+
+    @Override
+    public void onTaskAdded(Task newTask) {
     }
 
     @Override
     public void onTaskNameUpdate(Task task, String newName) {
-        mView.setTaskName(newName);
+        if(task.getUUID() == mTask.getUUID())
+            mView.setTaskName(newName);
     }
 
     @Override
@@ -68,15 +67,8 @@ public class TimerPresenter
 
     @Override
     public void start() {
-        mTaskStore.subscribe(this);
-
-        mTask = mTaskStore.getCurrentTask();
-        mTask.subscribe(this);
-
-        String taskName = mTask.getName();
-        mView.setTaskName(taskName);
-
-        onTimerComplete();
+        onCurrentTaskUpdate(mTaskStore.getCurrentTask());
+        onPlayButton();
     }
 
     @Override
@@ -117,11 +109,7 @@ public class TimerPresenter
     }
 
     @Override
-    public void pause() {}
-
-    public void Notification(Activity activity) {
-        if ( activity instanceof MainActivity) {
-            ((MainActivity)activity).Notification();
-        }
+    public void pause() {
+        onPauseButton();
     }
 }

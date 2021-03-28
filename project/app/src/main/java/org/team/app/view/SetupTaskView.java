@@ -27,7 +27,6 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     protected EditText taskWorkTimeText;
     protected EditText taskBreakTimeText;
 
-
     public SetupTaskView() {
         super(R.layout.screen_setup_task);
     }
@@ -61,16 +60,18 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-
         mPresenter.start();
     }
 
-    private void submitTaskName() {
+    private void submitTaskName(boolean toast) {
         String taskName = taskNameText.getText().toString();
         mPresenter.setTaskName(taskName);
+
+        if(toast)
+            Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
     }
 
-    public void submitTaskTime(TimerType type){
+    public void submitTaskTime(TimerType type, boolean toast){
         long duration = 0;
         switch(type) {
             case WORK:
@@ -81,6 +82,9 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 break;
         }
         mPresenter.setTaskTime(type, duration * 60 * 1000);
+
+        if(toast)
+            Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,7 +98,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                     if(actionId == EditorInfo.IME_ACTION_DONE
                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
                         mActivity.hideKeyboard();
-                        submitTaskName();
+                        submitTaskName(true);
                         return true;
                     }
 
@@ -109,7 +113,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 if(actionId == EditorInfo.IME_ACTION_DONE
                         || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
                     mActivity.hideKeyboard();
-                    submitTaskTime(TimerType.WORK);
+                    submitTaskTime(TimerType.WORK, true);
                     return true;
                 }
 
@@ -125,27 +129,13 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 if(actionId == EditorInfo.IME_ACTION_DONE
                         || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
                     mActivity.hideKeyboard();
-                    submitTaskTime(TimerType.BREAK);
+                    submitTaskTime(TimerType.BREAK, true);
                     return true;
                 }
 
                 return false;
             }
         });
-
-        final Button button = view.findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    submitTaskName();
-                    submitTaskTime(TimerType.WORK);
-                    submitTaskTime(TimerType.BREAK);
-
-
-                    // Toast pop up message to clarify that the task name has been updated
-                    Toast.makeText(getActivity(), "Task Name Updated", Toast.LENGTH_SHORT).show();
-                }
-            });
 
         final Switch settingsSwitch = view.findViewById(R.id.settingsSwitch);
         final androidx.constraintlayout.helper.widget.Layer settingsLayer = view.findViewById(R.id.settingsLayer);
@@ -155,8 +145,30 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 if (isChecked)
                     settingsLayer.setVisibility(View.VISIBLE);
                 else
-                    settingsLayer.setVisibility(View.INVISIBLE);
+                    settingsLayer.setVisibility(View.GONE);
             }
+        });
+
+        final Button saveButton = view.findViewById(R.id.button_save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    submitTaskName(true);
+                }
+            });
+
+        final Button doneButton = view.findViewById(R.id.button_done);
+
+        final Fragment parentRef = (Fragment) this;
+        doneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    submitTaskTime(TimerType.WORK, false);
+                    submitTaskTime(TimerType.BREAK, false);
+                    submitTaskName(true);
+
+                    mActivity.closeFragment(parentRef);
+                }
         });
     }
 

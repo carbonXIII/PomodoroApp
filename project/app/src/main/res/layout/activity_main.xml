@@ -7,6 +7,14 @@
     android:background="#187379"
     tools:context=".MainActivity">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </androidx.viewpager.widget.ViewPager>
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,13 +39,6 @@
             android:background="@color/colorBlack"
             app:tabTextColor="@color/colorLightText" />
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackround"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

@@ -6,5 +6,7 @@
     <color name="colorLightSecondary">#D6CD5C</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLightText">#C2EFF2</color>
-
+    <color name="colorItemBase">#025A60</color>
+    <color name="colorItemAlt">#135257</color>
+    <color name="colorItemSelected">#000000</color>
 </resources>
