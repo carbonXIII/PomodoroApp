@@ -49,6 +49,11 @@ public class SetupTaskPresenter
 
         String taskName = mTask.getName();
         mView.setTaskName(taskName);
+
+        long workDuration = mTask.getTimerDuration(TimerType.WORK);
+        long breakDuration = mTask.getTimerDuration(TimerType.BREAK);
+        mView.setTaskTime(TimerType.WORK, workDuration);
+        mView.setTaskTime(TimerType.BREAK, breakDuration);
     }
 
     @Override

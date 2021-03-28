@@ -21,4 +21,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="minutes">Minutes</string>
+    <string name="settings">Settings</string>
+    <string name="work_time_hint">25</string>
+    <string name="break_time_hint">5</string>
+    <string name="clipboard_image">Clipboard Image</string>
 </resources>
