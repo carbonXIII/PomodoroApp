@@ -26,6 +26,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     private SetupTaskContract.Presenter mPresenter;
 
     protected EditText taskNameText;
+    protected EditText taskCategoryText;
     protected EditText taskWorkTimeText;
     protected EditText taskBreakTimeText;
 
@@ -41,6 +42,11 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     @Override
     public void setTaskName(String name) {
         taskNameText.setText(name);
+    }
+
+    @Override
+    public void setTaskCategory(String category) {
+        taskCategoryText.setText(category);
     }
 
     @Override
@@ -73,6 +79,14 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
             Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
     }
 
+    private void submitTaskCategory(boolean toast) {
+        String taskName = taskCategoryText.getText().toString();
+        mPresenter.setTaskCategory(taskName);
+
+        if(toast)
+            Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
+    }
+
     public void submitTaskTime(TimerType type, boolean toast){
         long duration = 0;
         switch(type) {
@@ -89,18 +103,22 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
             Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private EditText setupTextBox(View view, int viewId, boolean isMaterial, Runnable f) {
+        EditText ret;
+        if(isMaterial) {
+            ret = ((TextInputLayout)view.findViewById(viewId)).getEditText();
+        } else {
+            ret = view.findViewById(viewId);
+        }
 
-        taskNameText = ((TextInputLayout)view.findViewById(R.id.outlinedTaskName)).getEditText();
-        taskNameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        SetupTaskView parentRef = this;
+        ret.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if(actionId == EditorInfo.IME_ACTION_DONE
                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
                         mActivity.hideKeyboard();
-                        submitTaskName(true);
+                        f.run();
                         return true;
                     }
 
@@ -108,51 +126,22 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 }
             });
 
-        // taskCategoryText = ((TextInputLayout) view.findViewById(R.id.outlinedTaskName)).getEditText();
-        // taskCategoryText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-        //     @Override
-        //     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        //         if (actionId == EditorInfo.IME_ACTION_DONE
-        //                 || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
-        //             mActivity.hideKeyboard();
-        //             submitTaskName(true);
-        //             return true;
-        //         }
+        return ret;
+    }
 
-        //         return false;
-        //     }
-        // });
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        taskWorkTimeText = view.findViewById(R.id.editTextNumberWork);
-        taskWorkTimeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE
-                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                    mActivity.hideKeyboard();
-                    submitTaskTime(TimerType.WORK, true);
-                    return true;
-                }
+        taskNameText = setupTextBox(view, R.id.outlinedTaskName, true, () -> submitTaskName(true));
 
-                return false;
-            }
-        });
+        taskCategoryText = setupTextBox(view, R.id.outlinedTaskCategory, true, () -> submitTaskCategory(true));
 
+        taskWorkTimeText = setupTextBox(view, R.id.editTextNumberWork, false,
+                                        () -> submitTaskTime(TimerType.WORK, true));
 
-        taskBreakTimeText = view.findViewById(R.id.editTextNumberBreak);
-        taskBreakTimeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE
-                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                    mActivity.hideKeyboard();
-                    submitTaskTime(TimerType.BREAK, true);
-                    return true;
-                }
-
-                return false;
-            }
-        });
+        taskBreakTimeText = setupTextBox(view, R.id.editTextNumberBreak, false,
+                                        () -> submitTaskTime(TimerType.BREAK, true));
 
         final Switch settingsSwitch = view.findViewById(R.id.settingsSwitch);
         final androidx.constraintlayout.helper.widget.Layer settingsLayer = view.findViewById(R.id.settingsLayer);
@@ -182,7 +171,10 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
                 public void onClick(View v) {
                     submitTaskTime(TimerType.WORK, false);
                     submitTaskTime(TimerType.BREAK, false);
-                    submitTaskName(true);
+                    submitTaskName(false);
+                    submitTaskCategory(false);
+
+                    Toast.makeText(getActivity(), "Task Details Updated", Toast.LENGTH_SHORT).show();
 
                     mActivity.closeFragment(parentRef);
                 }

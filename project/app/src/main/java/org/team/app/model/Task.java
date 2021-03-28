@@ -104,9 +104,8 @@ public class Task implements Comparable<Task>, Serializable {
     public void setCategory(String category) {
         this.category = category;
 
-        for(Listener listener: getListeners()) {
+        for(Listener listener: getListeners())
             listener.onTaskCategoryUpdate(this, category);
-        }
     }
 
     /// Sets the duration for a timer type, and calls attached listeners with the update

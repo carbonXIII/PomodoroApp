@@ -79,6 +79,20 @@ class TaskTest {
 
     @Test
     // UID 001 RID 015 model updates should propogate to subscribers
+    void updatingTaskCategoryShouldUpdateSubscribers() {
+        MockSubscriber sub = new MockSubscriber();
+
+        Task task = new Task("A", "A");
+        task.subscribe(sub);
+
+        String updatedTaskCategory = UUID.randomUUID().toString();
+        task.setCategory(updatedTaskCategory);
+
+        assertEquals(sub.category, updatedTaskCategory);
+    }
+
+    @Test
+    // UID 001 RID 015 model updates should propogate to subscribers
     void updatingTaskTimerDurationShouldUpdateSubscribers() {
         MockSubscriber sub = new MockSubscriber();
 

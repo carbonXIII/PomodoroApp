@@ -44,6 +44,7 @@ public class SetupTaskPresenter
 
     @Override
     public void onTaskCategoryUpdate(Task task, String newCategory) {
+        mView.setTaskCategory(newCategory);
     }
 
     @Override
@@ -54,6 +55,9 @@ public class SetupTaskPresenter
     public void start() {
         String taskName = mTask.getName();
         mView.setTaskName(taskName);
+
+        String taskCategory = mTask.getCategory();
+        mView.setTaskCategory(taskCategory);
 
         long workDuration = mTask.getTimerDuration(TimerType.WORK);
         long breakDuration = mTask.getTimerDuration(TimerType.BREAK);
@@ -68,6 +72,11 @@ public class SetupTaskPresenter
     @Override
     public void setTaskName(String name) {
         mTask.setName(name);
+    }
+
+    @Override
+    public void setTaskCategory(String category) {
+        mTask.setCategory(category);
     }
 
     @Override
