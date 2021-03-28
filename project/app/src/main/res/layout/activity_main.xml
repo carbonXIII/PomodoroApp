@@ -18,7 +18,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlack"
+        android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
@@ -36,7 +36,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBlack"
+            android:background="@color/colorPrimary"
             app:tabTextColor="@color/colorLightText" />
     </com.google.android.material.appbar.AppBarLayout>
 

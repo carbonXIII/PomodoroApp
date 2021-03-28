@@ -65,9 +65,16 @@ public class TimerPresenter
     @Override
     public void onTaskTimerDurationUpdate(Task task, TimerType type, long newDuration) {
         if(task == mTask && type == timerType) {
-            mView.stopTimer();
+            boolean wasRunning = false;
+            if(mView.running()) {
+                wasRunning = true;
+                mView.stopTimer();
+            }
             this.lastTimerDuration = newDuration;
+
             onPlayButton();
+            if(!wasRunning)
+                mView.stopTimer();
         }
     }
 

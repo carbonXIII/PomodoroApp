@@ -71,6 +71,11 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
+    public boolean running() {
+        return timer.running();
+    }
+
+    @Override
     public void onTimerResume() {
         pauseButton.setText(pauseText);
     }

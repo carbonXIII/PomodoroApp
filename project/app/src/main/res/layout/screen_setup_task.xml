@@ -5,6 +5,7 @@
     android:background="@color/colorBackround"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,48 +18,53 @@
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:text="@string/task"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editTextTaskName"
+            app:layout_constraintStart_toStartOf="@+id/outlinedTaskName"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-        <EditText
-            android:id="@+id/editTextTaskName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTaskName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="304dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="@string/task_name"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/colorBlack"
+            android:hint="Task Name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:endIconMode="clear_text"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/editTextTaskName"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintStart_toStartOf="@+id/outlinedTaskName"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/done"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTaskName"
+            app:layout_constraintEnd_toEndOf="@+id/outlinedTaskName"
             app:layout_constraintTop_toTopOf="@+id/button_save" />
 
         <TextView
@@ -67,7 +73,8 @@
             android:layout_height="43dp"
             android:gravity="center"
             android:text="@string/work_timer_text"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
@@ -81,9 +88,10 @@
             android:hint="@string/break_time_hint"
             android:importantForAutofill="no"
             android:inputType="number"
+            android:imeOptions="actionDone"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView6"
-            tools:textColor="@color/colorBlack" />
+            tools:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/textView4"
@@ -92,7 +100,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/minutes"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/editTextNumberWork"
             app:layout_constraintTop_toBottomOf="@+id/settingsSwitch" />
 
@@ -104,7 +112,7 @@
             android:layout_marginLeft="40dp"
             android:gravity="center"
             android:text="@string/break_timer_text"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
@@ -118,7 +126,8 @@
             android:hint="@string/work_time_hint"
             android:importantForAutofill="no"
             android:inputType="number"
-            android:textColor="@color/colorBlack"
+            android:imeOptions="actionDone"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
@@ -129,7 +138,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/minutes"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/editTextNumberBreak"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -150,15 +159,15 @@
 
         <Switch
             android:id="@+id/settingsSwitch"
-            android:layout_width="102dp"
-            android:layout_height="48dp"
+            android:layout_width="121dp"
+            android:layout_height="46dp"
             android:layout_marginTop="20dp"
             android:checked="false"
             android:text="@string/settings"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.124"
+            app:layout_constraintHorizontal_bias="0.137"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
+            app:layout_constraintTop_toBottomOf="@+id/outlinedTaskName" />
 
         <androidx.constraintlayout.helper.widget.Layer
             android:id="@+id/settingsLayer"
@@ -166,7 +175,6 @@
             android:layout_height="145dp"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="135dp"
             android:layout_marginRight="135dp"
             android:visibility="gone"
@@ -174,7 +182,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTaskName">
+            app:layout_constraintTop_toBottomOf="@+id/settingsSwitch">
 
         </androidx.constraintlayout.helper.widget.Layer>
 

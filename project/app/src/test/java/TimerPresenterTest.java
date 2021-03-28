@@ -23,6 +23,7 @@ class TimerPresenterTest {
         public long debugElapsed = 0;
 
         public long stopCount = 0;
+        public boolean isRunning = false;
 
         @Override
         public void setPresenter(TimerContract.Presenter presenter) {
@@ -42,12 +43,19 @@ class TimerPresenterTest {
         @Override
         public void startTimer(long duration) {
             this.duration = duration;
+            this.isRunning = true;
         }
 
         @Override
         public long stopTimer() {
-            stopCount++;
+            this.stopCount++;
+            this.isRunning = false;
             return debugElapsed;
+        }
+
+        @Override
+        public boolean running() {
+            return this.isRunning;
         }
     }
 
@@ -142,5 +150,14 @@ class TimerPresenterTest {
 
         assertEquals(view.duration, originalDuration);
         assertEquals(view.stopCount, originalCount);
+    }
+
+    @Test
+    void updatingTimerDurationOfPausedTimerShouldNotPlay() {
+        long debugDuration = view.duration / 2;
+
+        presenter.onPauseButton();
+        taskStore.getCurrentTask().setTimerDuration(view.type, debugDuration);
+        assert(!view.running());
     }
 }

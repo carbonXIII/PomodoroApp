@@ -18,6 +18,9 @@ public interface TimerContract {
         /// Stop the timer. Does not call onTimerComplete()
         /// @return the elapsed time in milliseconds
         long stopTimer();
+
+        /// @return true if the timer is running, else false
+        boolean running();
     }
 
     interface Presenter extends BasePresenter {

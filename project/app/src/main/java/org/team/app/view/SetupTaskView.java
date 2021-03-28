@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.team.app.model.TimerType;
 import org.team.app.view.R;
 import org.team.app.contract.SetupTaskContract;
@@ -91,7 +93,7 @@ public class SetupTaskView extends FragmentView implements SetupTaskContract.Vie
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        taskNameText = view.findViewById(R.id.editTextTaskName);
+        taskNameText = ((TextInputLayout)view.findViewById(R.id.outlinedTaskName)).getEditText();
         taskNameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

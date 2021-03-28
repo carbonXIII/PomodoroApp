@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.team.app.contract.ListTaskContract;
 
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
                 }
             });
 
-        final EditText search = view.findViewById(R.id.text_search);
+        final EditText search = ((TextInputLayout)view.findViewById(R.id.outlinedSearch)).getEditText();
         search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void afterTextChanged(Editable s) {
