@@ -8,10 +8,12 @@ import java.util.WeakHashMap;
 import java.util.HashSet;
 import java.util.ConcurrentModificationException;
 
+import java.io.Serializable;
+
 import static org.team.app.model.TimerType.WORK;
 
 /// Task representation
-public class Task implements Comparable<Task> {
+public class Task implements Comparable<Task>, Serializable {
     protected final UUID uuid;
     protected String name;
     protected String category;
@@ -38,7 +40,7 @@ public class Task implements Comparable<Task> {
         public void onTaskTimerDurationUpdate(Task task, TimerType type, long newDuration);
     }
 
-    protected Set<Listener> listeners;
+    protected transient Set<Listener> listeners;
 
     private Set<Listener> getListeners() {
         synchronized (listeners) {
@@ -76,6 +78,11 @@ public class Task implements Comparable<Task> {
         this.category = category;
 
         this.listeners = Collections.newSetFromMap(new WeakHashMap<Listener,Boolean>());
+    }
+
+    private Object readResolve() {
+        this.listeners = Collections.newSetFromMap(new WeakHashMap<Listener,Boolean>());
+        return this;
     }
 
     public String getName() {
