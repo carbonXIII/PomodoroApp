@@ -20,6 +20,7 @@ class TimerPresenterTest {
         public TimerType type;
 
         public long duration;
+        public long maxDuration;
         public long debugElapsed = 0;
 
         public long stopCount = 0;
@@ -41,8 +42,9 @@ class TimerPresenterTest {
         }
 
         @Override
-        public void startTimer(long duration) {
+        public void startTimer(long duration, long maxDuration) {
             this.duration = duration;
+            this.maxDuration = maxDuration;
             this.isRunning = true;
         }
 

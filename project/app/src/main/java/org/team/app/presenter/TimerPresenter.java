@@ -93,7 +93,7 @@ public class TimerPresenter
         }
 
         this.lastTimerDuration = mTask.getTimerDuration(timerType);
-        mView.startTimer(this.lastTimerDuration);
+        mView.startTimer(this.lastTimerDuration, this.lastTimerDuration);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class TimerPresenter
         if(this.lastTimerDuration <= 0) {
             onTimerComplete();
         } else {
-            mView.startTimer(this.lastTimerDuration);
+            mView.startTimer(this.lastTimerDuration, mTask.getTimerDuration(timerType));
         }
     }
 

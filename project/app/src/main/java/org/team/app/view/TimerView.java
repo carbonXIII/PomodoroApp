@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TimerType;
@@ -21,11 +22,13 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected TextView timerText;
     protected Button pauseButton;
     protected Button skipButton;
+    protected CircularProgressIndicator progressIndicator;
 
     protected final Timer timer;
+    protected long maxDuration;
     protected long timerDuration = -1;
 
-    public static final int TICK_RATE_MS = 500;
+    public static final int TICK_RATE_MS = 250;
 
     protected String workTimeText;
     protected String breakTimeText;
@@ -60,8 +63,10 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
-    public void startTimer(long duration) {
+    public void startTimer(long duration, long maxDuration) {
+        this.maxDuration = maxDuration;
         this.timerDuration = duration;
+        this.progressIndicator.setProgressCompat(this.progressIndicator.getMax(), true);
         timer.resume();
     }
 
@@ -83,6 +88,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void onTimerTick(long timeElapsed) {
         long remaining = timerDuration - timeElapsed;
+
+        this.progressIndicator.setProgressCompat((int)(remaining * this.progressIndicator.getMax() / maxDuration), true);
 
         long seconds = (remaining + 999) / 1000;
         long minutes = seconds / 60;
@@ -154,5 +161,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                     mActivity.notification();
                 }
         });
+
+        progressIndicator = view.findViewById(R.id.progress_timer);
     }
 }

@@ -35,18 +35,30 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginLeft="91dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginRight="90dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_task_title"
         app:srcCompat="@drawable/ic_group_2" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_timer"
+        android:layout_width="227dp"
+        android:layout_height="229dp"
+        android:max="65537"
+        android:min="0"
+        android:progress="100"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorDirectionCircular="counterclockwise"
+        app:indicatorSize="200dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:trackColor="@color/colorLightText"
+        app:trackThickness="10dp" />
 
     <TextView
         android:id="@+id/text_task_title"

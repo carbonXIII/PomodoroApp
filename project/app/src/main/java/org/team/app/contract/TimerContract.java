@@ -13,7 +13,7 @@ public interface TimerContract {
         /// Start a new timer, updating the timer text every tick.
         /// Calls onTimerComplete() on the attached presenter when done.
         /// @param duration: the time in milliseconds to run before finished.
-        void startTimer(long duration);
+        void startTimer(long duration, long maxDuration);
 
         /// Stop the timer. Does not call onTimerComplete()
         /// @return the elapsed time in milliseconds
