@@ -21,12 +21,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.preference.PreferenceManager;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.presenter.TimerPresenter;
@@ -38,12 +40,19 @@ import org.team.app.model.TaskStore;
 import java.util.Calendar;
 import java.util.UUID;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /// The main activity of the app, handles lifetimes of all other objects
 public class MainActivity extends AppCompatActivity implements ActivityListener, ViewPager.OnPageChangeListener {
-    protected TaskStore mTaskStore;
+    protected TaskStore mTaskStore = null;
     protected TabInfo timerTab;
     protected TabInfo taskTab;
     protected ViewPager mPager;
+
+    public final static String TASK_STORE_LATEST = "task_store_latest";
 
     @Override
     public TabInfo getTab(int position) {
@@ -110,12 +119,83 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         }
     }
 
+    private String serializeTaskStore() {
+        if(mTaskStore == null)
+            return null;
+
+        System.out.println("Attempting to serialize task store.");
+        String name = null;
+        while(name == null) {
+            name = "task_store.ser." + System.currentTimeMillis();
+            File file = new File(getFilesDir(), name);
+            if(file.exists())
+                name = null;
+        }
+
+        System.out.println("Found available file name: " + name);
+
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(openFileOutput(name, MODE_PRIVATE));
+            os.writeObject(mTaskStore);
+            os.close();
+        } catch(IOException e) {
+            System.err.println("Failed to serialize task store: ");
+            e.printStackTrace();
+            return null;
+        }
+
+        System.out.println("Successfully serialized task store");
+
+        return name;
+    }
+
+    private TaskStore deserializeTaskStore(String path) {
+        System.out.println("Attempting to deserialize task store @" + path);
+        if(path == null)
+            return null;
+
+        TaskStore ret;
+
+        try {
+            ObjectInputStream is = new ObjectInputStream(openFileInput(path));
+            ret = (TaskStore) is.readObject();
+        } catch(IOException|ClassCastException|ClassNotFoundException e) {
+            System.err.println("Failed to deserialize task store: ");
+            e.printStackTrace();
+            return null;
+        }
+
+        System.out.println("Successfully deserialized task store");
+
+        return ret;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        String updatedPath = serializeTaskStore();
+        if(updatedPath == null)
+            return;
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        settings.edit()
+            .putString(TASK_STORE_LATEST, updatedPath)
+            .apply();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Setup Task Store
-        mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name));
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        mTaskStore = deserializeTaskStore(settings.getString(TASK_STORE_LATEST, null));
+
+        if (mTaskStore == null) {
+            mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name));
+        }
 
         // Setup Tabs
         taskTab = new TabInfo() {

@@ -16,8 +16,10 @@ import java.util.ConcurrentModificationException;
 import java.util.TreeSet;
 import java.util.Collection;
 
+import java.io.Serializable;
+
 /// The TaskStore representation
-public class TaskStore {
+public class TaskStore implements Serializable {
     // TODO support multiple tasks
     // TODO serialize and store in bundle
 
@@ -32,8 +34,8 @@ public class TaskStore {
         public void onTaskAdded(Task newTask);
     }
 
-    Set<Listener> listeners;
-    Map<UUID, Task> list;
+    protected transient Set<Listener> listeners;
+    protected Map<UUID, Task> list;
 
     private Set<Listener> getListeners() {
         synchronized (listeners) {
@@ -65,6 +67,10 @@ public class TaskStore {
         this.list = new HashMap<UUID, Task>();
     }
 
+    private Object readResolve() {
+        this.listeners = Collections.newSetFromMap(new WeakHashMap<Listener,Boolean>());
+        return this;
+    }
 
     /// Create a task
     /// @return the UUID/handle for the Task
