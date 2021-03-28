@@ -27,6 +27,9 @@ public interface TimerContract {
         /// Called when a started timer completes (time elapsed >= duration)
         void onTimerComplete();
 
+        /// Called when a skip button is clicked
+        void onTimerSkip();
+
         /// Called when the pause button is hit on the view
         void onPauseButton();
 
