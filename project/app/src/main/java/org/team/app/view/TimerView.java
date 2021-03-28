@@ -98,6 +98,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         if(remaining < 0) {
             setTimerDisplay(0, 0);
             timer.pause();
+
+            mActivity.notification();
             mPresenter.onTimerComplete();
         } else {
             setTimerDisplay(minutes, seconds);
@@ -158,7 +160,6 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                     timer.pause();
                     mPresenter.onTimerComplete();
                     Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
-                    mActivity.notification();
                 }
         });
 
