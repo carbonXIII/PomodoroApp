@@ -131,7 +131,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
         // Replace the view of the list layout, instead of the frame of the parent layout,
         // or the view of the view pager, to avoid annoying view pager manipulation to
         // show the setup screen.
-        getParentFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
             .replace(getView().getId(), mActivity.getSetupTaskFragment(task))
             .addToBackStack(null)
             .commit();

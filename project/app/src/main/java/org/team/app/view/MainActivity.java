@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
 
     @Override
     public void closeFragment(Fragment frag) {
-        getSupportFragmentManager().beginTransaction()
-            .remove(frag)
-            .commit();
+        onBackPressed();
     }
 
     @Override
@@ -105,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
             if (fragment.getView() != null) {
                 // Pop the backstack on the ChildManager if there is any. If not, close this
                 // activity as normal.
-                if (!fragment.getChildFragmentManager().popBackStackImmediate()) {
-                    finish();
+                if(!fragment.getChildFragmentManager().popBackStackImmediate()) {
+                    // Back button shouldn't take us back to the login screen
                 }
             }
         }
