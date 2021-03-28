@@ -2,6 +2,8 @@ package org.team.app.view;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.UUID;
+
 /// Main interface allowing fragments and other UI elements to send messages to the activity
 public interface ActivityListener {
     /// Stores the information about a task
@@ -21,4 +23,10 @@ public interface ActivityListener {
 
     /// Hide the soft keyboard
     void hideKeyboard();
+
+    Fragment getSetupTaskFragment(UUID task);
+
+    void closeFragment(Fragment frag);
+
+    void notification();
 }

@@ -12,7 +12,8 @@ import android.os.Build;
 
 import java.util.Date;
 
-import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
+import static android.app.NotificationManager.IMPORTANCE_HIGH;
+import static android.app.Notification.PRIORITY_HIGH;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -23,7 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notificationIntent = new Intent(context, NotificationActivity.class);
+        Intent notificationIntent = new Intent(context, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(NotificationActivity.class);
@@ -35,12 +36,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Build Notification content
         Notification notification = builder.setContentTitle("Pomodoro App Notification")
-                // .setContentText("Hey! Your timer has ended, time to take a break!")
-                .setContentText("Hey! Your timer is done!")
-                .setTicker("New Message Alert!")
-                // Icon taken from clip art and used as the notification icon
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentIntent(pendingIntent).build();
+            // .setContentText("Hey! Your timer has ended, time to take a break!")
+            .setContentText("Hey! Your timer is done!")
+            .setTicker("New Message Alert!")
+            // Icon taken from clip art and used as the notification icon
+            .setSmallIcon(R.drawable.ic_stat_name)
+            .setContentIntent(pendingIntent)
+            .setPriority(PRIORITY_HIGH)
+            .build();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(CHANNEL_ID);
@@ -52,8 +55,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
-                    "NotificationDemo",
-                    IMPORTANCE_DEFAULT
+                    "Timer Notifications",
+                    IMPORTANCE_HIGH
             );
             notificationManager.createNotificationChannel(channel);
         }

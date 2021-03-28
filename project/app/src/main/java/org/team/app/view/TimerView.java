@@ -1,11 +1,13 @@
 package org.team.app.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.team.app.contract.TimerContract;
 import org.team.app.model.TimerType;
@@ -20,19 +22,18 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected TextView timerText;
     protected Button pauseButton;
     protected Button skipButton;
+    protected CircularProgressIndicator progressIndicator;
 
     protected final Timer timer;
-    protected long timerDuration;
+    protected long maxDuration;
+    protected long timerDuration = -1;
 
-    public static final int TICK_RATE_MS = 500;
+    public static final int TICK_RATE_MS = 250;
 
     protected String workTimeText;
     protected String breakTimeText;
     protected String pauseText;
     protected String resumeText;
-
-    static Boolean timerChange;
-    Activity activity;
 
     public TimerView() {
         super(R.layout.screen_timer);
@@ -62,8 +63,10 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
-    public void startTimer(long duration) {
+    public void startTimer(long duration, long maxDuration) {
+        this.maxDuration = maxDuration;
         this.timerDuration = duration;
+        this.progressIndicator.setProgressCompat(this.progressIndicator.getMax(), true);
         timer.resume();
     }
 
@@ -73,14 +76,20 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     }
 
     @Override
+    public boolean running() {
+        return timer.running();
+    }
+
+    @Override
     public void onTimerResume() {
         pauseButton.setText(pauseText);
     }
 
     @Override
     public void onTimerTick(long timeElapsed) {
-        System.out.println("tick");
         long remaining = timerDuration - timeElapsed;
+
+        this.progressIndicator.setProgressCompat((int)(remaining * this.progressIndicator.getMax() / maxDuration), true);
 
         long seconds = (remaining + 999) / 1000;
         long minutes = seconds / 60;
@@ -89,6 +98,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         if(remaining < 0) {
             setTimerDisplay(0, 0);
             timer.pause();
+
+            mActivity.notification();
             mPresenter.onTimerComplete();
         } else {
             setTimerDisplay(minutes, seconds);
@@ -107,14 +118,14 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+
+        if(this.timerDuration < 0)
+            mPresenter.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        timer.pause();
-        mPresenter.pause();
     }
 
     @Override
@@ -139,7 +150,6 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                     } else {
                         mPresenter.onPauseButton();
                         Toast.makeText(getActivity(), "Task Paused", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             });
@@ -150,18 +160,9 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
                     timer.pause();
                     mPresenter.onTimerComplete();
                     Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
-                    Notification(getActivity());
                 }
         });
 
-        if(mPresenter.isTimerDone()) {
-            Notification(getActivity());
-        }
-    }
-
-    public void Notification(Activity activity) {
-        if ( activity instanceof MainActivity) {
-            ((MainActivity)activity).Notification();
-        }
+        progressIndicator = view.findViewById(R.id.progress_timer);
     }
 }
