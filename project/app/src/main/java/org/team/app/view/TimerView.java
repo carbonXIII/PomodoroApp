@@ -166,9 +166,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         skipButton = view.findViewById(R.id.button_skip);
         skipButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    mPresenter.onTimerSkip();
                     timer.pause();
-                    // mPresenter.onTimerComplete();
+                    mPresenter.onTimerSkip();
                     Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
                 }
         });

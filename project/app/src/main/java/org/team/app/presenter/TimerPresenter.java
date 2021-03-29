@@ -92,15 +92,7 @@ public class TimerPresenter
     }
 
     public void onTimerSkip() {
-        if(this.timerType == TimerType.WORK) {
-            setTimerType(TimerType.BREAK);
-            // onPauseButton();
-        } else {
-            setTimerType(TimerType.WORK);
-        }
-
-        this.lastTimerDuration = mTask.getTimerDuration(timerType);
-        mView.startTimer(this.lastTimerDuration, this.lastTimerDuration);
+        onTimerComplete();
     }
 
 
