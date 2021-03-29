@@ -66,7 +66,7 @@ This app is for students and professionals to have a tool that will improve thei
 ## Product Demonstration
 Part 1
 
-[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://www.youtube.com/watch?v=MFXEfs5YZDw)
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://www.youtube.com/watch?v=nq1uH9Wpj2w)
 
 Part 2
 
