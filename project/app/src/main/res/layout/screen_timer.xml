@@ -64,7 +64,7 @@
         android:id="@+id/text_task_title"
         android:layout_width="279dp"
         android:layout_height="65dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="72dp"
         android:gravity="center"
         android:text="@string/placeholder"
         android:textColor="@color/colorPrimary"
@@ -77,8 +77,10 @@
     <TextView
         android:id="@+id/text_task_name"
         android:layout_width="265dp"
-        android:layout_height="138dp"
-        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
         android:text="@string/placeholder"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
@@ -86,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/text_task_category" />
 
     <TextView
         android:id="@+id/text_timer"
@@ -100,5 +102,18 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/text_task_category"
+        android:layout_width="143dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:text="@string/placeholder"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/text_task_name"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

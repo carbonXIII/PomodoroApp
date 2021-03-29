@@ -48,6 +48,7 @@ public class TimerPresenter
         mTask.subscribe(this);
 
         mView.setTaskName(mTask.getName());
+        mView.setTaskCategory(mTask.getCategory());
         timerType = null;
         onPlayButton();
     }
@@ -64,6 +65,8 @@ public class TimerPresenter
 
     @Override
     public void onTaskCategoryUpdate(Task task, String newCategory) {
+        if(task.getUUID() == mTask.getUUID())
+            mView.setTaskCategory(newCategory);
     }
 
     @Override

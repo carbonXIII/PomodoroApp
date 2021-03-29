@@ -19,6 +19,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     protected TimerContract.Presenter mPresenter;
     protected TextView titleText;
     protected TextView taskNameText;
+    protected TextView taskCategoryText;
     protected TextView timerText;
     protected Button pauseButton;
     protected Button skipButton;
@@ -52,6 +53,11 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
     @Override
     public void setTaskName(String taskName) {
         taskNameText.setText(taskName);
+    }
+
+    @Override
+    public void setTaskCategory(String taskCategory) {
+        taskCategoryText.setText(taskCategory);
     }
 
     @Override
@@ -140,6 +146,7 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
         titleText = view.findViewById(R.id.text_task_title);
         taskNameText = view.findViewById(R.id.text_task_name);
+        taskCategoryText = view.findViewById(R.id.text_task_category);
         timerText = view.findViewById(R.id.text_timer);
 
         pauseButton = view.findViewById(R.id.button_pause);

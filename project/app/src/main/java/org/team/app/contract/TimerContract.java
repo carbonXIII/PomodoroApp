@@ -7,6 +7,9 @@ public interface TimerContract {
         /// Set the task name in response to model updates
         void setTaskName(String taskName);
 
+        /// Set the task category in response to model updates
+        void setTaskCategory(String taskCategory);
+
         /// Set the displayed timer title based on type
         void setTimerType(TimerType type);
 

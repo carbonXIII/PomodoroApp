@@ -18,7 +18,7 @@ import java.util.ArrayList;
 class ListTaskPresenterTest {
     static class MockView implements ListTaskContract.View {
         public ListTaskContract.Presenter mPresenter;
-        public Collection<UUID> list;
+        public Collection<ListTaskContract.Element> list;
         public UUID currentTask;
 
         @Override
@@ -27,7 +27,7 @@ class ListTaskPresenterTest {
         }
 
         @Override
-        public void updateTaskList(Collection<UUID> list) {
+        public void updateTaskList(Collection<ListTaskContract.Element> list) {
             this.list = list;
         }
 
@@ -65,10 +65,10 @@ class ListTaskPresenterTest {
 
         Collection<Task> expected = taskStore.getTasks("");
 
-        assertEquals(expected.size(), view.list.size());
+        assertEquals(expected.size() + 1, view.list.size());
         assertEquals(taskStore.getCurrentTask().getUUID(), view.currentTask);
         for(Task task: expected)
-            assert(view.list.contains(task.getUUID()));
+            assert(view.list.contains(new ListTaskContract.Element(task.getUUID())));
     }
 
     @Test
@@ -96,9 +96,8 @@ class ListTaskPresenterTest {
         presenter.updateFilter(testFilter);
         Collection<Task> expected = taskStore.getTasks(testFilter);
 
-        for(Task task: expected) {
-            assert(view.list.contains(task.getUUID()));
-        }
+        for(Task task: expected)
+            assert(view.list.contains(new ListTaskContract.Element(task.getUUID())));
     }
 
 }

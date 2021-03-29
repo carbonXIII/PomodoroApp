@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.team.app.contract.ListTaskContract;
+import org.team.app.contract.ListTaskContract.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
     protected LinearLayoutManager mLayoutManager;
     protected Adapter mAdapter;
 
-    protected List<UUID> taskList;
+    protected List<Element> taskList;
     protected UUID selectedTask = null;
 
     protected int colorItemBase;
@@ -41,7 +42,7 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
     public ListTaskView() {
         super(R.layout.screen_list_task);
 
-        taskList = new ArrayList<UUID>();
+        taskList = new ArrayList<>();
     }
 
     @Override
@@ -104,19 +105,26 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
     }
 
     @Override
-    public void updateTaskList(Collection<UUID> task) {
-        taskList = new ArrayList<UUID>(task);
+    public void updateTaskList(Collection<Element> list) {
+        taskList = new ArrayList<>(list);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private int getTaskIndex(UUID task) {
+        for(int i = 0; i < taskList.size(); i++)
+            if(taskList.get(i).task == task)
+                return i;
+        return -1;
     }
 
     @Override
     public void selectCurrentTask(UUID task) {
         int prevPos = -1;
         if(this.selectedTask != null)
-            prevPos = taskList.indexOf(this.selectedTask);
+            prevPos = getTaskIndex(task);
 
         this.selectedTask = task;
-        int pos = taskList.indexOf(this.selectedTask);
+        int pos = getTaskIndex(this.selectedTask);
 
         // Only update the relevant positions, rather than the entire data set
         if (prevPos < 0)
@@ -137,14 +145,14 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
             .commit();
     }
 
-    class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-        class ViewHolder extends RecyclerView.ViewHolder {
+    class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        class TaskViewHolder extends RecyclerView.ViewHolder {
             protected final TextView taskNameText;
             protected final ImageButton editButton;
 
             protected UUID task = null;
 
-            public ViewHolder(View v) {
+            public TaskViewHolder(View v) {
                 super(v);
 
                 v.setOnClickListener(new View.OnClickListener() {
@@ -194,20 +202,51 @@ public class ListTaskView extends FragmentView implements ListTaskContract.View 
             }
         }
 
+        class CategoryViewHolder extends RecyclerView.ViewHolder {
+            protected final TextView categoryNameText;
+
+            public CategoryViewHolder(View v) {
+                super(v);
+
+                this.categoryNameText = v.findViewById(R.id.text_item_name);
+            }
+
+            public void setName(String name) {
+                categoryNameText.setText(name);
+            }
+        }
+
         public Adapter() {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup view, int viewType) {
-            View v = LayoutInflater.from(view.getContext()).inflate(R.layout.item_task, view, false);
-            return new ViewHolder(v);
+        public int getItemViewType(int position) {
+            return taskList.get(position).task == null ? 1 : 0;
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.setTask(taskList.get(position));
-            holder.setName(mPresenter.getTaskName(taskList.get(position)));
-            holder.updateColor(taskList.get(position) == selectedTask, position);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup view, int viewType) {
+            if(viewType == 0) {
+                View v = LayoutInflater.from(view.getContext()).inflate(R.layout.item_task, view, false);
+                return new TaskViewHolder(v);
+            } else {
+                View v = LayoutInflater.from(view.getContext()).inflate(R.layout.item_category, view, false);
+                return new CategoryViewHolder(v);
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder _holder, final int position) {
+            if(_holder.getItemViewType() == 0) {
+                TaskViewHolder holder = (TaskViewHolder) _holder;
+                UUID task = taskList.get(position).task;
+                holder.setTask(task);
+                holder.setName(mPresenter.getTaskName(task));
+                holder.updateColor(task == selectedTask, position);
+            } else {
+                CategoryViewHolder holder = (CategoryViewHolder) _holder;
+                holder.setName(taskList.get(position).category);
+            }
         }
 
         @Override

@@ -1,6 +1,7 @@
 package org.team.app.presenter;
 
 import org.team.app.contract.ListTaskContract;
+import org.team.app.contract.ListTaskContract.Element;
 import org.team.app.model.TaskStore;
 import org.team.app.model.Task;
 import org.team.app.model.TimerType;
@@ -8,6 +9,8 @@ import org.team.app.model.TimerType;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ListTaskPresenter
     implements ListTaskContract.Presenter, TaskStore.Listener, Task.Listener {
@@ -41,6 +44,7 @@ public class ListTaskPresenter
         reloadTaskList();
     }
 
+    @Override
     public void onTaskCategoryUpdate(Task task, String newCategory) {
         reloadTaskList();
     }
@@ -96,22 +100,38 @@ public class ListTaskPresenter
             }
         }
 
-        Task currentTask = mTaskStore.getCurrentTask();
         this.filtered = mTaskStore.getTasks(currentFilter);
 
-        this.filtered.add(currentTask);
+        Task currentTask = mTaskStore.getCurrentTask();
         currentTask.subscribe(this);
+        if(!this.filtered.contains(currentTask))
+            this.filtered.add(currentTask);
 
-        ArrayList<UUID> inOrder = new ArrayList<UUID>();
-        inOrder.add(currentTask.getUUID());
-
+        TreeMap<String, ArrayList<UUID> > byCategory = new TreeMap<>();
         for(Task task: this.filtered) {
-            if(task.getUUID() != currentTask.getUUID())
-                inOrder.add(task.getUUID());
             task.subscribe(this);
+            if(!byCategory.containsKey(task.getCategory()))
+                byCategory.put(task.getCategory(), new ArrayList<>());
+            byCategory.get(task.getCategory()).add(task.getUUID());
         }
 
-        System.out.println("" + inOrder.size() + ", " + this.filtered.size());
+        ArrayList<Element> inOrder = new ArrayList<Element>();
+        inOrder.add(new Element(currentTask.getCategory()));
+        inOrder.add(new Element(currentTask.getUUID()));
+        for(UUID task: byCategory.get(currentTask.getCategory())) {
+            if(task == currentTask.getUUID())
+                continue;
+            inOrder.add(new Element(task));
+        }
+
+        for(Map.Entry<String, ArrayList<UUID>> group: byCategory.entrySet()) {
+            if(group.getKey().equals(currentTask.getCategory()))
+                continue;
+
+            inOrder.add(new Element(group.getKey()));
+            for(UUID task: group.getValue())
+                inOrder.add(new Element(task));
+        }
 
         mView.updateTaskList(inOrder);
         mView.selectCurrentTask(currentTask.getUUID());
