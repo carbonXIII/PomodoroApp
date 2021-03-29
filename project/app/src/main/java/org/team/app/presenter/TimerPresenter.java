@@ -91,7 +91,7 @@ public class TimerPresenter
     public void onTimerSkip() {
         if(this.timerType == TimerType.WORK) {
             setTimerType(TimerType.BREAK);
-            //onPauseButton();
+            // onPauseButton();
         } else {
             setTimerType(TimerType.WORK);
         }
