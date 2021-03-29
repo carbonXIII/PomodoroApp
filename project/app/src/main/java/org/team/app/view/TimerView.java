@@ -101,6 +101,8 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
 
             mActivity.notification();
             mPresenter.onTimerComplete();
+            mPresenter.onPauseButton();
+
         } else {
             setTimerDisplay(minutes, seconds);
         }
@@ -157,8 +159,9 @@ public class TimerView extends FragmentView implements TimerContract.View, Timer
         skipButton = view.findViewById(R.id.button_skip);
         skipButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
+                    mPresenter.onTimerSkip();
                     timer.pause();
-                    mPresenter.onTimerComplete();
+                    // mPresenter.onTimerComplete();
                     Toast.makeText(getActivity(), "Task Skipped", Toast.LENGTH_SHORT).show();
                 }
         });

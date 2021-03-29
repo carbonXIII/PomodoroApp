@@ -11,6 +11,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBackround"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </androidx.viewpager.widget.ViewPager>
@@ -18,7 +19,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <TextView
@@ -36,7 +37,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorBlack"
             app:tabTextColor="@color/colorLightText" />
     </com.google.android.material.appbar.AppBarLayout>
 
