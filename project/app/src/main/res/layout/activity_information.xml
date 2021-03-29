@@ -12,9 +12,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= " Information On Pomodoro"
+        android:text= "Information On Pomodoro"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:textColor="@color/colorBlack"
         android:textSize="40sp"/>
 
     <TextView
@@ -29,28 +30,28 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Step 2: Name the task and add a Timer length"
+        android:text="Step 2: Name the task and add a timer length"
         android:textSize="25sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Step 3: Begin Working on the Task as the Timer Counts Down"
+        android:text="Step 3: Begin working on the task as the timer counts down"
         android:textSize="25sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Step 4: WHen u hear a sound take break for the duration of the break timer"
+        android:text="Step 4: When you receive a notification, take a break for the duration of the break timer"
         android:textSize="25sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="The Default Lengths for Pomodoro is 25 minutes focus time and 5 minutes break time"
+        android:text="Note: The default lengths for the Pomodoro app is 25 minutes work time and 5 minutes break time"
         android:textSize="25sp" />
 
 
