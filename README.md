@@ -70,4 +70,4 @@ Part 1
 
 Part 2
 
-[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/IhBN_adAEII)
+[![](http://img.youtube.com/vi/n_Q76xzytGA/0.jpg)](https://youtu.be/KYW0VMTZEro)
