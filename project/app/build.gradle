@@ -42,6 +42,7 @@ android {
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -57,6 +58,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation "androidx.preference:preference:$preference_version"
+
+    compile 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.2"

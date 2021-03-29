@@ -24,6 +24,10 @@ public class Task implements Comparable<Task>, Serializable {
     protected long workDuration = DEFAULT_WORK_TIME;
     protected long breakDuration = DEFAULT_BREAK_TIME;
 
+    protected long workElapsed = 0;
+    protected long breakElapsed = 0;
+    protected long timeWorked = 0;
+
     /// Listener for Task updates
     public static interface Listener {
         /// Called when the task's name is updated
@@ -126,6 +130,48 @@ public class Task implements Comparable<Task>, Serializable {
             listener.onTaskTimerDurationUpdate(this, type, duration);
     }
 
+    public void resetElapsed(TimerType type) {
+        switch(type) {
+        case WORK:
+            this.workElapsed = 0;
+            break;
+        case BREAK:
+            this.breakElapsed = 0;
+            break;
+        }
+    }
+
+    public void addElapsed(TimerType type, long elapsed) {
+        switch(type) {
+        case WORK:
+            this.workElapsed += elapsed;
+            this.timeWorked += elapsed;
+            break;
+        case BREAK:
+            this.breakElapsed += elapsed;
+            break;
+        }
+    }
+
+    public long getElapsed(TimerType type) {
+        if(type == null)
+            return 0;
+
+        switch(type) {
+        case WORK: return workElapsed;
+        case BREAK: return breakElapsed;
+        }
+
+        return 0;
+    }
+
+    public long getTimerRemaining(TimerType type) {
+        if(type == null)
+            return 0;
+
+        return getTimerDuration(type) - getElapsed(type);
+    }
+
     public UUID getUUID() {
         return this.uuid;
     }
@@ -137,6 +183,10 @@ public class Task implements Comparable<Task>, Serializable {
         case BREAK: return breakDuration;
         }
         return 0;
+    }
+
+    public long getTimeWorked() {
+        return this.timeWorked;
     }
 
     @Override

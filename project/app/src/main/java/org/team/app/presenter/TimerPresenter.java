@@ -21,7 +21,6 @@ public class TimerPresenter
     protected Task mTask;
 
     protected TimerType timerType;
-    protected long lastTimerDuration = -1;
 
     /// Construct a presenter, attaching it to a view and task store
     public TimerPresenter(TimerContract.View view, TaskStore taskStore) {
@@ -41,7 +40,6 @@ public class TimerPresenter
         if (mTask != null) {
             mTask.unsubscribe(this);
             onPauseButton();
-            this.lastTimerDuration = -1;
         }
 
         mTask = newTask;
@@ -49,7 +47,8 @@ public class TimerPresenter
 
         mView.setTaskName(mTask.getName());
         mView.setTaskCategory(mTask.getCategory());
-        timerType = null;
+
+        setTimerType(TimerType.WORK);
         onPlayButton();
     }
 
@@ -75,11 +74,12 @@ public class TimerPresenter
             boolean wasRunning = false;
             if(mView.running()) {
                 wasRunning = true;
-                mView.stopTimer();
+                onPauseButton();
             }
-            this.lastTimerDuration = newDuration;
 
+            mTask.resetElapsed(timerType);
             onPlayButton();
+
             if(!wasRunning)
                 mView.stopTimer();
         }
@@ -104,22 +104,21 @@ public class TimerPresenter
             setTimerType(TimerType.WORK);
         }
 
-        this.lastTimerDuration = mTask.getTimerDuration(timerType);
-        mView.startTimer(this.lastTimerDuration, this.lastTimerDuration);
+        mTask.resetElapsed(timerType);
+        mView.startTimer(mTask.getTimerRemaining(timerType), mTask.getTimerDuration(timerType));
     }
 
     @Override
     public void onPauseButton() {
-        long elapsed = mView.stopTimer();
-        this.lastTimerDuration -= elapsed;
+        mTask.addElapsed(timerType, mView.stopTimer());
     }
 
     @Override
     public void onPlayButton() {
-        if(this.lastTimerDuration <= 0) {
+        if(mTask.getTimerRemaining(timerType) <= 0) {
             onTimerComplete();
         } else {
-            mView.startTimer(this.lastTimerDuration, mTask.getTimerDuration(timerType));
+            mView.startTimer(mTask.getTimerRemaining(timerType), mTask.getTimerDuration(timerType));
         }
     }
 

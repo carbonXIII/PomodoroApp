@@ -34,6 +34,7 @@ import org.team.app.contract.TimerContract;
 import org.team.app.presenter.TimerPresenter;
 import org.team.app.presenter.SetupTaskPresenter;
 import org.team.app.presenter.ListTaskPresenter;
+import org.team.app.presenter.StatsPresenter;
 
 import org.team.app.model.TaskStore;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
     protected TaskStore mTaskStore = null;
     protected TabInfo timerTab;
     protected TabInfo taskTab;
+    protected TabInfo statsTab;
     protected ViewPager mPager;
 
     public final static String TASK_STORE_LATEST = "task_store_latest";
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
             return taskTab;
         } else if(position == 1) {
             return timerTab;
+        } else if(position == 2) {
+            return statsTab;
         } else {
             throw new RuntimeException("Tab not implemented");
         }
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
 
     @Override
     public int tabCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -221,6 +225,21 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
             @Override
             public String getTitle() {
                 return "Timer";
+            }
+
+            @Override
+            public Fragment getFragment() {
+                return view;
+            }
+        };
+
+        statsTab = new TabInfo() {
+            final StatsView view = new StatsView();
+            final StatsPresenter presenter = new StatsPresenter(view, mTaskStore);
+
+            @Override
+            public String getTitle() {
+                return "Stats";
             }
 
             @Override
