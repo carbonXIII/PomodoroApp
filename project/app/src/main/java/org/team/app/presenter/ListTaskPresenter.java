@@ -41,6 +41,10 @@ public class ListTaskPresenter
         reloadTaskList();
     }
 
+    public void onTaskCategoryUpdate(Task task, String newCategory) {
+        reloadTaskList();
+    }
+
     @Override
     public void onTaskTimerDurationUpdate(Task task, TimerType timer, long newDuration) {
     }
@@ -62,7 +66,7 @@ public class ListTaskPresenter
 
     @Override
     public UUID createNewTask() {
-        return mTaskStore.createTask(null);
+        return mTaskStore.createTask(null, null);
     }
 
     @Override

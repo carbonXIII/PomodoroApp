@@ -16,6 +16,7 @@ import static org.team.app.model.TimerType.WORK;
 public class Task implements Comparable<Task>, Serializable {
     protected final UUID uuid;
     protected String name;
+    protected String category;
 
     protected static final int DEFAULT_WORK_TIME = 25 * 60 * 1000;
     protected static final int DEFAULT_BREAK_TIME = 5* 60 * 1000;
@@ -29,6 +30,8 @@ public class Task implements Comparable<Task>, Serializable {
         /// @param task: A reference to the task for listeners that manange multiple Tasks
         /// @param newName: The updated name
         public void onTaskNameUpdate(Task task, String newName);
+
+        public void onTaskCategoryUpdate(Task task, String newCategory);
 
         /// Called when the duration of one of the timer type's is updated
         /// @param task: A reference to the task for listeners that manange multiple Tasks
@@ -69,9 +72,10 @@ public class Task implements Comparable<Task>, Serializable {
     }
 
     /// Construct a task
-    public Task(String name) {
+    public Task(String name, String category) {
         this.uuid = UUID.randomUUID();
         this.name = name;
+        this.category = category;
 
         this.listeners = Collections.newSetFromMap(new WeakHashMap<Listener,Boolean>());
     }
@@ -91,6 +95,17 @@ public class Task implements Comparable<Task>, Serializable {
 
         for (Listener listener : getListeners())
             listener.onTaskNameUpdate(this, name);
+    }
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+
+        for(Listener listener: getListeners())
+            listener.onTaskCategoryUpdate(this, category);
     }
 
     /// Sets the duration for a timer type, and calls attached listeners with the update

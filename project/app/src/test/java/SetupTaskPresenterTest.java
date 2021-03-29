@@ -16,6 +16,7 @@ class SetupTaskPresenterTest {
     static class MockView implements SetupTaskContract.View {
         public SetupTaskContract.Presenter mPresenter;
         public String name;
+        public String category;
 
         @Override
         public void setPresenter(SetupTaskContract.Presenter presenter) {
@@ -25,6 +26,11 @@ class SetupTaskPresenterTest {
         @Override
         public void setTaskName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public void setTaskCategory(String category) {
+            this.category = category;
         }
 
         @Override
@@ -40,7 +46,7 @@ class SetupTaskPresenterTest {
     @BeforeEach
     void setupTaskStoreAndView() {
         view = new MockView();
-        taskStore = new TaskStore("default");
+        taskStore = new TaskStore("default", "general");
         presenter = new SetupTaskPresenter(view, taskStore, taskStore.getCurrentTask().getUUID());
         presenter.start();
     }
@@ -57,5 +63,13 @@ class SetupTaskPresenterTest {
         String newTaskName = UUID.randomUUID().toString();
         taskStore.getCurrentTask().setName(newTaskName);
         assertEquals(newTaskName, view.name);
+    }
+
+    @Test
+    // UID 001 RID 015 Model updates should be propogated ...
+    void changingCurrentTaskCategoryShouldUpdateView() {
+        String newTaskCategory = UUID.randomUUID().toString();
+        taskStore.getCurrentTask().setCategory(newTaskCategory);
+        assertEquals(newTaskCategory, view.category);
     }
 }

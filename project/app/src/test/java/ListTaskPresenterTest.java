@@ -44,7 +44,7 @@ class ListTaskPresenterTest {
     @BeforeEach
     void setupTaskStoreAndView() {
         view = new MockView();
-        taskStore = new TaskStore("default");
+        taskStore = new TaskStore("default", "general");
         presenter = new ListTaskPresenter(view, taskStore);
         presenter.start();
     }
@@ -86,11 +86,11 @@ class ListTaskPresenterTest {
     @Test
     // UID 019 RID 031 Typing in a filter will filter the list of displayed tasks
     void updatingFilterShouldUpdateListing() {
-        taskStore.createTask("fobar D");
-        taskStore.createTask("foo A");
-        taskStore.createTask("foo B");
-        taskStore.createTask("foobar C");
-        taskStore.createTask("bar D");
+        taskStore.createTask("fobar D", null);
+        taskStore.createTask("foo A", null);
+        taskStore.createTask("foo B", null);
+        taskStore.createTask("foobar C", null);
+        taskStore.createTask("bar D", null);
 
         final String testFilter = "foo";
         presenter.updateFilter(testFilter);

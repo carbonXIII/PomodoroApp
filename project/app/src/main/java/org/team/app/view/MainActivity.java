@@ -194,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListener,
         mTaskStore = deserializeTaskStore(settings.getString(TASK_STORE_LATEST, null));
 
         if (mTaskStore == null) {
-            mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name));
+            mTaskStore = new TaskStore(getResources().getString(R.string.default_task_name),
+                                       getResources().getString(R.string.default_task_category));
         }
 
         // Setup Tabs
