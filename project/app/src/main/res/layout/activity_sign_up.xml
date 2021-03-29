@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SignUp"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="@color/colorBackround"
     android:padding="20dp">
     <TextView
         android:layout_width="wrap_content"
